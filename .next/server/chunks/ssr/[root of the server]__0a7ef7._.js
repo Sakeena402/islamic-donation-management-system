@@ -13,280 +13,228 @@ module.exports = mod;
 
 var { r: __turbopack_require__, f: __turbopack_module_context__, i: __turbopack_import__, s: __turbopack_esm__, v: __turbopack_export_value__, n: __turbopack_export_namespace__, c: __turbopack_cache__, M: __turbopack_modules__, l: __turbopack_load__, j: __turbopack_dynamic__, P: __turbopack_resolve_absolute_path__, U: __turbopack_relative_url__, R: __turbopack_resolve_module_id_path__, b: __turbopack_worker_blob_url__, g: global, __dirname, x: __turbopack_external_require__, y: __turbopack_external_import__, z: require } = __turbopack_context__;
 {
-/* eslint-disable @typescript-eslint/no-unused-vars */ __turbopack_esm__({
+// /* eslint-disable @typescript-eslint/no-unused-vars */
+// 'use client'
+// import { useState,useEffect } from "react";
+// import Link from "next/link";
+// import { useRouter } from "next/navigation";
+// import axios from 'axios';
+// import React from "react";
+// const SignUp = () => {
+//   const [user, setUser] = useState({
+//     username: '',
+//     email: '',
+//     phoneNo: '',
+//     address: '',
+//     password: '',
+//   });
+// const [buttonDisabled,setButtonDisabled]  = useState(false)
+// const [loading,setLoading]=useState(false)
+// const router = useRouter();
+// useEffect(() => {
+//   if(user.email.length > 0 && user.password.length > 0 && user.username.length > 0) {
+//       setButtonDisabled(false);
+//   } else {
+//       setButtonDisabled(true);
+//   }
+// }, [user]);
+//   const onSignUp = async () => {
+//     try {
+//       setLoading(true)
+//       setButtonDisabled(true)
+//       const response = await axios.post("/api/auth/signup", user);
+//       console.log("Signup sucess")
+//       router.push('/login'); 
+//     } catch (error:any) {
+//       console.log("Signup failed", error.message);
+//   }finally {
+//     setTimeout(() => {
+//       setLoading(false);
+//       setButtonDisabled(false);
+//   }, 1000);
+//   }
+//   };
+//   return (
+//     <div className="flex items-center justify-center min-h-screen bg-gray-100">
+//       <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-md">
+//         <h2 className="text-2xl font-bold text-center text-gray-800">
+//           Create Your Account
+//         </h2>
+//         <form className="space-y-6">
+//           <div>
+//             <label className="block text-sm font-medium text-gray-700">
+//               Full Name
+//             </label>
+//             <input
+//               type="text"
+//               value={user.username}
+//               onChange={(e) => setUser({ ...user, username: e.target.value })}
+//               required
+//               className="w-full px-3 py-2 mt-1 border text-gray-700 rounded-md focus:outline-none focus:ring focus:ring-indigo-200 focus:border-indigo-500"
+//             />
+//           </div>
+//           <div>
+//             <label className="block text-sm font-medium text-gray-700">
+//               Email
+//             </label>
+//             <input
+//               type="email"
+//               value={user.email}
+//               onChange={(e) => setUser({ ...user, email: e.target.value })}
+//               required
+//               className="w-full px-3 py-2 mt-1  text-gray-700 border rounded-md focus:outline-none focus:ring focus:ring-indigo-200 focus:border-indigo-500"
+//             />
+//           </div>
+//           <div>
+//             <label className="block text-sm font-medium text-gray-700">
+//               Phone Number
+//             </label>
+//             <input
+//               type="text"
+//               value={user.phoneNo}
+//               onChange={(e) => setUser({ ...user, phoneNo: e.target.value })}
+//               required
+//               className="w-full px-3 py-2 mt-1 text-gray-700 border rounded-md focus:outline-none focus:ring focus:ring-indigo-200 focus:border-indigo-500"
+//             />
+//           </div>
+//           <div>
+//             <label className="block text-sm font-medium text-gray-700">
+//               Address
+//             </label>
+//             <input
+//               type="text"
+//               value={user.address}
+//               onChange={(e) => setUser({ ...user, address: e.target.value })}
+//               required
+//               className="w-full px-3 py-2 mt-1 text-gray-700 border rounded-md focus:outline-none focus:ring focus:ring-indigo-200 focus:border-indigo-500"
+//             />
+//           </div>
+//           <div>
+//             <label className="block text-sm font-medium text-gray-700">
+//               Password
+//             </label>
+//             <input
+//               type="password"
+//               value={user.password}
+//               onChange={(e) => setUser({ ...user, password: e.target.value })}
+//               required
+//               className="w-full px-3 py-2 mt-1 text-gray-700 border rounded-md focus:outline-none focus:ring focus:ring-indigo-200 focus:border-indigo-500"
+//             />
+//           </div>
+//           <button
+//             type="button"
+//             onClick={onSignUp}
+//             disabled={buttonDisabled}
+//             className={`w-full px-4 py-2 font-semibold text-white rounded-md focus:outline-none focus:ring focus:ring-indigo-200 ${
+//                 buttonDisabled ? 'bg-gray-400 cursor-not-allowed' : 'bg-indigo-600 hover:bg-indigo-700'
+//             }`}
+//         >
+//             {loading ? 'Processing...' : 'Sign Up'}
+//         </button>
+//         </form>
+//         <p className="text-sm text-center text-gray-600">
+//           Already have an account?{" "}
+//           <Link href="/login" className="text-indigo-600 hover:underline">
+//            Login
+//           </Link>
+//         </p>
+//       </div>
+//     </div>
+//   );
+// };
+// export default SignUp;
+__turbopack_esm__({
     "default": (()=>__TURBOPACK__default__export__)
 });
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react-jsx-dev-runtime.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react.js [app-ssr] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/next/link.js [app-ssr] (ecmascript)");
 'use client';
 ;
+import { useState } from 'react';
 ;
-;
-const SignUp = ()=>{
-    const [user, setUser] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])({
-        username: '',
-        email: '',
-        phone_no: '',
-        address: '',
-        password: '',
-        confirmPassword: ''
-    });
-    const onSignUp = async ()=>{
-    // Add sign-up logic here, like API calls
-    // Example redirection upon successful sign-up
+import SignUpForm from '@/components/forms/SignUpForm';
+const RegisterPage = ()=>{
+    const [loading, setLoading] = useState(false);
+    const [buttonDisabled, setButtonDisabled] = useState(true);
+    const router = useRouter();
+    const onSignUp = async (userData)=>{
+        setLoading(true);
+        setButtonDisabled(true);
+        try {
+            const response = await fetch('/api/auth/signup', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(userData)
+            });
+            if (response.ok) {
+                router.push('/login');
+            } else {
+                const data = await response.json();
+                alert(data.message);
+            }
+        } catch (error) {
+            alert('Sign Up failed. Please try again.');
+        } finally{
+            setLoading(false);
+            setButtonDisabled(false);
+        }
     };
-    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+    return /*#__PURE__*/ _jsxDEV("div", {
         className: "flex items-center justify-center min-h-screen bg-gray-100",
-        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+        children: /*#__PURE__*/ _jsxDEV("div", {
             className: "w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-md",
             children: [
-                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
+                /*#__PURE__*/ _jsxDEV("h2", {
                     className: "text-2xl font-bold text-center text-gray-800",
                     children: "Create Your Account"
                 }, void 0, false, {
                     fileName: "[project]/app/(auth-pages)/signup/page.tsx",
-                    lineNumber: 28,
+                    lineNumber: 186,
                     columnNumber: 9
                 }, this),
-                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
-                    className: "space-y-6",
-                    children: [
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            children: [
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                    className: "block text-sm font-medium text-gray-700",
-                                    children: "Full Name"
-                                }, void 0, false, {
-                                    fileName: "[project]/app/(auth-pages)/signup/page.tsx",
-                                    lineNumber: 33,
-                                    columnNumber: 13
-                                }, this),
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                    type: "text",
-                                    value: user.username,
-                                    onChange: (e)=>setUser({
-                                            ...user,
-                                            username: e.target.value
-                                        }),
-                                    required: true,
-                                    className: "w-full px-3 py-2 mt-1 border text-gray-700 rounded-md focus:outline-none focus:ring focus:ring-indigo-200 focus:border-indigo-500"
-                                }, void 0, false, {
-                                    fileName: "[project]/app/(auth-pages)/signup/page.tsx",
-                                    lineNumber: 36,
-                                    columnNumber: 13
-                                }, this)
-                            ]
-                        }, void 0, true, {
-                            fileName: "[project]/app/(auth-pages)/signup/page.tsx",
-                            lineNumber: 32,
-                            columnNumber: 11
-                        }, this),
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            children: [
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                    className: "block text-sm font-medium text-gray-700",
-                                    children: "Email"
-                                }, void 0, false, {
-                                    fileName: "[project]/app/(auth-pages)/signup/page.tsx",
-                                    lineNumber: 45,
-                                    columnNumber: 13
-                                }, this),
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                    type: "email",
-                                    value: user.email,
-                                    onChange: (e)=>setUser({
-                                            ...user,
-                                            email: e.target.value
-                                        }),
-                                    required: true,
-                                    className: "w-full px-3 py-2 mt-1  text-gray-700 border rounded-md focus:outline-none focus:ring focus:ring-indigo-200 focus:border-indigo-500"
-                                }, void 0, false, {
-                                    fileName: "[project]/app/(auth-pages)/signup/page.tsx",
-                                    lineNumber: 48,
-                                    columnNumber: 13
-                                }, this)
-                            ]
-                        }, void 0, true, {
-                            fileName: "[project]/app/(auth-pages)/signup/page.tsx",
-                            lineNumber: 44,
-                            columnNumber: 11
-                        }, this),
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            children: [
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                    className: "block text-sm font-medium text-gray-700",
-                                    children: "Phone Number"
-                                }, void 0, false, {
-                                    fileName: "[project]/app/(auth-pages)/signup/page.tsx",
-                                    lineNumber: 57,
-                                    columnNumber: 13
-                                }, this),
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                    type: "text",
-                                    value: user.phone_no,
-                                    onChange: (e)=>setUser({
-                                            ...user,
-                                            phone_no: e.target.value
-                                        }),
-                                    required: true,
-                                    className: "w-full px-3 py-2 mt-1 text-gray-700 border rounded-md focus:outline-none focus:ring focus:ring-indigo-200 focus:border-indigo-500"
-                                }, void 0, false, {
-                                    fileName: "[project]/app/(auth-pages)/signup/page.tsx",
-                                    lineNumber: 60,
-                                    columnNumber: 13
-                                }, this)
-                            ]
-                        }, void 0, true, {
-                            fileName: "[project]/app/(auth-pages)/signup/page.tsx",
-                            lineNumber: 56,
-                            columnNumber: 11
-                        }, this),
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            children: [
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                    className: "block text-sm font-medium text-gray-700",
-                                    children: "Address"
-                                }, void 0, false, {
-                                    fileName: "[project]/app/(auth-pages)/signup/page.tsx",
-                                    lineNumber: 69,
-                                    columnNumber: 13
-                                }, this),
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                    type: "text",
-                                    value: user.address,
-                                    onChange: (e)=>setUser({
-                                            ...user,
-                                            address: e.target.value
-                                        }),
-                                    required: true,
-                                    className: "w-full px-3 py-2 mt-1 text-gray-700 border rounded-md focus:outline-none focus:ring focus:ring-indigo-200 focus:border-indigo-500"
-                                }, void 0, false, {
-                                    fileName: "[project]/app/(auth-pages)/signup/page.tsx",
-                                    lineNumber: 72,
-                                    columnNumber: 13
-                                }, this)
-                            ]
-                        }, void 0, true, {
-                            fileName: "[project]/app/(auth-pages)/signup/page.tsx",
-                            lineNumber: 68,
-                            columnNumber: 11
-                        }, this),
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            children: [
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                    className: "block text-sm font-medium text-gray-700",
-                                    children: "Password"
-                                }, void 0, false, {
-                                    fileName: "[project]/app/(auth-pages)/signup/page.tsx",
-                                    lineNumber: 81,
-                                    columnNumber: 13
-                                }, this),
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                    type: "password",
-                                    value: user.password,
-                                    onChange: (e)=>setUser({
-                                            ...user,
-                                            password: e.target.value
-                                        }),
-                                    required: true,
-                                    className: "w-full px-3 py-2 mt-1 text-gray-700 border rounded-md focus:outline-none focus:ring focus:ring-indigo-200 focus:border-indigo-500"
-                                }, void 0, false, {
-                                    fileName: "[project]/app/(auth-pages)/signup/page.tsx",
-                                    lineNumber: 84,
-                                    columnNumber: 13
-                                }, this)
-                            ]
-                        }, void 0, true, {
-                            fileName: "[project]/app/(auth-pages)/signup/page.tsx",
-                            lineNumber: 80,
-                            columnNumber: 11
-                        }, this),
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            children: [
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                    className: "block text-sm font-medium text-gray-700",
-                                    children: "Confirm Password"
-                                }, void 0, false, {
-                                    fileName: "[project]/app/(auth-pages)/signup/page.tsx",
-                                    lineNumber: 93,
-                                    columnNumber: 13
-                                }, this),
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                    type: "password",
-                                    value: user.confirmPassword,
-                                    onChange: (e)=>setUser({
-                                            ...user,
-                                            confirmPassword: e.target.value
-                                        }),
-                                    required: true,
-                                    className: "w-full px-3 py-2 mt-1 text-gray-700 border rounded-md focus:outline-none focus:ring focus:ring-indigo-200 focus:border-indigo-500"
-                                }, void 0, false, {
-                                    fileName: "[project]/app/(auth-pages)/signup/page.tsx",
-                                    lineNumber: 96,
-                                    columnNumber: 13
-                                }, this)
-                            ]
-                        }, void 0, true, {
-                            fileName: "[project]/app/(auth-pages)/signup/page.tsx",
-                            lineNumber: 92,
-                            columnNumber: 11
-                        }, this),
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                            type: "button",
-                            onClick: onSignUp,
-                            className: "w-full px-4 py-2 font-semibold text-white bg-indigo-600 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring focus:ring-indigo-200",
-                            children: "Sign Up"
-                        }, void 0, false, {
-                            fileName: "[project]/app/(auth-pages)/signup/page.tsx",
-                            lineNumber: 104,
-                            columnNumber: 11
-                        }, this)
-                    ]
-                }, void 0, true, {
+                /*#__PURE__*/ _jsxDEV(SignUpForm, {
+                    onSignUp: onSignUp,
+                    loading: loading,
+                    buttonDisabled: buttonDisabled
+                }, void 0, false, {
                     fileName: "[project]/app/(auth-pages)/signup/page.tsx",
-                    lineNumber: 31,
+                    lineNumber: 187,
                     columnNumber: 9
                 }, this),
-                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                /*#__PURE__*/ _jsxDEV("p", {
                     className: "text-sm text-center text-gray-600",
                     children: [
-                        "Already have an account?",
-                        " ",
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
+                        "Already have an account? ",
+                        /*#__PURE__*/ _jsxDEV("a", {
                             href: "/login",
-                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
-                                className: "text-indigo-600 hover:underline",
-                                children: "Login"
-                            }, void 0, false, {
-                                fileName: "[project]/app/(auth-pages)/signup/page.tsx",
-                                lineNumber: 115,
-                                columnNumber: 13
-                            }, this)
+                            className: "text-indigo-600 hover:underline",
+                            children: "Login"
                         }, void 0, false, {
                             fileName: "[project]/app/(auth-pages)/signup/page.tsx",
-                            lineNumber: 114,
-                            columnNumber: 11
+                            lineNumber: 189,
+                            columnNumber: 36
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/app/(auth-pages)/signup/page.tsx",
-                    lineNumber: 112,
+                    lineNumber: 188,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/app/(auth-pages)/signup/page.tsx",
-            lineNumber: 27,
+            lineNumber: 185,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/app/(auth-pages)/signup/page.tsx",
-        lineNumber: 26,
+        lineNumber: 184,
         columnNumber: 5
     }, this);
 };
-const __TURBOPACK__default__export__ = SignUp;
+export default RegisterPage;
 }}),
 "[project]/app/(auth-pages)/signup/page.tsx [app-rsc] (ecmascript, Next.js server component, client modules ssr)": ((__turbopack_context__) => {
 
