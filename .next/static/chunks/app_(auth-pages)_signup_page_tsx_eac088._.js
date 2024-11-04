@@ -5,108 +5,189 @@
 
 var { r: __turbopack_require__, f: __turbopack_module_context__, i: __turbopack_import__, s: __turbopack_esm__, v: __turbopack_export_value__, n: __turbopack_export_namespace__, c: __turbopack_cache__, M: __turbopack_modules__, l: __turbopack_load__, j: __turbopack_dynamic__, P: __turbopack_resolve_absolute_path__, U: __turbopack_relative_url__, R: __turbopack_resolve_module_id_path__, b: __turbopack_worker_blob_url__, g: global, __dirname, k: __turbopack_refresh__, m: module, z: require } = __turbopack_context__;
 {
-// 'use client'
-// import React from "react";
-// import SignupForm from "@/components/forms/SignUpForm";
-// import { useRouter } from "next/navigation";
-// const SignUpPage = () => {
-//   const router = useRouter();
-//   const onSubmit = async (user: { username: string; email: string; phoneNo: string; address: string; password: string }) => {
-//     try {
-//       const response = await fetch("/api/auth/signup", {
-//         method: "POST",
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
-//         body: JSON.stringify(user),
-//       });
-//       if (!response.ok) {
-//         throw new Error("Signup failed");
-//       }
-//       // Redirect or handle success
-//       router.push('/login');
-//     } catch (error) {
-//       console.error("Signup failed", error.message);
-//     }
-//   };
-//   return (
-//     <div className="flex items-center justify-center min-h-screen bg-gray-100">
-//       <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-md">
-//         <h2 className="text-2xl font-bold text-center text-gray-800">Create Your Account</h2>
-//         <SignupForm onSubmit={onSubmit} />
-//         <p className="text-sm text-center text-gray-600">
-//           Already have an account?{" "}
-//           <a href="/login" className="text-indigo-600 hover:underline">
-//             Login
-//           </a>
-//         </p>
-//       </div>
-//     </div>
-//   );
-// };
-// export default SignUpPage;
-// app/signup/Signup.tsx
+// SignupPage.tsx
 __turbopack_esm__({
     "default": (()=>__TURBOPACK__default__export__)
 });
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/next/dist/compiled/react/jsx-dev-runtime.js [app-client] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$forms$2f$SignUpForm$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/components/forms/SignUpForm.tsx [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$forms$2f$GeneralForm$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/components/forms/GeneralForm.tsx [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$router$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/next/router.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$AuthLayout$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/components/AuthLayout.tsx [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$schemas$2f$validationSchema$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/schemas/validationSchema.ts [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/axios/lib/axios.js [app-client] (ecmascript)");
+;
+var _s = __turbopack_refresh__.signature();
 'use client';
 ;
 ;
-const Signup = ()=>{
-    const handleSignupSubmit = async (data)=>{
-        // Your signup logic here
-        console.log("Signup data submitted:", data);
-    };
-    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$forms$2f$SignUpForm$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-        fields: [
-            {
-                name: "username",
-                label: "Full Name",
-                type: "text",
-                required: true
-            },
-            {
-                name: "email",
-                label: "Email",
-                type: "email",
-                required: true
-            },
-            {
-                name: "phoneNo",
-                label: "Phone Number",
-                type: "text",
-                required: true
-            },
-            {
-                name: "address",
-                label: "Address",
-                type: "text",
-                required: true
-            },
-            {
-                name: "password",
-                label: "Password",
-                type: "password",
-                required: true
+;
+;
+;
+;
+const SignupPage = ()=>{
+    _s();
+    const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$router$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"])();
+    const [signupError, setSignupError] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
+    const onSignUp = async (user)=>{
+        try {
+            const response = await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].post("/api/auth/signup", user);
+            console.log("Signup successful");
+            router.push("/login");
+        } catch (error) {
+            if (error.response && error.response.status === 409) {
+                // If user already exists, show a message in the form
+                setSignupError("A user with this email already exists. Please use a different email.");
+            } else {
+                setSignupError("Signup failed. Please try again.");
             }
-        ],
-        buttonText: "Sign Up",
-        onSubmit: handleSignupSubmit
-    }, void 0, false, {
+        }
+    };
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$AuthLayout$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+        backgroundImage: "https://wallpapers.com/images/hd/1920-x-1080-hd-c65hirjqswhsd1z3.jpg",
+        children: [
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$forms$2f$GeneralForm$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                fields: [
+                    {
+                        name: "username",
+                        label: "Full Name",
+                        type: "text",
+                        required: true
+                    },
+                    {
+                        name: "email",
+                        label: "Email",
+                        type: "email",
+                        required: true
+                    },
+                    {
+                        name: "phoneNo",
+                        label: "Phone Number",
+                        type: "text",
+                        required: true
+                    },
+                    {
+                        name: "address",
+                        label: "Address",
+                        type: "text",
+                        required: true
+                    },
+                    {
+                        name: "password",
+                        label: "Password",
+                        type: "password",
+                        required: true
+                    }
+                ],
+                buttonText: "Create Your Account",
+                onSubmit: onSignUp,
+                validationSchema: __TURBOPACK__imported__module__$5b$project$5d2f$schemas$2f$validationSchema$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["signupSchema"]
+            }, void 0, false, {
+                fileName: "[project]/app/(auth-pages)/signup/page.tsx",
+                lineNumber: 31,
+                columnNumber: 7
+            }, this),
+            signupError && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                className: "text-red-600 text-center mt-4",
+                children: signupError
+            }, void 0, false, {
+                fileName: "[project]/app/(auth-pages)/signup/page.tsx",
+                lineNumber: 43,
+                columnNumber: 23
+            }, this)
+        ]
+    }, void 0, true, {
         fileName: "[project]/app/(auth-pages)/signup/page.tsx",
-        lineNumber: 65,
+        lineNumber: 30,
         columnNumber: 5
     }, this);
 };
-_c = Signup;
-const __TURBOPACK__default__export__ = Signup;
+_s(SignupPage, "3hiaiROKcg8g7pO1jA3YIz2WK+w=", false, function() {
+    return [
+        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$router$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"]
+    ];
+});
+_c = SignupPage;
+const __TURBOPACK__default__export__ = SignupPage;
 var _c;
-__turbopack_refresh__.register(_c, "Signup");
+__turbopack_refresh__.register(_c, "SignupPage");
 if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
     __turbopack_refresh__.registerExports(module, globalThis.$RefreshHelpers$);
 }
+ // // SignupPage.tsx
+ // 'use client'
+ // import React, { useState } from "react";
+ // import GeneralForm from "@/components/forms/GeneralForm";
+ // import axios from "axios";
+ // import router from "next/router";
+ // import AuthLayout from "@/components/AuthLayout"; 
+ // import { signupSchema } from "@/schemas/validationSchema";
+ // const SignupPage = () => {
+ //   const [serverError, setServerError] = useState<string | null>(null);
+ //   const onSignUp = async (user: { username: string; email: string; phoneNo: string; address: string; password: string }) => {
+ //     try {
+ //       const response = await axios.post("/api/auth/signup", user);
+ //       console.log("Signup successful");
+ //       router.push('/login');
+ //     } catch (error: any) {
+ //       if (error.response?.data?.error) {
+ //         setServerError(error.response.data.error);
+ //       } else {
+ //         setServerError("Signup failed. Please try again.");
+ //       }
+ //     }
+ //   };
+ //   return (
+ //     <AuthLayout backgroundImage="https://wallpapers.com/images/hd/1920-x-1080-hd-c65hirjqswhsd1z3.jpg">
+ //       <GeneralForm
+ //         fields={[
+ //           { name: "username", label: "Full Name", type: "text", required: true },
+ //           { name: "email", label: "Email", type: "email", required: true },
+ //           { name: "phoneNo", label: "Phone Number", type: "text", required: true },
+ //           { name: "address", label: "Address", type: "text", required: true },
+ //           { name: "password", label: "Password", type: "password", required: true },
+ //         ]}
+ //         buttonText="Create Your Account"
+ //         onSubmit={onSignUp}
+ //         validationSchema={signupSchema}
+ //         serverError={serverError}
+ //       />
+ //       {signupError && <p className="text-red-600 text-center mt-4">{signupError}</p>}
+ //     </AuthLayout>
+ //   );
+ // };
+ // export default SignupPage;
+ // 'use client'
+ // import React from "react";
+ // import GeneralForm from "@/components/forms/GeneralForm";
+ // import axios from "axios";
+ // import router from "next/router";
+ // const SignupPage = () => {
+ //   const onSignUp = async (user: { username: string; email: string; phoneNo: string; address: string; password: string }) => {
+ //     try {
+ //       const response = await axios.post("/api/auth/signup", user);
+ //       console.log("Signup sucess")
+ //       router.push('/login'); 
+ //     } catch (error:any) {
+ //       console.log("Signup failed", error.message);
+ //   }
+ //   };
+ //   return (
+ //     <GeneralForm
+ //       fields={[
+ //         { name: "username", label: "Full Name", type: "text", required: true },
+ //         { name: "email", label: "Email", type: "email", required: true },
+ //         { name: "phoneNo", label: "Phone Number", type: "text", required: true },
+ //         { name: "address", label: "Address", type: "text", required: true },
+ //         { name: "password", label: "Password", type: "password", required: true },
+ //       ]}
+ //       buttonText="Create Your Account"
+ //       onSubmit={onSignUp}
+ //       redirectPath="/login" // Redirect after successful signup
+ //     />
+ //   );
+ // };
+ // export default SignupPage;
  // /* eslint-disable @typescript-eslint/no-unused-vars */
  // 'use client'
  // import { useState,useEffect } from "react";

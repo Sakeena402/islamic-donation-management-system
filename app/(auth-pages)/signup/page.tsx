@@ -1,47 +1,128 @@
-'use client'
-
-import React from "react";
+'use client';
+import React, { useState } from "react";
 import GeneralForm from "@/components/forms/GeneralForm";
 import axios from "axios";
-import router from "next/router";
-
+import AuthLayout from "@/components/AuthLayout";
+import { signupSchema } from "@/schemas/validationSchema";
+import { useRouter } from 'next/navigation';
 
 const SignupPage = () => {
-  
+  const [signupError, setSignupError] = useState<string | null>(null);
+  const router = useRouter();
+
   const onSignUp = async (user: { username: string; email: string; phoneNo: string; address: string; password: string }) => {
-
     try {
-    
       const response = await axios.post("/api/auth/signup", user);
-      console.log("Signup sucess")
-      router.push('/login'); 
-    } catch (error:any) {
-      console.log("Signup failed", error.message);
-      
-  
-  }
- 
-
+      console.log("Signup successful");
+      router.push("/login");
+    } catch (error: any) {
+      // Handle different types of errors
+      if (error.response) {
+        // Server responded with a status code
+        switch (error.response.status) {
+          case 400:
+            setSignupError("All fields are required. Please fill in all fields.");
+            break;
+          case 409:
+            setSignupError("A user with this email already exists. Please use a different email.");
+            break;
+          case 500:
+            setSignupError("Server error. Please try again later.");
+            break;
+          default:
+            setSignupError("An unexpected error occurred. Please try again.");
+        }
+      } else if (error.request) {
+        // Request was made but no response received
+        setSignupError("No response from the server. Please check your connection.");
+      } else {
+        // Something else happened in making the request
+        setSignupError("An error occurred while signing up. Please try again.");
+      }
+    }
   };
 
-  
   return (
-    <GeneralForm
-      fields={[
-        { name: "username", label: "Full Name", type: "text", required: true },
-        { name: "email", label: "Email", type: "email", required: true },
-        { name: "phoneNo", label: "Phone Number", type: "text", required: true },
-        { name: "address", label: "Address", type: "text", required: true },
-        { name: "password", label: "Password", type: "password", required: true },
-      ]}
-      buttonText="Create Your Account"
-      onSubmit={onSignUp}
-      redirectPath="/login" // Redirect after successful signup
-    />
+    <AuthLayout backgroundImage="https://wallpapers.com/images/hd/1920-x-1080-hd-c65hirjqswhsd1z3.jpg">
+      <GeneralForm
+        fields={[
+          { name: "username", label: "Full Name", type: "text", required: true },
+          { name: "email", label: "Email", type: "email", required: true },
+          { name: "phoneNo", label: "Phone Number", type: "text", required: true },
+          { name: "address", label: "Address", type: "text", required: true },
+          { name: "password", label: "Password", type: "password", required: true },
+        ]}
+        buttonText="Create Your Account"
+        onSubmit={onSignUp}
+        validationSchema={signupSchema}
+        errorMessage={signupError}
+      />
+    </AuthLayout>
   );
 };
 
 export default SignupPage;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

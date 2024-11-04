@@ -1,0 +1,9 @@
+/* styles.css */
+.btn-highlight {
+    @apply bg-indigo-600 text-white font-semibold rounded-md shadow-sm hover:bg-indigo-700 transition-colors duration-300;
+  }
+  
+  .btn-disabled {
+    @apply bg-gray-400 cursor-not-allowed;
+  }
+  

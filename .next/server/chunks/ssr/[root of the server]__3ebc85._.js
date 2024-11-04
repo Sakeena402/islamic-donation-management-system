@@ -63,11 +63,11 @@ const __TURBOPACK__default__export__ = SubmitButton;
 
 var { r: __turbopack_require__, f: __turbopack_module_context__, i: __turbopack_import__, s: __turbopack_esm__, v: __turbopack_export_value__, n: __turbopack_export_namespace__, c: __turbopack_cache__, M: __turbopack_modules__, l: __turbopack_load__, j: __turbopack_dynamic__, P: __turbopack_resolve_absolute_path__, U: __turbopack_relative_url__, R: __turbopack_resolve_module_id_path__, b: __turbopack_worker_blob_url__, g: global, __dirname, x: __turbopack_external_require__, y: __turbopack_external_import__, z: require } = __turbopack_context__;
 {
+// GeneralForm.tsx
 __turbopack_esm__({
     "default": (()=>__TURBOPACK__default__export__)
 });
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react-jsx-dev-runtime.js [app-ssr] (ecmascript)");
-// GeneralForm.tsx
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/next/navigation.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$forms$2f$SubmitButton$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/components/forms/SubmitButton.tsx [app-ssr] (ecmascript)");
@@ -76,7 +76,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$forms$2f$Submi
 ;
 ;
 ;
-const GeneralForm = ({ fields, buttonText, onSubmit, redirectPath })=>{
+const GeneralForm = ({ fields, buttonText, onSubmit, redirectPath, switchForm })=>{
     const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRouter"])();
     const [formData, setFormData] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(fields.reduce((acc, field)=>({
             ...acc,
@@ -103,105 +103,196 @@ const GeneralForm = ({ fields, buttonText, onSubmit, redirectPath })=>{
         }
     };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-        className: "flex items-center justify-center min-h-screen bg-gray-100",
-        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-            className: "w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-md",
-            children: [
-                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                    className: "text-2xl font-bold text-center text-gray-800",
-                    children: buttonText
-                }, void 0, false, {
-                    fileName: "[project]/components/forms/GeneralForm.tsx",
-                    lineNumber: 55,
-                    columnNumber: 9
-                }, this),
-                error && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                    className: "text-center text-red-600",
-                    children: error
-                }, void 0, false, {
-                    fileName: "[project]/components/forms/GeneralForm.tsx",
-                    lineNumber: 56,
-                    columnNumber: 19
-                }, this),
-                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
-                    className: "space-y-4",
-                    children: [
-                        fields.map((field)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                        className: "block text-sm font-medium text-gray-700",
-                                        children: field.label
-                                    }, void 0, false, {
-                                        fileName: "[project]/components/forms/GeneralForm.tsx",
-                                        lineNumber: 60,
-                                        columnNumber: 15
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                        type: field.type,
-                                        name: field.name,
-                                        value: formData[field.name],
-                                        onChange: handleChange,
-                                        required: field.required,
-                                        className: "w-full px-3 py-2 mt-1 border rounded-md text-gray-700 focus:outline-none focus:ring focus:ring-indigo-200 focus:border-indigo-500"
-                                    }, void 0, false, {
-                                        fileName: "[project]/components/forms/GeneralForm.tsx",
-                                        lineNumber: 61,
-                                        columnNumber: 15
-                                    }, this)
-                                ]
-                            }, field.name, true, {
-                                fileName: "[project]/components/forms/GeneralForm.tsx",
-                                lineNumber: 59,
-                                columnNumber: 13
-                            }, this)),
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$forms$2f$SubmitButton$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
-                            loading: loading,
-                            text: buttonText,
-                            onClick: handleSubmit
-                        }, void 0, false, {
+        className: "form-container",
+        children: [
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
+                className: "text-2xl font-bold text-center text-gray-800",
+                children: buttonText
+            }, void 0, false, {
+                fileName: "[project]/components/forms/GeneralForm.tsx",
+                lineNumber: 55,
+                columnNumber: 7
+            }, this),
+            error && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                className: "text-center text-red-600",
+                children: error
+            }, void 0, false, {
+                fileName: "[project]/components/forms/GeneralForm.tsx",
+                lineNumber: 56,
+                columnNumber: 17
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
+                className: "space-y-4",
+                children: [
+                    fields.map((field)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                    className: "block text-sm font-medium text-gray-700",
+                                    children: field.label
+                                }, void 0, false, {
+                                    fileName: "[project]/components/forms/GeneralForm.tsx",
+                                    lineNumber: 60,
+                                    columnNumber: 13
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                    type: field.type,
+                                    name: field.name,
+                                    value: formData[field.name],
+                                    onChange: handleChange,
+                                    required: field.required,
+                                    className: "w-full px-3 py-2 mt-1 border rounded-md text-gray-700 focus:outline-none focus:ring focus:ring-indigo-200 focus:border-indigo-500"
+                                }, void 0, false, {
+                                    fileName: "[project]/components/forms/GeneralForm.tsx",
+                                    lineNumber: 61,
+                                    columnNumber: 13
+                                }, this)
+                            ]
+                        }, field.name, true, {
                             fileName: "[project]/components/forms/GeneralForm.tsx",
-                            lineNumber: 71,
+                            lineNumber: 59,
                             columnNumber: 11
-                        }, this)
-                    ]
-                }, void 0, true, {
-                    fileName: "[project]/components/forms/GeneralForm.tsx",
-                    lineNumber: 57,
-                    columnNumber: 9
-                }, this),
-                buttonText === "Create Your Account" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                    className: "text-sm text-center text-gray-600",
+                        }, this)),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$forms$2f$SubmitButton$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
+                        loading: loading,
+                        text: buttonText,
+                        onClick: handleSubmit
+                    }, void 0, false, {
+                        fileName: "[project]/components/forms/GeneralForm.tsx",
+                        lineNumber: 71,
+                        columnNumber: 9
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/components/forms/GeneralForm.tsx",
+                lineNumber: 57,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                className: "text-sm text-center text-gray-600",
+                children: buttonText === "Create Your Account" ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Fragment"], {
                     children: [
                         "Already have an account?",
                         " ",
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
-                            href: "/login",
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                             className: "text-indigo-600 hover:underline",
+                            onClick: switchForm,
                             children: "Login"
                         }, void 0, false, {
                             fileName: "[project]/components/forms/GeneralForm.tsx",
-                            lineNumber: 80,
+                            lineNumber: 81,
                             columnNumber: 13
                         }, this)
                     ]
-                }, void 0, true, {
-                    fileName: "[project]/components/forms/GeneralForm.tsx",
-                    lineNumber: 78,
-                    columnNumber: 11
-                }, this)
-            ]
-        }, void 0, true, {
-            fileName: "[project]/components/forms/GeneralForm.tsx",
-            lineNumber: 54,
-            columnNumber: 7
-        }, this)
-    }, void 0, false, {
+                }, void 0, true) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Fragment"], {
+                    children: [
+                        "Do not have an account?",
+                        " ",
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                            className: "text-indigo-600 hover:underline",
+                            onClick: switchForm,
+                            children: "Sign Up"
+                        }, void 0, false, {
+                            fileName: "[project]/components/forms/GeneralForm.tsx",
+                            lineNumber: 88,
+                            columnNumber: 13
+                        }, this)
+                    ]
+                }, void 0, true)
+            }, void 0, false, {
+                fileName: "[project]/components/forms/GeneralForm.tsx",
+                lineNumber: 77,
+                columnNumber: 7
+            }, this)
+        ]
+    }, void 0, true, {
         fileName: "[project]/components/forms/GeneralForm.tsx",
-        lineNumber: 53,
+        lineNumber: 54,
         columnNumber: 5
     }, this);
 };
 const __TURBOPACK__default__export__ = GeneralForm;
+ // 'use client'
+ // // GeneralForm.tsx
+ // import React, { useState } from "react";
+ // import { useRouter } from "next/navigation";
+ // import SubmitButton from "@/components/forms/SubmitButton";
+ // interface Field {
+ //   name: string;
+ //   label: string;
+ //   type: string;
+ //   required?: boolean;
+ // }
+ // interface GeneralFormProps {
+ //   fields: Field[];
+ //   buttonText: string;
+ //   onSubmit: (formData: { [key: string]: string }) => Promise<void>;
+ //   redirectPath: string;
+ // }
+ // const GeneralForm: React.FC<GeneralFormProps> = ({
+ //   fields,
+ //   buttonText,
+ //   onSubmit,
+ //   redirectPath,
+ // }) => {
+ //   const router = useRouter();
+ //   const [formData, setFormData] = useState<{ [key: string]: string }>(
+ //     fields.reduce((acc, field) => ({ ...acc, [field.name]: "" }), {})
+ //   );
+ //   const [loading, setLoading] = useState(false);
+ //   const [error, setError] = useState<string | null>(null);
+ //   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+ //     setFormData({ ...formData, [e.target.name]: e.target.value });
+ //   };
+ //   const handleSubmit = async () => {
+ //     setLoading(true);
+ //     setError(null);
+ //     try {
+ //       await onSubmit(formData);
+ //       router.push(redirectPath);
+ //     } catch (error) {
+ //       setError("Submission failed. Please try again.");
+ //     } finally {
+ //       setLoading(false);
+ //     }
+ //   };
+ //   return (
+ //     <div className="flex items-center justify-center min-h-screen bg-gray-100">
+ //       <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-md">
+ //         <h2 className="text-2xl font-bold text-center text-gray-800">{buttonText}</h2>
+ //         {error && <p className="text-center text-red-600">{error}</p>}
+ //         <form className="space-y-4">
+ //           {fields.map((field) => (
+ //             <div key={field.name}>
+ //               <label className="block text-sm font-medium text-gray-700">{field.label}</label>
+ //               <input
+ //                 type={field.type}
+ //                 name={field.name}
+ //                 value={formData[field.name]}
+ //                 onChange={handleChange}
+ //                 required={field.required}
+ //                 className="w-full px-3 py-2 mt-1 border rounded-md text-gray-700 focus:outline-none focus:ring focus:ring-indigo-200 focus:border-indigo-500"
+ //               />
+ //             </div>
+ //           ))}
+ //           <SubmitButton
+ //             loading={loading}
+ //             text={buttonText}
+ //             onClick={handleSubmit}
+ //           />
+ //         </form>
+ //         {buttonText === "Create Your Account" && (
+ //           <p className="text-sm text-center text-gray-600">
+ //             Already have an account?{" "}
+ //             <a href="/login" className="text-indigo-600 hover:underline">
+ //               Login
+ //             </a>
+ //           </p>
+ //         )}
+ //       </div>
+ //     </div>
+ //   );
+ // };
+ // export default GeneralForm;
  // // app/signup/components/SignupForm.tsx
  // 'use client';
  // import React, { useState, useEffect } from "react";
@@ -402,63 +493,160 @@ module.exports = mod;
 
 var { r: __turbopack_require__, f: __turbopack_module_context__, i: __turbopack_import__, s: __turbopack_esm__, v: __turbopack_export_value__, n: __turbopack_export_namespace__, c: __turbopack_cache__, M: __turbopack_modules__, l: __turbopack_load__, j: __turbopack_dynamic__, P: __turbopack_resolve_absolute_path__, U: __turbopack_relative_url__, R: __turbopack_resolve_module_id_path__, b: __turbopack_worker_blob_url__, g: global, __dirname, x: __turbopack_external_require__, y: __turbopack_external_import__, z: require } = __turbopack_context__;
 {
-// app/login/page.tsx
+// pages/login.tsx
 __turbopack_esm__({
     "default": (()=>__TURBOPACK__default__export__)
 });
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react-jsx-dev-runtime.js [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$forms$2f$GeneralForm$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/components/forms/GeneralForm.tsx [app-ssr] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$router$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/next/router.js [app-ssr] (ecmascript)");
+(()=>{
+    const e = new Error("Cannot find module 'next/route'");
+    e.code = 'MODULE_NOT_FOUND';
+    throw e;
+})();
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/axios/lib/axios.js [app-ssr] (ecmascript)");
 'use client';
 ;
 ;
 ;
 ;
+;
 const LoginPage = ()=>{
-    // const handleLogin = async (user: { email: string; password: string }) => {
-    //   const response = await fetch("/api/auth/login", {
-    //     method: "POST",
-    //     headers: { "Content-Type": "application/json" },
-    //     body: JSON.stringify(user),
-    //   });
-    //   if (!response.ok) throw new Error("Login failed");
-    // };
-    const onLogIn = async (user)=>{
+    const router = useRouter();
+    const [isSignup, setIsSignup] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
+    const onLogin = async (user)=>{
         try {
             const response = await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].post("/api/auth/login", user);
-            console.log("Login sucess");
-            __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$router$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].push('/user/profile');
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            console.log("Login success");
+            router.push('/dashboard'); // Redirect to dashboard after successful login
         } catch (error) {
-            console.log("Login failed", error.message);
+            console.log("Login failed", error);
         }
     };
-    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$forms$2f$GeneralForm$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
-        fields: [
-            {
-                name: "email",
-                label: "Email",
-                type: "email",
-                required: true
-            },
-            {
-                name: "password",
-                label: "Password",
-                type: "password",
-                required: true
-            }
-        ],
-        buttonText: "Login",
-        onSubmit: onLogIn,
-        redirectPath: "/profile" // Redirect after successful login
-    }, void 0, false, {
+    const switchForm = ()=>{
+        setIsSignup(!isSignup);
+    };
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+        className: "container",
+        children: [
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "left-side"
+            }, void 0, false, {
+                fileName: "[project]/app/(auth-pages)/login/page.tsx",
+                lineNumber: 28,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "right-side",
+                children: isSignup ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$forms$2f$GeneralForm$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
+                    fields: [
+                        {
+                            name: "username",
+                            label: "Full Name",
+                            type: "text",
+                            required: true
+                        },
+                        {
+                            name: "email",
+                            label: "Email",
+                            type: "email",
+                            required: true
+                        },
+                        {
+                            name: "phoneNo",
+                            label: "Phone Number",
+                            type: "text",
+                            required: true
+                        },
+                        {
+                            name: "address",
+                            label: "Address",
+                            type: "text",
+                            required: true
+                        },
+                        {
+                            name: "password",
+                            label: "Password",
+                            type: "password",
+                            required: true
+                        }
+                    ],
+                    buttonText: "Create Your Account",
+                    onSubmit: onLogin,
+                    redirectPath: "/login",
+                    switchForm: switchForm
+                }, void 0, false, {
+                    fileName: "[project]/app/(auth-pages)/login/page.tsx",
+                    lineNumber: 31,
+                    columnNumber: 11
+                }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$forms$2f$GeneralForm$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
+                    fields: [
+                        {
+                            name: "email",
+                            label: "Email",
+                            type: "email",
+                            required: true
+                        },
+                        {
+                            name: "password",
+                            label: "Password",
+                            type: "password",
+                            required: true
+                        }
+                    ],
+                    buttonText: "Login",
+                    onSubmit: onLogin,
+                    redirectPath: "/dashboard",
+                    switchForm: switchForm
+                }, void 0, false, {
+                    fileName: "[project]/app/(auth-pages)/login/page.tsx",
+                    lineNumber: 45,
+                    columnNumber: 11
+                }, this)
+            }, void 0, false, {
+                fileName: "[project]/app/(auth-pages)/login/page.tsx",
+                lineNumber: 29,
+                columnNumber: 7
+            }, this)
+        ]
+    }, void 0, true, {
         fileName: "[project]/app/(auth-pages)/login/page.tsx",
-        lineNumber: 40,
-        columnNumber: 7
+        lineNumber: 27,
+        columnNumber: 5
     }, this);
 };
 const __TURBOPACK__default__export__ = LoginPage;
+ // // app/login/page.tsx
+ // 'use client'
+ // import React from "react";
+ // import GeneralForm from "@/components/forms/GeneralForm";
+ // import axios from "axios";
+ // import router from "next/router";
+ // const LoginPage = () => {
+ //   const onLogIn = async (user: { email: string; password: string }) => {
+ //     try {
+ //       const response = await axios.post("/api/auth/login", user);
+ //       console.log("Login sucess")
+ //       router.push('/user/profile'); 
+ //     // eslint-disable-next-line @typescript-eslint/no-explicit-any
+ //     } catch (error:any) {
+ //       console.log("Login failed", error.message);
+ //   }
+ //   };
+ //   return (
+ //       <GeneralForm
+ //       fields={[
+ //         { name: "email", label: "Email", type: "email", required: true },
+ //         { name: "password", label: "Password", type: "password", required: true },
+ //       ]}
+ //       buttonText="Login"
+ //       onSubmit={onLogIn}
+ //       redirectPath="/user/profile" // Redirect after successful login
+ //     />
+ //   );
+ // };
+ // export default LoginPage;
  // /* eslint-disable @typescript-eslint/no-unused-vars */
  // 'use client'
  // import { useEffect, useState } from "react";

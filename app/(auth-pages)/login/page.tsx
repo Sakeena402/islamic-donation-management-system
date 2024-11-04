@@ -1,44 +1,67 @@
-
-// app/login/page.tsx
-'use client'
-import React from "react";
+'use client';
+import React, { useState } from "react";
 import GeneralForm from "@/components/forms/GeneralForm";
 import axios from "axios";
-import router from "next/router";
+import AuthLayout from "@/components/AuthLayout";
+import { loginSchema } from "@/schemas/validationSchema";
+import { useRouter } from 'next/navigation';
 
 const LoginPage = () => {
+  const [loginError, setLoginError] = useState<string | null>(null);
+  const router = useRouter();
 
-  
-  const onLogIn = async (user: { email: string; password: string }) => {
+  const onLogin = async (credentials: { email: string; password: string }) => {
     try {
-      
-      const response = await axios.post("/api/auth/login", user);
-      console.log("Login sucess")
-      router.push('/user/profile'); 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (error:any) {
-      console.log("Login failed", error.message);
-      
-  
-  
-  }
- 
+      const response = await axios.post("/api/auth/login", credentials);
+      console.log("Login successful");
+      // Redirect user after successful login
+      router.push("/user/profile"); // or the appropriate route
+    } catch (error: any) {
+      // Handle different types of errors
+      if (error.response) {
+        // Server responded with a status code
+        switch (error.response.status) {
+          case 400:
+            // Check if the specific error is due to email or password issues
+            if (error.response.data.error === "Email and password are required") {
+              setLoginError("Please enter both email and password.");
+            } else if (error.response.data.error === "User doesn't exist") {
+              setLoginError("No account found with this email. Please sign up.");
+            } else if (error.response.data.error === "Invalid password") {
+              setLoginError("The password you entered is incorrect. Please try again.");
+            } else {
+              setLoginError("An error occurred. Please try again.");
+            }
+            break;
+          case 500:
+            setLoginError("Server error. Please try again later.");
+            break;
+          default:
+            setLoginError("An unexpected error occurred. Please try again.");
+        }
+      } else if (error.request) {
+        // Request was made but no response received
+        setLoginError("No response from the server. Please check your connection.");
+      } else {
+        // Something else happened in making the request
+        setLoginError("An error occurred while logging in. Please try again.");
+      }
+    }
   };
 
-
   return (
+    <AuthLayout backgroundImage="https://wallpapers.com/images/hd/1920-x-1080-hd-c65hirjqswhsd1z3.jpg">
       <GeneralForm
-      fields={[
-        { name: "email", label: "Email", type: "email", required: true },
-        { name: "password", label: "Password", type: "password", required: true },
-      ]}
-      buttonText="Login"
-      onSubmit={onLogIn}
-      redirectPath="/user/profile" // Redirect after successful login
-    />
-    
-    
-    
+        fields={[
+          { name: "email", label: "Email", type: "email", required: true },
+          { name: "password", label: "Password", type: "password", required: true },
+        ]}
+        buttonText="Login"
+        onSubmit={onLogin}
+        validationSchema={loginSchema}
+        errorMessage={loginError}
+      />
+    </AuthLayout>
   );
 };
 
@@ -61,125 +84,6 @@ export default LoginPage;
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-// /* eslint-disable @typescript-eslint/no-unused-vars */
-// 'use client'
-// import { useEffect, useState } from "react";
-// import Link from "next/link";
-// import { useRouter } from "next/navigation";
-// import axios from 'axios';
-// import React from "react";
-
-
-// const Login = () => {
-//   const [user, setUser] = useState({
-//     email: '',
-//    password: '',
-  
-//   });
-//   const [buttonDisabled,setButtonDisabled]=useState(true);
-//   const [loading,setLoading]=useState(false);
-//   const router = useRouter();
-//   useEffect(()=>{
-//     if(user.email.length>0 && user.password.length >0){
-//       setButtonDisabled(false)
-//     }else{
-//       setButtonDisabled(true)
-//     }
-//   },[user])
-
-
-//   const onLogIn = async () => {
-//     try {
-      
-//     } catch (error) {
-      
-//     }try {
-//       setLoading(true)
-//       setButtonDisabled(true)
-//       const response = await axios.post("/api/auth/login", user);
-//       console.log("Login sucess")
-//       router.push('/user/profile'); 
-//     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-//     } catch (error:any) {
-//       console.log("Login failed", error.message);
-      
-  
-//   }finally {
-//     setTimeout(() => {
-//       setLoading(false);
-//       setButtonDisabled(false);
-//   }, 1000);
-//   }
- 
-//   };
-
-//   return (
-//     <div className="flex items-center justify-center min-h-screen bg-gray-100">
-//       <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-md">
-//         <h2 className="text-2xl font-bold text-center text-gray-800">
-//           Login to Your Account
-//         </h2>
-//         <form  className="space-y-6">
-//           <div>
-//             <label className="block text-sm font-medium text-gray-700">
-//               Email
-//             </label>
-//             <input
-//             type="email"
-//             value={user.email}
-//             onChange={(e) => setUser({ ...user, email: e.target.value })}
-//             required
-//             className="w-full px-3 py-2 mt-1  text-gray-700 border rounded-md focus:outline-none focus:ring focus:ring-indigo-200 focus:border-indigo-500"
-//          />
-//           </div>
-//           <div>
-//             <label className="block text-sm font-medium text-gray-700">
-//               Password
-//             </label>
-//             <input
-//                type="password"
-//                value={user.password}
-//                onChange={(e) => setUser({ ...user, password: e.target.value })}
-//                required
-//                className="w-full px-3 py-2 mt-1 text-gray-700 border rounded-md focus:outline-none focus:ring focus:ring-indigo-200 focus:border-indigo-500"
-//               />
-//           </div>
-//           <button
-//             type="button"
-//             onClick={onLogIn}
-//             disabled={buttonDisabled}
-//             className={`w-full px-4 py-2 font-semibold text-white rounded-md focus:outline-none focus:ring focus:ring-indigo-200 ${
-//                 buttonDisabled ? 'bg-gray-400 cursor-not-allowed' : 'bg-indigo-600 hover:bg-indigo-700'
-//             }`}
-//         >
-//             {loading ? 'Processing...' : 'Login'}
-//         </button>
-
-
-//         </form>
-//         <p className="text-sm text-center text-gray-600">
-//           Don&apos;t have an account?{" "}
-//           <Link href="/signup" className="text-indigo-600 hover:underline">
-//            Sign Up
-//           </Link>
-//         </p>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Login;
 
 
 
