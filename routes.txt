@@ -1,0 +1,68 @@
+.
+├── public
+│   ├── assets               # Static assets (images, icons, etc.)
+│   └── favicon.ico          # Site favicon
+├── prisma
+│   └── schema.prisma        # Prisma schema for database modeling
+├── src
+│   ├── app                  # Next.js App Router structure
+│   │   ├── api
+│   │   │   ├── auth         # Authentication APIs (login, register)
+│   │   │   ├── users        # User-related APIs (CRUD for users)
+│   │   │   ├── campaigns    # Campaign-related APIs (CRUD for campaigns)
+│   │   │   ├── donations    # Donation-related APIs (CRUD for donations)
+│   │   │   ├── transactions # Payment transaction APIs
+│   │   │   └── ...          # Other feature-specific API routes
+│   │   └── (routes)         # Next.js routes (organized by features)
+│   │       ├── campaigns
+│   │       │   └── [id]     # Dynamic route for campaign details
+│   │       ├── donations
+│   │       ├── transactions
+│   │       ├── dashboard    # Admin and Organizer dashboard
+│   │       ├── profile      # User profile settings
+│   │       └── index.tsx    # Home page
+│   ├── components           # Shared React components
+│   │   ├── ui               # Reusable UI components (Button, Modal, Input)
+│   │   ├── forms            # Forms for donations, campaigns, etc.
+│   │   ├── layout           # Layout components (Navbar, Footer)
+│   │   └── ...              # Additional components
+│   ├── context              # Context providers (e.g., AuthContext, AppContext)
+│   ├── hooks                # Custom hooks (e.g., useAuth, useCampaigns)
+│   ├── lib                  # Utility functions and helpers
+│   │   ├── db.ts            # Database connection setup with Prisma
+│   │   ├── auth.ts          # Authentication logic
+│   │   └── ...              # Additional utilities
+│   ├── middleware           # Middleware for route protection, logging, etc.
+│   ├── models               # Entity models (user, campaign, donation)
+│   │   ├── user.ts          # User model and methods
+│   │   ├── campaign.ts      # Campaign model and methods
+│   │   ├── donation.ts      # Donation model and methods
+│   │   └── ...              # Additional models
+│   ├── pages                # Next.js Pages Router (for auth, special pages)
+│   │   ├── api              # API routes (for auth)
+│   │   ├── login.tsx        # Login page
+│   │   ├── register.tsx     # Register page
+│   │   └── 404.tsx          # Custom 404 error page
+│   ├── prisma               # Prisma migrations and seeds
+│   │   ├── migrations       # Database migration files
+│   │   └── seeds.ts         # Seed data for testing
+│   ├── services             # Service layer (business logic)
+│   │   ├── userService.ts   # User-related operations
+│   │   ├── campaignService.ts # Campaign-related operations
+│   │   ├── donationService.ts # Donation-related operations
+│   │   └── ...              # Other services
+│   ├── styles               # Global and component-specific styles
+│   │   ├── globals.css      # Global CSS
+│   │   └── ...              # Additional styles
+│   ├── types                # TypeScript types/interfaces
+│   │   ├── user.d.ts        # User type definitions
+│   │   ├── campaign.d.ts    # Campaign type definitions
+│   │   └── ...              # Additional types
+│   ├── utils                # Utility functions (formatting, date handling)
+│   │   ├── formatCurrency.ts # Currency formatting
+│   │   └── ...              # Additional utilities
+│   ├── validators           # Validation schemas
+│   │   ├── userValidator.ts # User-related validation
+│   │   ├── donationValidator.ts # Donation-related validation
+│   │   └── ...              # Other validation schemas
+└── tsconfig.json            # TypeScript configuration

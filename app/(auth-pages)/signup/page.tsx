@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import GeneralForm from "@/components/forms/GeneralForm";
 import axios from "axios";
-import AuthLayout from "@/components/AuthLayout";
+import AuthLayout from "@/components/layout/AuthLayout";
 import { signupSchema } from "@/schemas/validationSchema";
 import { useRouter } from 'next/navigation';
 

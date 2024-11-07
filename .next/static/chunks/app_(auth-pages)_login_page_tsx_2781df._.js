@@ -6,7 +6,7 @@
   "path": "static/chunks/app_(auth-pages)_login_page_tsx_2781df._.js",
   "chunks": [
     "static/chunks/node_modules_5dca5d._.js",
-    "static/chunks/_62f85a._.js"
+    "static/chunks/_64756d._.js"
   ],
   "source": "dynamic"
 });
