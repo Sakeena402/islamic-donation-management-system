@@ -14,7 +14,7 @@ const SignupPage = () => {
     try {
       const response = await axios.post("/api/auth/signup", user);
       console.log("Signup successful");
-      router.push("/login");
+      router.push("/verify-notification");
     } catch (error: any) {
       // Handle different types of errors
       if (error.response) {
