@@ -43,7 +43,7 @@ const SignupPage = () => {
   };
 
   return (
-    <AuthLayout backgroundImage="https://wallpapers.com/images/hd/1920-x-1080-hd-c65hirjqswhsd1z3.jpg">
+    <AuthLayout>
       <GeneralForm
         fields={[
           { name: "username", label: "Full Name", type: "text", required: true },

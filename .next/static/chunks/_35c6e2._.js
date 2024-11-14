@@ -1,81 +1,5 @@
-(globalThis.TURBOPACK = globalThis.TURBOPACK || []).push(["static/chunks/_64756d._.js", {
+(globalThis.TURBOPACK = globalThis.TURBOPACK || []).push(["static/chunks/_35c6e2._.js", {
 
-"[project]/components/forms/SubmitButton.tsx [app-client] (ecmascript)": ((__turbopack_context__) => {
-"use strict";
-
-var { r: __turbopack_require__, f: __turbopack_module_context__, i: __turbopack_import__, s: __turbopack_esm__, v: __turbopack_export_value__, n: __turbopack_export_namespace__, c: __turbopack_cache__, M: __turbopack_modules__, l: __turbopack_load__, j: __turbopack_dynamic__, P: __turbopack_resolve_absolute_path__, U: __turbopack_relative_url__, R: __turbopack_resolve_module_id_path__, b: __turbopack_worker_blob_url__, g: global, __dirname, k: __turbopack_refresh__, m: module, z: require } = __turbopack_context__;
-{
-// components/SubmitButton.tsx
-__turbopack_esm__({
-    "default": (()=>__TURBOPACK__default__export__)
-});
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/next/dist/compiled/react/jsx-dev-runtime.js [app-client] (ecmascript)");
-'use clien';
-;
-const SubmitButton = ({ loading, text, onClick })=>{
-    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-        onClick: onClick,
-        disabled: loading,
-        className: `w-full px-4 py-2 font-semibold text-white rounded-md focus:outline-none ${loading ? "bg-gray-400 cursor-not-allowed" : "bg-indigo-600 hover:bg-indigo-700"}`,
-        children: loading ? "Processing..." : text
-    }, void 0, false, {
-        fileName: "[project]/components/forms/SubmitButton.tsx",
-        lineNumber: 13,
-        columnNumber: 5
-    }, this);
-};
-_c = SubmitButton;
-const __TURBOPACK__default__export__ = SubmitButton;
-var _c;
-__turbopack_refresh__.register(_c, "SubmitButton");
-if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
-    __turbopack_refresh__.registerExports(module, globalThis.$RefreshHelpers$);
-}
-}}),
-"[project]/hooks/useFormValidation.ts [app-client] (ecmascript)": ((__turbopack_context__) => {
-"use strict";
-
-var { r: __turbopack_require__, f: __turbopack_module_context__, i: __turbopack_import__, s: __turbopack_esm__, v: __turbopack_export_value__, n: __turbopack_export_namespace__, c: __turbopack_cache__, M: __turbopack_modules__, l: __turbopack_load__, j: __turbopack_dynamic__, P: __turbopack_resolve_absolute_path__, U: __turbopack_relative_url__, R: __turbopack_resolve_module_id_path__, b: __turbopack_worker_blob_url__, g: global, __dirname, k: __turbopack_refresh__, m: module, z: require } = __turbopack_context__;
-{
-// /hooks/useFormValidation.ts
-__turbopack_esm__({
-    "default": (()=>__TURBOPACK__default__export__)
-});
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
-var _s = __turbopack_refresh__.signature();
-;
-const useFormValidation = (schema)=>{
-    _s();
-    const [errors, setErrors] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])({});
-    const validate = async (data)=>{
-        try {
-            await schema.validate(data, {
-                abortEarly: false
-            });
-            setErrors({});
-            return true;
-        } catch (err) {
-            const validationErrors = {};
-            if (err.inner) {
-                err.inner.forEach((error)=>{
-                    validationErrors[error.path] = error.message;
-                });
-            }
-            setErrors(validationErrors);
-            return false;
-        }
-    };
-    return {
-        errors,
-        validate
-    };
-};
-_s(useFormValidation, "o+SUXTQUSJNurFcpxixiLrA9BM0=");
-const __TURBOPACK__default__export__ = useFormValidation;
-if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
-    __turbopack_refresh__.registerExports(module, globalThis.$RefreshHelpers$);
-}
-}}),
 "[project]/components/forms/GeneralForm.tsx [app-client] (ecmascript)": ((__turbopack_context__) => {
 "use strict";
 
@@ -244,10 +168,10 @@ const GeneralForm = ({ fields, buttonText, onSubmit, validationSchema, errorMess
         setShowPassword((prev)=>!prev);
     };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-        className: "w-full max-w-lg space-y-3`",
+        className: "w-full max-w-lg space-y-6",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                className: "text-2xl font-light text-center text-gray-800 mb-2",
+                className: "text-3xl font-light text-center text-gray-800 mb-6",
                 children: buttonText
             }, void 0, false, {
                 fileName: "[project]/components/forms/GeneralForm.tsx",
@@ -255,7 +179,7 @@ const GeneralForm = ({ fields, buttonText, onSubmit, validationSchema, errorMess
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
-                className: "space-y-2",
+                className: "space-y-5",
                 onSubmit: handleSubmit,
                 children: [
                     fields.map((field)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -347,7 +271,7 @@ const GeneralForm = ({ fields, buttonText, onSubmit, validationSchema, errorMess
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                className: "text-sm mt-0 text-center text-gray-600",
+                className: "text-sm text-center text-gray-600",
                 children: buttonText === "Create Your Account" ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
                     children: [
                         "Already have an account?",
@@ -427,7 +351,7 @@ const AuthLayout = ({ children, backgroundImage })=>{
         className: `flex flex-col md:flex-row h-screen w-screen overflow-hidden ${fadeIn ? 'fade-in' : ''} font-light`,
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: `w-2/3 h-full flex flex-col items-center justify-center bg-white shadow-md md:w-1/2  md:h-full bg-cover bg-center transition-opacity duration-1000 ease-in-out ${fadeIn ? 'fade-in' : ''}`,
+                className: `md:w-1/2 h-1/3 md:h-full bg-cover bg-center transition-opacity duration-1000 ease-in-out ${fadeIn ? 'fade-in' : ''}`,
                 style: {
                     backgroundImage: `url(${backgroundImage || "https://wallpapers.com/images/hd/1920-x-1080-hd-c65hirjqswhsd1z3.jpg"})`
                 }
@@ -437,12 +361,12 @@ const AuthLayout = ({ children, backgroundImage })=>{
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "flex w-full md:w-1/2 h-full items-center justify-center ",
+                className: "flex w-full md:w-1/2 h-full items-center justify-center bg-gray-50",
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                     className: "w-full max-w-md p-6 md:p-8 space-y-4",
                     children: [
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
-                            className: "text-2xl font-light text-gray-800 mb-4 text-center",
+                            className: "text-3xl font-light text-gray-800 mb-4 text-center",
                             children: "Welcome to Our Donation Platform"
                         }, void 0, false, {
                             fileName: "[project]/components/layout/AuthLayout.tsx",
@@ -458,7 +382,7 @@ const AuthLayout = ({ children, backgroundImage })=>{
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "flex flex-col items-center w-full px-8",
+                            className: "w-full",
                             children: children
                         }, void 0, false, {
                             fileName: "[project]/components/layout/AuthLayout.tsx",
@@ -539,7 +463,7 @@ if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelper
     __turbopack_refresh__.registerExports(module, globalThis.$RefreshHelpers$);
 }
 }}),
-"[project]/app/(auth-pages)/login/page.tsx [app-client] (ecmascript)": ((__turbopack_context__) => {
+"[project]/app/(auth-pages)/signup/page.tsx [app-client] (ecmascript)": ((__turbopack_context__) => {
 "use strict";
 
 var { r: __turbopack_require__, f: __turbopack_module_context__, i: __turbopack_import__, s: __turbopack_esm__, v: __turbopack_export_value__, n: __turbopack_export_namespace__, c: __turbopack_cache__, M: __turbopack_modules__, l: __turbopack_load__, j: __turbopack_dynamic__, P: __turbopack_resolve_absolute_path__, U: __turbopack_relative_url__, R: __turbopack_resolve_module_id_path__, b: __turbopack_worker_blob_url__, g: global, __dirname, k: __turbopack_refresh__, m: module, z: require } = __turbopack_context__;
@@ -563,45 +487,38 @@ var _s = __turbopack_refresh__.signature();
 ;
 ;
 ;
-const LoginPage = ()=>{
+const SignupPage = ()=>{
     _s();
-    const [loginError, setLoginError] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
+    const [signupError, setSignupError] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
     const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"])();
-    const onLogin = async (credentials)=>{
+    const onSignUp = async (user)=>{
         try {
-            const response = await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].post("/api/auth/login", credentials);
-            console.log("Login successful");
-            // Redirect user after successful login
-            router.push("/user/profile"); // or the appropriate route
+            const response = await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].post("/api/auth/signup", user);
+            console.log("Signup successful");
+            router.push("/verify-notification");
         } catch (error) {
             // Handle different types of errors
             if (error.response) {
                 // Server responded with a status code
                 switch(error.response.status){
                     case 400:
-                        // Check if the specific error is due to email or password issues
-                        if (error.response.data.error === "Email and password are required") {
-                            setLoginError("Please enter both email and password.");
-                        } else if (error.response.data.error === "User doesn't exist") {
-                            setLoginError("No account found with this email. Please sign up.");
-                        } else if (error.response.data.error === "Invalid password") {
-                            setLoginError("The password you entered is incorrect. Please try again.");
-                        } else {
-                            setLoginError("An error occurred. Please try again.");
-                        }
+                        setSignupError("All fields are required. Please fill in all fields.");
+                        break;
+                    case 409:
+                        setSignupError("A user with this email already exists. Please use a different email.");
                         break;
                     case 500:
-                        setLoginError("Server error. Please try again later.");
+                        setSignupError("Server error. Please try again later.");
                         break;
                     default:
-                        setLoginError("An unexpected error occurred. Please try again.");
+                        setSignupError("An unexpected error occurred. Please try again.");
                 }
             } else if (error.request) {
                 // Request was made but no response received
-                setLoginError("No response from the server. Please check your connection.");
+                setSignupError("No response from the server. Please check your connection.");
             } else {
                 // Something else happened in making the request
-                setLoginError("An error occurred while logging in. Please try again.");
+                setSignupError("An error occurred while signing up. Please try again.");
             }
         }
     };
@@ -609,9 +526,27 @@ const LoginPage = ()=>{
         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$forms$2f$GeneralForm$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
             fields: [
                 {
+                    name: "username",
+                    label: "Full Name",
+                    type: "text",
+                    required: true
+                },
+                {
                     name: "email",
                     label: "Email",
                     type: "email",
+                    required: true
+                },
+                {
+                    name: "phoneNo",
+                    label: "Phone Number",
+                    type: "text",
+                    required: true
+                },
+                {
+                    name: "address",
+                    label: "Address",
+                    type: "text",
                     required: true
                 },
                 {
@@ -621,39 +556,170 @@ const LoginPage = ()=>{
                     required: true
                 }
             ],
-            buttonText: "Login",
-            onSubmit: onLogin,
-            validationSchema: __TURBOPACK__imported__module__$5b$project$5d2f$schemas$2f$validationSchema$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["loginSchema"],
-            errorMessage: loginError
+            buttonText: "Create Your Account",
+            onSubmit: onSignUp,
+            validationSchema: __TURBOPACK__imported__module__$5b$project$5d2f$schemas$2f$validationSchema$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["signupSchema"],
+            errorMessage: signupError
         }, void 0, false, {
-            fileName: "[project]/app/(auth-pages)/login/page.tsx",
-            lineNumber: 54,
+            fileName: "[project]/app/(auth-pages)/signup/page.tsx",
+            lineNumber: 47,
             columnNumber: 7
         }, this)
     }, void 0, false, {
-        fileName: "[project]/app/(auth-pages)/login/page.tsx",
-        lineNumber: 53,
+        fileName: "[project]/app/(auth-pages)/signup/page.tsx",
+        lineNumber: 46,
         columnNumber: 5
     }, this);
 };
-_s(LoginPage, "w+mf2q9IBECdwCDGAy377Vq/88c=", false, function() {
+_s(SignupPage, "LQM/82K+nuW15/IrCJIvZHrJKZw=", false, function() {
     return [
         __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"]
     ];
 });
-_c = LoginPage;
-const __TURBOPACK__default__export__ = LoginPage;
+_c = SignupPage;
+const __TURBOPACK__default__export__ = SignupPage;
 var _c;
-__turbopack_refresh__.register(_c, "LoginPage");
+__turbopack_refresh__.register(_c, "SignupPage");
 if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
     __turbopack_refresh__.registerExports(module, globalThis.$RefreshHelpers$);
 }
+ // /* eslint-disable @typescript-eslint/no-unused-vars */
+ // 'use client'
+ // import { useState,useEffect } from "react";
+ // import Link from "next/link";
+ // import { useRouter } from "next/navigation";
+ // import axios from 'axios';
+ // import React from "react";
+ // const SignUp = () => {
+ //   const [user, setUser] = useState({
+ //     username: '',
+ //     email: '',
+ //     phoneNo: '',
+ //     address: '',
+ //     password: '',
+ //   });
+ // const [buttonDisabled,setButtonDisabled]  = useState(false)
+ // const [loading,setLoading]=useState(false)
+ // const router = useRouter();
+ // useEffect(() => {
+ //   if(user.email.length > 0 && user.password.length > 0 && user.username.length > 0) {
+ //       setButtonDisabled(false);
+ //   } else {
+ //       setButtonDisabled(true);
+ //   }
+ // }, [user]);
+ //   const onSignUp = async () => {
+ //     try {
+ //       setLoading(true)
+ //       setButtonDisabled(true)
+ //       const response = await axios.post("/api/auth/signup", user);
+ //       console.log("Signup sucess")
+ //       router.push('/login'); 
+ //     } catch (error:any) {
+ //       console.log("Signup failed", error.message);
+ //   }finally {
+ //     setTimeout(() => {
+ //       setLoading(false);
+ //       setButtonDisabled(false);
+ //   }, 1000);
+ //   }
+ //   };
+ //   return (
+ //     <div className="flex items-center justify-center min-h-screen bg-gray-100">
+ //       <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-md">
+ //         <h2 className="text-2xl font-bold text-center text-gray-800">
+ //           Create Your Account
+ //         </h2>
+ //         <form className="space-y-6">
+ //           <div>
+ //             <label className="block text-sm font-medium text-gray-700">
+ //               Full Name
+ //             </label>
+ //             <input
+ //               type="text"
+ //               value={user.username}
+ //               onChange={(e) => setUser({ ...user, username: e.target.value })}
+ //               required
+ //               className="w-full px-3 py-2 mt-1 border text-gray-700 rounded-md focus:outline-none focus:ring focus:ring-indigo-200 focus:border-indigo-500"
+ //             />
+ //           </div>
+ //           <div>
+ //             <label className="block text-sm font-medium text-gray-700">
+ //               Email
+ //             </label>
+ //             <input
+ //               type="email"
+ //               value={user.email}
+ //               onChange={(e) => setUser({ ...user, email: e.target.value })}
+ //               required
+ //               className="w-full px-3 py-2 mt-1  text-gray-700 border rounded-md focus:outline-none focus:ring focus:ring-indigo-200 focus:border-indigo-500"
+ //             />
+ //           </div>
+ //           <div>
+ //             <label className="block text-sm font-medium text-gray-700">
+ //               Phone Number
+ //             </label>
+ //             <input
+ //               type="text"
+ //               value={user.phoneNo}
+ //               onChange={(e) => setUser({ ...user, phoneNo: e.target.value })}
+ //               required
+ //               className="w-full px-3 py-2 mt-1 text-gray-700 border rounded-md focus:outline-none focus:ring focus:ring-indigo-200 focus:border-indigo-500"
+ //             />
+ //           </div>
+ //           <div>
+ //             <label className="block text-sm font-medium text-gray-700">
+ //               Address
+ //             </label>
+ //             <input
+ //               type="text"
+ //               value={user.address}
+ //               onChange={(e) => setUser({ ...user, address: e.target.value })}
+ //               required
+ //               className="w-full px-3 py-2 mt-1 text-gray-700 border rounded-md focus:outline-none focus:ring focus:ring-indigo-200 focus:border-indigo-500"
+ //             />
+ //           </div>
+ //           <div>
+ //             <label className="block text-sm font-medium text-gray-700">
+ //               Password
+ //             </label>
+ //             <input
+ //               type="password"
+ //               value={user.password}
+ //               onChange={(e) => setUser({ ...user, password: e.target.value })}
+ //               required
+ //               className="w-full px-3 py-2 mt-1 text-gray-700 border rounded-md focus:outline-none focus:ring focus:ring-indigo-200 focus:border-indigo-500"
+ //             />
+ //           </div>
+ //           <button
+ //             type="button"
+ //             onClick={onSignUp}
+ //             disabled={buttonDisabled}
+ //             className={`w-full px-4 py-2 font-semibold text-white rounded-md focus:outline-none focus:ring focus:ring-indigo-200 ${
+ //                 buttonDisabled ? 'bg-gray-400 cursor-not-allowed' : 'bg-indigo-600 hover:bg-indigo-700'
+ //             }`}
+ //         >
+ //             {loading ? 'Processing...' : 'Sign Up'}
+ //         </button>
+ //         </form>
+ //         <p className="text-sm text-center text-gray-600">
+ //           Already have an account?{" "}
+ //           <Link href="/login" className="text-indigo-600 hover:underline">
+ //            Login
+ //           </Link>
+ //         </p>
+ //       </div>
+ //     </div>
+ //   );
+ // };
+ // export default SignUp;
+ // app/signup/page.tsx// app/signup/page.tsx
 }}),
-"[project]/app/(auth-pages)/login/page.tsx [app-rsc] (ecmascript, Next.js server component, client modules)": ((__turbopack_context__) => {
+"[project]/app/(auth-pages)/signup/page.tsx [app-rsc] (ecmascript, Next.js server component, client modules)": ((__turbopack_context__) => {
 
 var { r: __turbopack_require__, f: __turbopack_module_context__, i: __turbopack_import__, s: __turbopack_esm__, v: __turbopack_export_value__, n: __turbopack_export_namespace__, c: __turbopack_cache__, M: __turbopack_modules__, l: __turbopack_load__, j: __turbopack_dynamic__, P: __turbopack_resolve_absolute_path__, U: __turbopack_relative_url__, R: __turbopack_resolve_module_id_path__, b: __turbopack_worker_blob_url__, g: global, __dirname, t: require } = __turbopack_context__;
 {
 }}),
 }]);
 
-//# sourceMappingURL=_64756d._.js.map
+//# sourceMappingURL=_35c6e2._.js.map

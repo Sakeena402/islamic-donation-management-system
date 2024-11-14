@@ -135,3 +135,21 @@ button:hover {
     @apply bg-background text-foreground;
   }
 }
+
+
+
+
+/* Fade-in effect */
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 2s forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

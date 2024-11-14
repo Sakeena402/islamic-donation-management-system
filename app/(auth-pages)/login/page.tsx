@@ -50,7 +50,7 @@ const LoginPage = () => {
   };
 
   return (
-    <AuthLayout backgroundImage="https://wallpapers.com/images/hd/1920-x-1080-hd-c65hirjqswhsd1z3.jpg">
+    <AuthLayout >
       <GeneralForm
         fields={[
           { name: "email", label: "Email", type: "email", required: true },
