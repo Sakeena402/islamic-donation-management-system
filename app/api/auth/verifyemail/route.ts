@@ -19,6 +19,9 @@ export async function POST(request: NextRequest) {
             verifyTokenExpiry: { $gt: Date.now() }
         });
 
+
+
+        
         // Check if user exists and token is valid
         if (!user) {
             return NextResponse.json({ error: "Invalid or expired token" }, { status: 400 });
@@ -32,7 +35,16 @@ export async function POST(request: NextRequest) {
         user.verifyToken = undefined;
         user.verifyTokenExpiry = undefined;
 
+        // await User.findOneAndUpdate(
+        //     { verifyToken: token, verifyTokenExpiry: { $gt: Date.now() } },
+        //     { $set: { isVerified: true, verifyToken: undefined, verifyTokenExpiry: undefined } },
+        //     { new: true } // Returns the updated document
+        // );
+        
+        console.log("Before save:", user);
         await user.save();
+        console.log("After save:", user);
+        
 
         return NextResponse.json({
             message: "Email verified successfully",

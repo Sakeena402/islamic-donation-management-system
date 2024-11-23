@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 47, "column": 0}, "map": {"version":3,"sources":["file://E%3A/islamic-donation-management-system/app/api/auth/logout/route.ts"],"sourcesContent":["import { NextResponse } from \"next/server\";\r\nexport async function GET() {\r\n    try {\r\n        const response=NextResponse.json({\r\n            message:'Logout Successfull',\r\n            success:true\r\n        })\r\n        response.cookies.set(\"token\",\"\",{\r\n            httpOnly:true,\r\n            expires:new Date(0)\r\n\r\n        } )\r\n        return response\r\n    } catch (error:any) {\r\n        return NextResponse.json({error:error.messager},\r\n            {status:500}\r\n        )\r\n    }\r\n}"],"names":[],"mappings":";;;AAAA;;AACO,eAAe;IAClB,IAAI;QACA,MAAM,WAAS,gIAAA,CAAA,eAAY,CAAC,IAAI,CAAC;YAC7B,SAAQ;YACR,SAAQ;QACZ;QACA,SAAS,OAAO,CAAC,GAAG,CAAC,SAAQ,IAAG;YAC5B,UAAS;YACT,SAAQ,IAAI,KAAK;QAErB;QACA,OAAO;IACX,EAAE,OAAO,OAAW;QAChB,OAAO,gIAAA,CAAA,eAAY,CAAC,IAAI,CAAC;YAAC,OAAM,MAAM,QAAQ;QAAA,GAC1C;YAAC,QAAO;QAAG;IAEnB;AACJ"}},
+    {"offset": {"line": 71, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"A"}}]
+}

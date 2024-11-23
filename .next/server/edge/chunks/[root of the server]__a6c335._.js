@@ -29,6 +29,18 @@ module.exports = mod;
 
 var { r: __turbopack_require__, f: __turbopack_module_context__, i: __turbopack_import__, s: __turbopack_esm__, v: __turbopack_export_value__, n: __turbopack_export_namespace__, c: __turbopack_cache__, M: __turbopack_modules__, l: __turbopack_load__, j: __turbopack_dynamic__, P: __turbopack_resolve_absolute_path__, U: __turbopack_relative_url__, R: __turbopack_resolve_module_id_path__, b: __turbopack_worker_blob_url__, g: global, __dirname, x: __turbopack_external_require__, y: __turbopack_external_import__, z: require } = __turbopack_context__;
 {
+// import { NextRequest } from "next/server";
+// import jwt from "jsonwebtoken";
+// export const getDataFromToken = (request: NextRequest) => {
+//     try {
+//       const token = request.cookies.get("token")?.value || '';
+//       const decodedToken: any = jwt.verify(token, process.env.TOKEN_SECRET!);
+//       // Assuming the token contains both `id` and `role`
+//       return { id: decodedToken.id, role: decodedToken.role, username: decodedToken.username };
+//     } catch (error: any) {
+//       throw new Error(error.message);
+//     }
+//   };
 __turbopack_esm__({
     "getDataFromToken": (()=>getDataFromToken)
 });
@@ -37,14 +49,15 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$jsonwebtoken
 const getDataFromToken = (request)=>{
     try {
         const token = request.cookies.get("token")?.value || '';
-        const decodedToken = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$jsonwebtoken$2f$index$2e$js__$5b$middleware$5d$__$28$ecmascript$29$__["default"].verify(token, process.env.TOKEN_SECRET);
-        // Assuming the token contains both `id` and `role`
+        if (!token) throw new Error("Token not found");
+        const decodedToken = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$jsonwebtoken$2f$index$2e$js__$5b$middleware$5d$__$28$ecmascript$29$__["default"].verify(token, process.env.JWT_SECRET_KEY);
         return {
             id: decodedToken.id,
-            role: decodedToken.role
-        };
+            role: decodedToken.role,
+            username: decodedToken.username
+        }; // Extract user details
     } catch (error) {
-        throw new Error(error.message);
+        throw new Error(error.message || "Token verification failed");
     }
 };
 }}),
@@ -75,7 +88,7 @@ async function middleware(request) {
     // Check if token exists and extract user role
     if (token) {
         try {
-            const { role } = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$helpers$2f$getDataFromToken$2e$ts__$5b$middleware$5d$__$28$ecmascript$29$__["getDataFromToken"])(request);
+            const { id, role, username } = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$helpers$2f$getDataFromToken$2e$ts__$5b$middleware$5d$__$28$ecmascript$29$__["getDataFromToken"])(request);
             userRole = role;
         } catch (error) {
             return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$esm$2f$server$2f$web$2f$spec$2d$extension$2f$response$2e$js__$5b$middleware$5d$__$28$ecmascript$29$__["NextResponse"].redirect(new URL('/login', request.nextUrl));

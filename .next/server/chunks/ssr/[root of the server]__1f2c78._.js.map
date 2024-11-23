@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 63, "column": 0}, "map": {"version":3,"sources":["file://E%3A/islamic-donation-management-system/app/%28user-pages%29/user/profile/page.tsx"],"sourcesContent":["\"use client\";\r\n\r\nimport { useParams, useSearchParams } from \"next/navigation\";\r\n\r\nexport default function UserProfile() {\r\n    const params = useParams();\r\n    const searchParams = useSearchParams();\r\n\r\n    // Get `id` from dynamic route\r\n    const { id } = params;\r\n\r\n    // Get `username` from query parameters\r\n    const username = searchParams.get(\"username\");\r\n\r\n    return (\r\n        <div>\r\n            <h1>User Profile</h1>\r\n            <p>User ID: {id}</p>\r\n            <p>Welcome, {username}!</p>\r\n        </div>\r\n    );\r\n}\r\n"],"names":[],"mappings":";;;;AAEA;AAFA;;;AAIe,SAAS;IACpB,MAAM,SAAS,CAAA,GAAA,kIAAA,CAAA,YAAS,AAAD;IACvB,MAAM,eAAe,CAAA,GAAA,kIAAA,CAAA,kBAAe,AAAD;IAEnC,8BAA8B;IAC9B,MAAM,EAAE,EAAE,EAAE,GAAG;IAEf,uCAAuC;IACvC,MAAM,WAAW,aAAa,GAAG,CAAC;IAElC,qBACI,8OAAC;;0BACG,8OAAC;0BAAG;;;;;;0BACJ,8OAAC;;oBAAE;oBAAU;;;;;;;0BACb,8OAAC;;oBAAE;oBAAU;oBAAS;;;;;;;;;;;;;AAGlC"}},
+    {"offset": {"line": 115, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"A"}}]
+}

@@ -134,7 +134,7 @@ const userSchema = new __TURBOPACK__imported__module__$5b$externals$5d2f$__$5b$e
             'Please specify a role'
         ]
     },
-    isVerfied: {
+    isVerified: {
         type: Boolean,
         default: false
     },

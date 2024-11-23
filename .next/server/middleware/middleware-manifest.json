@@ -3,9 +3,9 @@
   "middleware": {
     "/": {
       "files": [
-        "server/edge/chunks/_e71935._.js",
+        "server/edge/chunks/_b078ed._.js",
         "server/edge/chunks/[root of the server]__a6c335._.js",
-        "server/edge/chunks/edge-wrapper_a248b3.js"
+        "server/edge/chunks/edge-wrapper_bd1bc8.js"
       ],
       "name": "middleware",
       "page": "/",
@@ -15,43 +15,43 @@
           "originalSource": "/"
         },
         {
-          "regexp": "/:nextData(_next/data/[^/]{1,})?/profile(.json)?",
+          "regexp": "/:nextData(_next/data/[^/]{1,})?/profile{(\\\\.json)}?",
           "originalSource": "/profile"
         },
         {
-          "regexp": "/:nextData(_next/data/[^/]{1,})?/login(.json)?",
+          "regexp": "/:nextData(_next/data/[^/]{1,})?/login{(\\\\.json)}?",
           "originalSource": "/login"
         },
         {
-          "regexp": "/:nextData(_next/data/[^/]{1,})?/signup(.json)?",
+          "regexp": "/:nextData(_next/data/[^/]{1,})?/signup{(\\\\.json)}?",
           "originalSource": "/signup"
         },
         {
-          "regexp": "/:nextData(_next/data/[^/]{1,})?/verifyemail(.json)?",
+          "regexp": "/:nextData(_next/data/[^/]{1,})?/verifyemail{(\\\\.json)}?",
           "originalSource": "/verifyemail"
         },
         {
-          "regexp": "/:nextData(_next/data/[^/]{1,})?/admin(.json)?",
+          "regexp": "/:nextData(_next/data/[^/]{1,})?/admin{(\\\\.json)}?",
           "originalSource": "/admin"
         },
         {
-          "regexp": "/:nextData(_next/data/[^/]{1,})?/user(.json)?",
+          "regexp": "/:nextData(_next/data/[^/]{1,})?/user{(\\\\.json)}?",
           "originalSource": "/user"
         },
         {
-          "regexp": "/:nextData(_next/data/[^/]{1,})?/organizer(.json)?",
+          "regexp": "/:nextData(_next/data/[^/]{1,})?/organizer{(\\\\.json)}?",
           "originalSource": "/organizer"
         }
       ],
       "wasm": [],
       "assets": [
         {
-          "name": "server/edge/chunks/_e71935._.js.map",
-          "filePath": "server/edge/chunks/_e71935._.js.map"
+          "name": "server/edge/chunks/_b078ed._.js.map",
+          "filePath": "server/edge/chunks/_b078ed._.js.map"
         },
         {
-          "name": "server/edge/chunks/_e71935._.js",
-          "filePath": "server/edge/chunks/_e71935._.js"
+          "name": "server/edge/chunks/_b078ed._.js",
+          "filePath": "server/edge/chunks/_b078ed._.js"
         },
         {
           "name": "server/edge/chunks/[root of the server]__a6c335._.js.map",
@@ -62,20 +62,20 @@
           "filePath": "server/edge/chunks/[root of the server]__a6c335._.js"
         },
         {
-          "name": "server/edge/chunks/edge-wrapper_a248b3.js.map",
-          "filePath": "server/edge/chunks/edge-wrapper_a248b3.js.map"
+          "name": "server/edge/chunks/edge-wrapper_bd1bc8.js.map",
+          "filePath": "server/edge/chunks/edge-wrapper_bd1bc8.js.map"
         },
         {
-          "name": "server/edge/chunks/edge-wrapper_a248b3.js",
-          "filePath": "server/edge/chunks/edge-wrapper_a248b3.js"
+          "name": "server/edge/chunks/edge-wrapper_bd1bc8.js",
+          "filePath": "server/edge/chunks/edge-wrapper_bd1bc8.js"
         }
       ],
       "env": {
         "__NEXT_BUILD_ID": "development",
         "NEXT_SERVER_ACTIONS_ENCRYPTION_KEY": "sW21qlSE/uIlUrX7GMLnfhk1A0jNVqyK2Vdxy+6bViY=",
-        "__NEXT_PREVIEW_MODE_ID": "6fbc8a773dc93ec5b37727b4bcf67081",
-        "__NEXT_PREVIEW_MODE_ENCRYPTION_KEY": "a6760b2f52c7fd9de664d99809e428798e686a3856a4cabfd1a273850d5ec53d",
-        "__NEXT_PREVIEW_MODE_SIGNING_KEY": "cd3b74c735ba8c3b60b7ce27e4b2476945ac48f7640390708bc3713f2942739f"
+        "__NEXT_PREVIEW_MODE_ID": "6745df6ae30a5f486bfab2fd7414edbd",
+        "__NEXT_PREVIEW_MODE_ENCRYPTION_KEY": "b696d070f0f39830e52534d7d33db4a81e511ba3f95757facaa905a20733e0a0",
+        "__NEXT_PREVIEW_MODE_SIGNING_KEY": "45b5e111da4691d7359c9b6547be16ce940b06d214fd8a3bdeb0c64e595c284f"
       }
     }
   },

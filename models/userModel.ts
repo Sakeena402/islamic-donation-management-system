@@ -51,7 +51,7 @@ role: {
     default: 'Donor',
     required: [true, 'Please specify a role']
 },
-isVerfied: {
+isVerified: {
     type: Boolean,
     default: false,
 },

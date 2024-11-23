@@ -211,10 +211,12 @@ var _s = __turbopack_refresh__.signature();
 const GeneralForm = ({ fields, buttonText, onSubmit, validationSchema, errorMessage })=>{
     _s();
     const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"])();
-    const [formData, setFormData] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(fields.reduce((acc, field)=>({
-            ...acc,
-            [field.name]: ""
-        }), {}));
+    const [formData, setFormData] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(fields.reduce({
+        "GeneralForm.useState": (acc, field)=>({
+                ...acc,
+                [field.name]: ""
+            })
+    }["GeneralForm.useState"], {}));
     const [loading, setLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
     const [showPassword, setShowPassword] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
     const { errors, validate } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$hooks$2f$useFormValidation$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(validationSchema);
@@ -420,9 +422,11 @@ const AuthLayout = ({ children, backgroundImage })=>{
     _s();
     const [fadeIn, setFadeIn] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
     // Trigger the fade-in effect after the component mounts
-    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
-        setFadeIn(true);
-    }, []);
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
+        "AuthLayout.useEffect": ()=>{
+            setFadeIn(true);
+        }
+    }["AuthLayout.useEffect"], []);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: `flex flex-col md:flex-row h-screen w-screen overflow-hidden ${fadeIn ? 'fade-in' : ''} font-light`,
         children: [
@@ -567,19 +571,18 @@ const LoginPage = ()=>{
     _s();
     const [loginError, setLoginError] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
     const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"])();
+    const params = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useParams"])(); // Use this for `app`-based routing
+    const { id } = params;
     const onLogin = async (credentials)=>{
         try {
             const response = await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].post("/api/auth/login", credentials);
             console.log("Login successful");
-            // Redirect user after successful login
-            router.push("/user/profile"); // or the appropriate route
+            // Redirect to profile page with `id` and `username`
+            router.push(`/user/profile`);
         } catch (error) {
-            // Handle different types of errors
             if (error.response) {
-                // Server responded with a status code
                 switch(error.response.status){
                     case 400:
-                        // Check if the specific error is due to email or password issues
                         if (error.response.data.error === "Email and password are required") {
                             setLoginError("Please enter both email and password.");
                         } else if (error.response.data.error === "User doesn't exist") {
@@ -593,14 +596,15 @@ const LoginPage = ()=>{
                     case 500:
                         setLoginError("Server error. Please try again later.");
                         break;
+                    case 401:
+                        setLoginError("Please verify your email to log in");
+                        break;
                     default:
                         setLoginError("An unexpected error occurred. Please try again.");
                 }
             } else if (error.request) {
-                // Request was made but no response received
                 setLoginError("No response from the server. Please check your connection.");
             } else {
-                // Something else happened in making the request
                 setLoginError("An error occurred while logging in. Please try again.");
             }
         }
@@ -627,18 +631,19 @@ const LoginPage = ()=>{
             errorMessage: loginError
         }, void 0, false, {
             fileName: "[project]/app/(auth-pages)/login/page.tsx",
-            lineNumber: 54,
+            lineNumber: 58,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/app/(auth-pages)/login/page.tsx",
-        lineNumber: 53,
+        lineNumber: 57,
         columnNumber: 5
     }, this);
 };
-_s(LoginPage, "w+mf2q9IBECdwCDGAy377Vq/88c=", false, function() {
+_s(LoginPage, "1q9SiXtsSQvPCSxY0OKqOXA5Fc0=", false, function() {
     return [
-        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"]
+        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"],
+        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useParams"]
     ];
 });
 _c = LoginPage;

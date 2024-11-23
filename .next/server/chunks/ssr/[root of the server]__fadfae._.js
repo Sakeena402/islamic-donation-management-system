@@ -655,19 +655,18 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib
 const LoginPage = ()=>{
     const [loginError, setLoginError] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
     const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRouter"])();
+    const params = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useParams"])(); // Use this for `app`-based routing
+    const { id } = params;
     const onLogin = async (credentials)=>{
         try {
             const response = await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].post("/api/auth/login", credentials);
             console.log("Login successful");
-            // Redirect user after successful login
-            router.push("/user/profile"); // or the appropriate route
+            // Redirect to profile page with `id` and `username`
+            router.push(`/user/profile`);
         } catch (error) {
-            // Handle different types of errors
             if (error.response) {
-                // Server responded with a status code
                 switch(error.response.status){
                     case 400:
-                        // Check if the specific error is due to email or password issues
                         if (error.response.data.error === "Email and password are required") {
                             setLoginError("Please enter both email and password.");
                         } else if (error.response.data.error === "User doesn't exist") {
@@ -681,14 +680,15 @@ const LoginPage = ()=>{
                     case 500:
                         setLoginError("Server error. Please try again later.");
                         break;
+                    case 401:
+                        setLoginError("Please verify your email to log in");
+                        break;
                     default:
                         setLoginError("An unexpected error occurred. Please try again.");
                 }
             } else if (error.request) {
-                // Request was made but no response received
                 setLoginError("No response from the server. Please check your connection.");
             } else {
-                // Something else happened in making the request
                 setLoginError("An error occurred while logging in. Please try again.");
             }
         }
@@ -715,12 +715,12 @@ const LoginPage = ()=>{
             errorMessage: loginError
         }, void 0, false, {
             fileName: "[project]/app/(auth-pages)/login/page.tsx",
-            lineNumber: 54,
+            lineNumber: 58,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/app/(auth-pages)/login/page.tsx",
-        lineNumber: 53,
+        lineNumber: 57,
         columnNumber: 5
     }, this);
 };

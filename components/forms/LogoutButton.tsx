@@ -9,7 +9,7 @@ const LogoutButton: React.FC = () => {
     const handleLogout = async () => {
     try {
 
-       await axios.get('/api/auth.logout')
+       await axios.get('/api/auth/logout')
        console.log("logout sucessfull")
        router.push('/login')
     } catch (error:any) {

@@ -4,31 +4,31 @@
     "originalSource": "/"
   },
   {
-    "regexp": "^(?:\\/(_next\\/data\\/[^/]{1,}))?\\/profile(.json)?[\\/#\\?]?$",
+    "regexp": "^(?:\\/(_next\\/data\\/[^/]{1,}))?\\/profile(\\\\.json)?[\\/#\\?]?$",
     "originalSource": "/profile"
   },
   {
-    "regexp": "^(?:\\/(_next\\/data\\/[^/]{1,}))?\\/login(.json)?[\\/#\\?]?$",
+    "regexp": "^(?:\\/(_next\\/data\\/[^/]{1,}))?\\/login(\\\\.json)?[\\/#\\?]?$",
     "originalSource": "/login"
   },
   {
-    "regexp": "^(?:\\/(_next\\/data\\/[^/]{1,}))?\\/signup(.json)?[\\/#\\?]?$",
+    "regexp": "^(?:\\/(_next\\/data\\/[^/]{1,}))?\\/signup(\\\\.json)?[\\/#\\?]?$",
     "originalSource": "/signup"
   },
   {
-    "regexp": "^(?:\\/(_next\\/data\\/[^/]{1,}))?\\/verifyemail(.json)?[\\/#\\?]?$",
+    "regexp": "^(?:\\/(_next\\/data\\/[^/]{1,}))?\\/verifyemail(\\\\.json)?[\\/#\\?]?$",
     "originalSource": "/verifyemail"
   },
   {
-    "regexp": "^(?:\\/(_next\\/data\\/[^/]{1,}))?\\/admin(.json)?[\\/#\\?]?$",
+    "regexp": "^(?:\\/(_next\\/data\\/[^/]{1,}))?\\/admin(\\\\.json)?[\\/#\\?]?$",
     "originalSource": "/admin"
   },
   {
-    "regexp": "^(?:\\/(_next\\/data\\/[^/]{1,}))?\\/user(.json)?[\\/#\\?]?$",
+    "regexp": "^(?:\\/(_next\\/data\\/[^/]{1,}))?\\/user(\\\\.json)?[\\/#\\?]?$",
     "originalSource": "/user"
   },
   {
-    "regexp": "^(?:\\/(_next\\/data\\/[^/]{1,}))?\\/organizer(.json)?[\\/#\\?]?$",
+    "regexp": "^(?:\\/(_next\\/data\\/[^/]{1,}))?\\/organizer(\\\\.json)?[\\/#\\?]?$",
     "originalSource": "/organizer"
   }
 ]

@@ -1,9 +1,7 @@
 import nodemailer from 'nodemailer';
 import User from "@/models/userModel";
 import bcryptjs from 'bcryptjs';
-import dotenv from 'dotenv';
 
-dotenv.config(); // Load environment variables
 
 interface SendEmailParams {
     email: string;

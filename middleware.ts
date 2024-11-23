@@ -14,7 +14,7 @@ export async function middleware(request: NextRequest) {
   // Check if token exists and extract user role
   if (token) {
     try {
-      const { role } = await getDataFromToken(request);
+      const { id,role,username } = await getDataFromToken(request);
       userRole = role;
     } catch (error) {
       return NextResponse.redirect(new URL('/login', request.nextUrl));
