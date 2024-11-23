@@ -1,0 +1,9 @@
+0000000000000000000000000000000000000000 ab2c4c5c0927aefb7d9ddccb2368d99d4455181f Sakeena402 <sakeenaf315@gmail.com> 1730619506 -0700	commit (initial): login completed
+ab2c4c5c0927aefb7d9ddccb2368d99d4455181f 0e261afe435527c37d9d53fa2a56962b953880a2 Sakeena402 <sakeenaf315@gmail.com> 1730652152 -0800	commit: break into components
+0e261afe435527c37d9d53fa2a56962b953880a2 86cc311155594d19f1183f2d711399b37faabc34 Sakeena402 <sakeenaf315@gmail.com> 1730759846 -0800	commit: error handling
+86cc311155594d19f1183f2d711399b37faabc34 b5db5ef9f2e9d4e332b5ae848b71f3822dc6ea18 Sakeena402 <sakeenaf315@gmail.com> 1730759875 -0800	commit: error handling
+b5db5ef9f2e9d4e332b5ae848b71f3822dc6ea18 6af8b0639d5c686f5a715db2916a7c587fb6b9ef Sakeena402 <sakeenaf315@gmail.com> 1730759929 -0800	commit: no change
+6af8b0639d5c686f5a715db2916a7c587fb6b9ef fc5c8f61b29fa2fe4954951ca20eafa840e46085 Sakeena402 <sakeenaf315@gmail.com> 1731018991 +0500	commit: adding middleware
+fc5c8f61b29fa2fe4954951ca20eafa840e46085 50220b14f0d6f2a7c3639e5d245cb8694c3a616e Sakeena402 <sakeenaf315@gmail.com> 1731613879 +0500	commit: Initial commit
+50220b14f0d6f2a7c3639e5d245cb8694c3a616e 1de97b9c786ece37830a2cfc07da96c5dad56e25 Sakeena402 <sakeenaf315@gmail.com> 1731619978 +0500	commit: adjust stuling
+1de97b9c786ece37830a2cfc07da96c5dad56e25 4e4f127ab64a5e116ac97976bc2de93a88d1931e Sakeena402 <sakeenaf315@gmail.com> 1732387793 +0500	commit: verifying email
