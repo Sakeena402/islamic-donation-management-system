@@ -6,7 +6,7 @@ import { getDataFromToken } from "@/helpers/getDataFromToken";
 
 export async function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname;
-  const isPublicPath = ['/login', '/signup', '/verifyemail'].includes(path);
+  const isPublicPath = ['/login', '/signup', '/verifyemail','/'].includes(path);
   const token = request.cookies.get('token')?.value || '';
 
   let userRole = '';
@@ -23,9 +23,9 @@ export async function middleware(request: NextRequest) {
 
   // Define role-based access
   const rolePaths = {
-    admin: ['/admin', '/profile', '/dashboard'],
-    user: ['/profile', '/dashboard', '/user'],
-    organizer: ['/organizer', '/profile', '/events'],
+    admin: ['/admin', '/user/profile', '/dashboard'],
+    user: ['/profile', '/dashboard', '/user/profile'],
+    organizer: ['/organizer', '/user/profile', '/events'],
   };
 
   const isAuthorized = (role: string, path: string) => {

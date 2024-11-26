@@ -12,9 +12,9 @@ const AuthLayout: React.FC<{ children: React.ReactNode; backgroundImage: string 
     <div className={`flex flex-col md:flex-row h-screen w-screen overflow-hidden ${fadeIn ? 'fade-in' : ''} font-light`}>
       {/* Background Image Section */}
       <div
-        className={`w-2/3 h-full flex flex-col items-center justify-center bg-white shadow-md md:w-1/2  md:h-full bg-cover bg-center transition-opacity duration-1000 ease-in-out ${fadeIn ? 'fade-in' : ''}`}
+        className={`w-3/4 gap-0 top-0 h-full flex flex-col items-center justify-center bg-white shadow-md md:w-1/2  md:h-full bg-cover bg-center transition-opacity duration-1000 ease-in-out ${fadeIn ? 'fade-in' : ''}`}
         style={{
-          backgroundImage: `url(${backgroundImage || "https://wallpapers.com/images/hd/1920-x-1080-hd-c65hirjqswhsd1z3.jpg"})`,
+          backgroundImage: `url(${backgroundImage || "https://th.bing.com/th/id/R.79c7ed2c85620e0afd0f482ee9f2b00d?rik=GcOYGE7HE2g4Ew&riu=http%3a%2f%2fwww.estraviz.com.br%2fwp-content%2fuploads%2f2012%2f08%2fdonations.jpg&ehk=bKg0gchDKHNqoKD1965b6vhrGLbeGT7uLKjFY806R78%3d&risl=&pid=ImgRaw&r=0"})`,
         }}
       ></div>
 

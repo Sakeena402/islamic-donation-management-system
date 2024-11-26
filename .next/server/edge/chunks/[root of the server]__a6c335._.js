@@ -81,7 +81,8 @@ async function middleware(request) {
     const isPublicPath = [
         '/login',
         '/signup',
-        '/verifyemail'
+        '/verifyemail',
+        '/'
     ].includes(path);
     const token = request.cookies.get('token')?.value || '';
     let userRole = '';
@@ -98,17 +99,17 @@ async function middleware(request) {
     const rolePaths = {
         admin: [
             '/admin',
-            '/profile',
+            '/user/profile',
             '/dashboard'
         ],
         user: [
             '/profile',
             '/dashboard',
-            '/user'
+            '/user/profile'
         ],
         organizer: [
             '/organizer',
-            '/profile',
+            '/user/profile',
             '/events'
         ]
     };

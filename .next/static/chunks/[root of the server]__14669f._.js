@@ -2147,6 +2147,7 @@ Object.defineProperty(exports, "__esModule", {
     GSSP_NO_RETURNED_VALUE: null,
     INFINITE_CACHE: null,
     INSTRUMENTATION_HOOK_FILENAME: null,
+    MATCHED_PATH_HEADER: null,
     MIDDLEWARE_FILENAME: null,
     MIDDLEWARE_LOCATION_REGEXP: null,
     NEXT_BODY_SUFFIX: null,
@@ -2226,6 +2227,9 @@ _export(exports, {
     },
     INSTRUMENTATION_HOOK_FILENAME: function() {
         return INSTRUMENTATION_HOOK_FILENAME;
+    },
+    MATCHED_PATH_HEADER: function() {
+        return MATCHED_PATH_HEADER;
     },
     MIDDLEWARE_FILENAME: function() {
         return MIDDLEWARE_FILENAME;
@@ -2356,6 +2360,7 @@ _export(exports, {
 });
 const NEXT_QUERY_PARAM_PREFIX = 'nxtP';
 const NEXT_INTERCEPTION_MARKER_PREFIX = 'nxtI';
+const MATCHED_PATH_HEADER = 'x-matched-path';
 const PRERENDER_REVALIDATE_HEADER = 'x-prerender-revalidate';
 const PRERENDER_REVALIDATE_ONLY_GENERATED_HEADER = 'x-prerender-revalidate-if-generated';
 const RSC_PREFETCH_SUFFIX = '.prefetch.rsc';
@@ -2423,7 +2428,7 @@ const SERVER_RUNTIME = {
    */ shared: 'shared',
     /**
    * The layer for server-only runtime and picking up `react-server` export conditions.
-   * Including app router RSC pages and app router custom routes.
+   * Including app router RSC pages and app router custom routes and metadata routes.
    */ reactServerComponents: 'rsc',
     /**
    * Server Side Rendering layer for app (ssr).
@@ -2445,23 +2450,18 @@ const SERVER_RUNTIME = {
    */ edgeAsset: 'edge-asset',
     /**
    * The browser client bundle layer for App directory.
-   */ appPagesBrowser: 'app-pages-browser',
-    /**
-   * The server bundle layer for metadata routes.
-   */ appMetadataRoute: 'app-metadata-route'
+   */ appPagesBrowser: 'app-pages-browser'
 };
 const WEBPACK_LAYERS = {
     ...WEBPACK_LAYERS_NAMES,
     GROUP: {
         builtinReact: [
             WEBPACK_LAYERS_NAMES.reactServerComponents,
-            WEBPACK_LAYERS_NAMES.actionBrowser,
-            WEBPACK_LAYERS_NAMES.appMetadataRoute
+            WEBPACK_LAYERS_NAMES.actionBrowser
         ],
         serverOnly: [
             WEBPACK_LAYERS_NAMES.reactServerComponents,
             WEBPACK_LAYERS_NAMES.actionBrowser,
-            WEBPACK_LAYERS_NAMES.appMetadataRoute,
             WEBPACK_LAYERS_NAMES.instrument,
             WEBPACK_LAYERS_NAMES.middleware
         ],
@@ -2476,7 +2476,6 @@ const WEBPACK_LAYERS = {
         bundled: [
             WEBPACK_LAYERS_NAMES.reactServerComponents,
             WEBPACK_LAYERS_NAMES.actionBrowser,
-            WEBPACK_LAYERS_NAMES.appMetadataRoute,
             WEBPACK_LAYERS_NAMES.serverSideRendering,
             WEBPACK_LAYERS_NAMES.appPagesBrowser,
             WEBPACK_LAYERS_NAMES.shared,
@@ -4502,6 +4501,19 @@ const _isplainobject = __turbopack_require__("[project]/node_modules/next/dist/s
 function isError(err) {
     return typeof err === 'object' && err !== null && 'name' in err && 'message' in err;
 }
+function safeStringify(obj) {
+    const seen = new WeakSet();
+    return JSON.stringify(obj, (_key, value)=>{
+        // If value is an object and already seen, replace with "[Circular]"
+        if (typeof value === 'object' && value !== null) {
+            if (seen.has(value)) {
+                return '[Circular]';
+            }
+            seen.add(value);
+        }
+        return value;
+    });
+}
 function getProperError(err) {
     if (isError(err)) {
         return err;
@@ -4516,7 +4528,7 @@ function getProperError(err) {
             return new Error('A null error was thrown, ' + 'see here for more info: https://nextjs.org/docs/messages/threw-undefined');
         }
     }
-    return new Error((0, _isplainobject.isPlainObject)(err) ? JSON.stringify(err) : err + '');
+    return new Error((0, _isplainobject.isPlainObject)(err) ? safeStringify(err) : err + '');
 } //# sourceMappingURL=is-error.js.map
 }}),
 "[project]/node_modules/next/dist/shared/lib/router/utils/sorted-routes.js [client] (ecmascript)": (function(__turbopack_context__) {
@@ -6639,6 +6651,7 @@ const _isbot = __turbopack_require__("[project]/node_modules/next/dist/shared/li
 const _omit = __turbopack_require__("[project]/node_modules/next/dist/shared/lib/router/utils/omit.js [client] (ecmascript)");
 const _interpolateas = __turbopack_require__("[project]/node_modules/next/dist/shared/lib/router/utils/interpolate-as.js [client] (ecmascript)");
 const _handlesmoothscroll = __turbopack_require__("[project]/node_modules/next/dist/shared/lib/router/utils/handle-smooth-scroll.js [client] (ecmascript)");
+const _constants = __turbopack_require__("[project]/node_modules/next/dist/lib/constants.js [client] (ecmascript)");
 function buildCancellationError() {
     return Object.assign(new Error('Route Cancelled'), {
         cancelled: true
@@ -6702,7 +6715,7 @@ function getMiddlewareData(source, response, options) {
     };
     const rewriteHeader = response.headers.get('x-nextjs-rewrite');
     let rewriteTarget = rewriteHeader || response.headers.get('x-nextjs-matched-path');
-    const matchedPath = response.headers.get('x-matched-path');
+    const matchedPath = response.headers.get(_constants.MATCHED_PATH_HEADER);
     if (matchedPath && !rewriteTarget && !matchedPath.includes('__next_data_catchall') && !matchedPath.includes('/_error') && !matchedPath.includes('/404')) {
         // leverage x-matched-path to detect next.config.js rewrites
         rewriteTarget = matchedPath;
@@ -7043,11 +7056,11 @@ class Router {
                     });
                     return new Promise(()=>{});
                 }
-                const routerFilterSValue = ("TURBOPACK compile-time value", JSON.parse('{"numItems":16,"errorRate":0.0001,"numBits":307,"numHashes":14,"bitArray":[0,1,1,0,0,1,1,0,0,1,0,0,0,0,0,1,0,1,1,0,0,0,1,0,1,0,0,0,0,0,1,1,0,1,0,0,1,0,0,0,0,0,1,1,1,0,1,0,1,1,1,0,0,0,0,1,0,0,0,0,1,0,0,1,1,0,1,0,0,1,0,0,0,1,1,1,0,1,0,1,0,1,0,0,0,0,0,0,1,1,1,1,1,0,1,1,1,1,1,1,0,0,0,1,0,0,1,0,0,1,1,1,0,0,0,0,1,1,0,0,1,0,0,0,0,1,1,0,1,1,1,0,1,0,0,0,1,0,1,0,0,1,0,1,1,1,1,0,1,1,0,1,0,1,0,0,1,0,0,0,1,1,1,1,0,0,0,1,0,1,0,1,1,0,0,1,1,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,0,1,1,1,1,0,0,1,1,1,0,1,0,1,0,0,0,0,0,0,0,0,1,0,1,0,1,1,0,0,1,1,0,1,0,0,1,0,1,1,0,1,1,1,1,1,0,1,1,1,1,1,0,1,1,1,0,1,0,0,0,0,0,1,0,0,0,0,0,1,0,1,0,1,0,1,0,0,0,0,1,1,0,0,1,0,1,0,1,0,1,1,0,0,1,1,1,0]}'));
+                const routerFilterSValue = ("TURBOPACK compile-time value", JSON.parse('{"numItems":18,"errorRate":0.0001,"numBits":346,"numHashes":14,"bitArray":[1,0,0,0,0,1,0,0,1,1,1,1,0,1,0,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,0,0,1,0,0,0,1,0,1,1,1,0,0,1,0,1,1,0,1,0,1,0,0,0,0,0,1,1,1,1,0,1,0,1,0,1,1,0,0,0,0,0,1,1,0,0,0,0,0,1,0,1,0,0,1,0,1,1,0,1,1,0,1,1,0,0,1,1,1,0,1,0,0,1,0,0,1,1,1,1,1,0,1,1,1,0,0,1,1,0,1,0,0,0,0,0,0,0,0,1,1,0,0,0,1,0,1,1,1,1,1,0,1,0,1,0,1,0,1,1,1,0,0,0,1,1,1,0,0,0,0,1,1,0,1,0,1,0,0,0,1,1,1,0,1,1,1,0,0,1,0,1,1,0,0,1,0,1,1,1,0,1,1,1,1,1,0,1,0,1,1,1,1,0,1,1,0,0,0,0,0,1,0,0,1,0,1,1,0,0,1,0,0,0,1,1,1,0,0,0,0,1,1,0,1,1,0,1,1,1,1,1,0,1,1,1,0,1,1,1,1,1,0,1,0,0,1,1,0,1,0,0,1,0,0,0,1,1,0,1,0,1,1,0,1,0,1,0,1,1,1,1,1,0,1,0,1,0,1,1,0,0,1,0,0,1,0,1,1,1,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,1,1,0,0,1,1,1,1,0,0,1,1,1,1,0,0,1,1,1,0,0,1,1,1,0,1,0,1]}'));
                 if (!staticFilterData && routerFilterSValue) {
                     staticFilterData = routerFilterSValue ? routerFilterSValue : undefined;
                 }
-                const routerFilterDValue = ("TURBOPACK compile-time value", JSON.parse('{"numItems":1,"errorRate":0.0001,"numBits":20,"numHashes":14,"bitArray":[1,0,1,0,0,0,0,1,1,0,1,0,0,1,0,1,1,1,1,0]}'));
+                const routerFilterDValue = ("TURBOPACK compile-time value", JSON.parse('{"numItems":0,"errorRate":0.0001,"numBits":0,"numHashes":null,"bitArray":[]}'));
                 if (!dynamicFilterData && routerFilterDValue) {
                     dynamicFilterData = routerFilterDValue ? routerFilterDValue : undefined;
                 }
@@ -8380,19 +8393,21 @@ const RouteAnnouncer = ()=>{
     // inspired by Marcy Sutton’s accessible client routing user testing. More
     // information can be found here:
     // https://www.gatsbyjs.com/blog/2019-07-11-user-testing-accessible-client-routing/
-    _react.default.useEffect(()=>{
-        // If the path hasn't change, we do nothing.
-        if (previouslyLoadedPath.current === asPath) return;
-        previouslyLoadedPath.current = asPath;
-        if (document.title) {
-            setRouteAnnouncement(document.title);
-        } else {
-            const pageHeader = document.querySelector('h1');
-            var _pageHeader_innerText;
-            const content = (_pageHeader_innerText = pageHeader == null ? void 0 : pageHeader.innerText) != null ? _pageHeader_innerText : pageHeader == null ? void 0 : pageHeader.textContent;
-            setRouteAnnouncement(content || asPath);
+    _react.default.useEffect({
+        "RouteAnnouncer.useEffect": ()=>{
+            // If the path hasn't change, we do nothing.
+            if (previouslyLoadedPath.current === asPath) return;
+            previouslyLoadedPath.current = asPath;
+            if (document.title) {
+                setRouteAnnouncement(document.title);
+            } else {
+                const pageHeader = document.querySelector('h1');
+                var _pageHeader_innerText;
+                const content = (_pageHeader_innerText = pageHeader == null ? void 0 : pageHeader.innerText) != null ? _pageHeader_innerText : pageHeader == null ? void 0 : pageHeader.textContent;
+                setRouteAnnouncement(content || asPath);
+            }
         }
-    }, [
+    }["RouteAnnouncer.useEffect"], [
         asPath
     ]);
     return /*#__PURE__*/ (0, _jsxruntime.jsx)("p", {
@@ -8851,6 +8866,7 @@ const _react = /*#__PURE__*/ _interop_require_default._(__turbopack_require__("[
 const _iserror = /*#__PURE__*/ _interop_require_default._(__turbopack_require__("[project]/node_modules/next/dist/lib/is-error.js [client] (ecmascript)"));
 const REACT_ERROR_STACK_BOTTOM_FRAME = 'react-stack-bottom-frame';
 const REACT_ERROR_STACK_BOTTOM_FRAME_REGEX = new RegExp("(at " + REACT_ERROR_STACK_BOTTOM_FRAME + " )|(" + REACT_ERROR_STACK_BOTTOM_FRAME + "\\@)");
+const captureOwnerStack = _react.default.captureOwnerStack ? _react.default.captureOwnerStack : ()=>'';
 function getReactStitchedError(err) {
     if (typeof _react.default.captureOwnerStack !== 'function') {
         return err;
@@ -8868,13 +8884,18 @@ function getReactStitchedError(err) {
     Object.assign(newError, err);
     newError.stack = newStack;
     // Avoid duplicate overriding stack frames
-    const ownerStack = _react.default.captureOwnerStack();
-    if (ownerStack && newStack.endsWith(ownerStack) === false) {
-        newStack += ownerStack;
-        // Override stack
-        newError.stack = newStack;
-    }
+    appendOwnerStack(newError);
     return newError;
+}
+function appendOwnerStack(error) {
+    let stack = error.stack || '';
+    // Avoid duplicate overriding stack frames
+    const ownerStack = captureOwnerStack();
+    if (ownerStack && stack.endsWith(ownerStack) === false) {
+        stack += ownerStack;
+        // Override stack
+        error.stack = stack;
+    }
 }
 if ((typeof exports.default === 'function' || typeof exports.default === 'object' && exports.default !== null) && typeof exports.default.__esModule === 'undefined') {
     Object.defineProperty(exports.default, '__esModule', {
@@ -8900,17 +8921,21 @@ Object.defineProperty(exports, "onRecoverableError", {
         return onRecoverableError;
     }
 });
+const _interop_require_default = __turbopack_require__("[project]/node_modules/@swc/helpers/cjs/_interop_require_default.cjs [client] (ecmascript)");
 const _bailouttocsr = __turbopack_require__("[project]/node_modules/next/dist/shared/lib/lazy-dynamic/bailout-to-csr.js [client] (ecmascript)");
 const _reportglobalerror = __turbopack_require__("[project]/node_modules/next/dist/client/react-client-callbacks/report-global-error.js [client] (ecmascript)");
 const _stitchederror = __turbopack_require__("[project]/node_modules/next/dist/client/components/react-dev-overlay/internal/helpers/stitched-error.js [client] (ecmascript)");
-const onRecoverableError = (err, errorInfo)=>{
-    const stitchedError = (0, _stitchederror.getReactStitchedError)(err);
+const _iserror = /*#__PURE__*/ _interop_require_default._(__turbopack_require__("[project]/node_modules/next/dist/lib/is-error.js [client] (ecmascript)"));
+const onRecoverableError = (error, errorInfo)=>{
+    // x-ref: https://github.com/facebook/react/pull/28736
+    const cause = (0, _iserror.default)(error) && 'cause' in error ? error.cause : error;
+    const stitchedError = (0, _stitchederror.getReactStitchedError)(cause);
     // In development mode, pass along the component stack to the error
     if (("TURBOPACK compile-time value", "development") === 'development' && errorInfo.componentStack) {
         stitchedError._componentStack = errorInfo.componentStack;
     }
     // Skip certain custom errors which are not expected to be reported on client
-    if ((0, _bailouttocsr.isBailoutToCSRError)(err)) return;
+    if ((0, _bailouttocsr.isBailoutToCSRError)(cause)) return;
     (0, _reportglobalerror.reportGlobalError)(stitchedError);
 };
 if ((typeof exports.default === 'function' || typeof exports.default === 'object' && exports.default !== null) && typeof exports.default.__esModule === 'undefined') {
@@ -10462,20 +10487,24 @@ function ShadowPortal(param) {
     let portalNode = _react.useRef(null);
     let shadowNode = _react.useRef(null);
     let [, forceUpdate] = _react.useState();
-    _react.useLayoutEffect(()=>{
-        const ownerDocument = document;
-        portalNode.current = ownerDocument.createElement('nextjs-portal');
-        shadowNode.current = portalNode.current.attachShadow({
-            mode: 'open'
-        });
-        ownerDocument.body.appendChild(portalNode.current);
-        forceUpdate({});
-        return ()=>{
-            if (portalNode.current && portalNode.current.ownerDocument) {
-                portalNode.current.ownerDocument.body.removeChild(portalNode.current);
-            }
-        };
-    }, []);
+    _react.useLayoutEffect({
+        "ShadowPortal.useLayoutEffect": ()=>{
+            const ownerDocument = document;
+            portalNode.current = ownerDocument.createElement('nextjs-portal');
+            shadowNode.current = portalNode.current.attachShadow({
+                mode: 'open'
+            });
+            ownerDocument.body.appendChild(portalNode.current);
+            forceUpdate({});
+            return ({
+                "ShadowPortal.useLayoutEffect": ()=>{
+                    if (portalNode.current && portalNode.current.ownerDocument) {
+                        portalNode.current.ownerDocument.body.removeChild(portalNode.current);
+                    }
+                }
+            })["ShadowPortal.useLayoutEffect"];
+        }
+    }["ShadowPortal.useLayoutEffect"], []);
     return shadowNode.current ? /*#__PURE__*/ (0, _reactdom.createPortal)(children, shadowNode.current) : null;
 }
 if ((typeof exports.default === 'function' || typeof exports.default === 'object' && exports.default !== null) && typeof exports.default.__esModule === 'undefined') {
@@ -10503,27 +10532,33 @@ Object.defineProperty(exports, "useOnClickOutside", {
 const _interop_require_wildcard = __turbopack_require__("[project]/node_modules/@swc/helpers/cjs/_interop_require_wildcard.cjs [client] (ecmascript)");
 const _react = /*#__PURE__*/ _interop_require_wildcard._(__turbopack_require__("[project]/node_modules/react/index.js [client] (ecmascript)"));
 function useOnClickOutside(el, handler) {
-    _react.useEffect(()=>{
-        if (el == null || handler == null) {
-            return;
-        }
-        const listener = (e)=>{
-            // Do nothing if clicking ref's element or descendent elements
-            if (!el || el.contains(e.target)) {
+    _react.useEffect({
+        "useOnClickOutside.useEffect": ()=>{
+            if (el == null || handler == null) {
                 return;
             }
-            handler(e);
-        };
-        const root = el.getRootNode();
-        root.addEventListener('mousedown', listener);
-        root.addEventListener('touchstart', listener, {
-            passive: false
-        });
-        return function() {
-            root.removeEventListener('mousedown', listener);
-            root.removeEventListener('touchstart', listener);
-        };
-    }, [
+            const listener = {
+                "useOnClickOutside.useEffect.listener": (e)=>{
+                    // Do nothing if clicking ref's element or descendent elements
+                    if (!el || el.contains(e.target)) {
+                        return;
+                    }
+                    handler(e);
+                }
+            }["useOnClickOutside.useEffect.listener"];
+            const root = el.getRootNode();
+            root.addEventListener('mousedown', listener);
+            root.addEventListener('touchstart', listener, {
+                passive: false
+            });
+            return ({
+                "useOnClickOutside.useEffect": function() {
+                    root.removeEventListener('mousedown', listener);
+                    root.removeEventListener('touchstart', listener);
+                }
+            })["useOnClickOutside.useEffect"];
+        }
+    }["useOnClickOutside.useEffect"], [
         handler,
         el
     ]);
@@ -10558,47 +10593,53 @@ const Dialog = function Dialog(param) {
     let { children, type, onClose, ...props } = param;
     const [dialog, setDialog] = _react.useState(null);
     const [role, setRole] = _react.useState(typeof document !== 'undefined' && document.hasFocus() ? 'dialog' : undefined);
-    const onDialog = _react.useCallback((node)=>{
-        setDialog(node);
-    }, []);
+    const onDialog = _react.useCallback({
+        "Dialog.useCallback[onDialog]": (node)=>{
+            setDialog(node);
+        }
+    }["Dialog.useCallback[onDialog]"], []);
     (0, _useonclickoutside.useOnClickOutside)(dialog, (e)=>{
         e.preventDefault();
         return onClose == null ? void 0 : onClose();
     });
     // Make HTMLElements with `role=link` accessible to be triggered by the
     // keyboard, i.e. [Enter].
-    _react.useEffect(()=>{
-        if (dialog == null) {
-            return;
-        }
-        const root = dialog.getRootNode();
-        // Always true, but we do this for TypeScript:
-        if (!(root instanceof ShadowRoot)) {
-            return;
-        }
-        const shadowRoot = root;
-        function handler(e) {
-            const el = shadowRoot.activeElement;
-            if (e.key === 'Enter' && el instanceof HTMLElement && el.getAttribute('role') === 'link') {
-                e.preventDefault();
-                e.stopPropagation();
-                el.click();
+    _react.useEffect({
+        "Dialog.useEffect": ()=>{
+            if (dialog == null) {
+                return;
             }
+            const root = dialog.getRootNode();
+            // Always true, but we do this for TypeScript:
+            if (!(root instanceof ShadowRoot)) {
+                return;
+            }
+            const shadowRoot = root;
+            function handler(e) {
+                const el = shadowRoot.activeElement;
+                if (e.key === 'Enter' && el instanceof HTMLElement && el.getAttribute('role') === 'link') {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    el.click();
+                }
+            }
+            function handleFocus() {
+                // safari will force itself as the active application when a background page triggers any sort of autofocus
+                // this is a workaround to only set the dialog role if the document has focus
+                setRole(document.hasFocus() ? 'dialog' : undefined);
+            }
+            shadowRoot.addEventListener('keydown', handler);
+            window.addEventListener('focus', handleFocus);
+            window.addEventListener('blur', handleFocus);
+            return ({
+                "Dialog.useEffect": ()=>{
+                    shadowRoot.removeEventListener('keydown', handler);
+                    window.removeEventListener('focus', handleFocus);
+                    window.removeEventListener('blur', handleFocus);
+                }
+            })["Dialog.useEffect"];
         }
-        function handleFocus() {
-            // safari will force itself as the active application when a background page triggers any sort of autofocus
-            // this is a workaround to only set the dialog role if the document has focus
-            setRole(document.hasFocus() ? 'dialog' : undefined);
-        }
-        shadowRoot.addEventListener('keydown', handler);
-        window.addEventListener('focus', handleFocus);
-        window.addEventListener('blur', handleFocus);
-        return ()=>{
-            shadowRoot.removeEventListener('keydown', handler);
-            window.removeEventListener('focus', handleFocus);
-            window.removeEventListener('blur', handleFocus);
-        };
-    }, [
+    }["Dialog.useEffect"], [
         dialog
     ]);
     return /*#__PURE__*/ (0, _jsxruntime.jsxs)("div", {
@@ -14571,27 +14612,37 @@ const _react = /*#__PURE__*/ _interop_require_wildcard._(__turbopack_require__("
 const _bodylocker = __turbopack_require__("[project]/node_modules/next/dist/client/components/react-dev-overlay/internal/components/Overlay/body-locker.js [client] (ecmascript)");
 const Overlay = function Overlay(param) {
     let { className, children, fixed } = param;
-    _react.useEffect(()=>{
-        (0, _bodylocker.lock)();
-        return ()=>{
-            (0, _bodylocker.unlock)();
-        };
-    }, []);
-    const [overlay, setOverlay] = _react.useState(null);
-    const onOverlay = _react.useCallback((el)=>{
-        setOverlay(el);
-    }, []);
-    _react.useEffect(()=>{
-        if (overlay == null) {
-            return;
+    _react.useEffect({
+        "Overlay.useEffect": ()=>{
+            (0, _bodylocker.lock)();
+            return ({
+                "Overlay.useEffect": ()=>{
+                    (0, _bodylocker.unlock)();
+                }
+            })["Overlay.useEffect"];
         }
-        const handle2 = (0, _maintaintabfocus.default)({
-            context: overlay
-        });
-        return ()=>{
-            handle2.disengage();
-        };
-    }, [
+    }["Overlay.useEffect"], []);
+    const [overlay, setOverlay] = _react.useState(null);
+    const onOverlay = _react.useCallback({
+        "Overlay.useCallback[onOverlay]": (el)=>{
+            setOverlay(el);
+        }
+    }["Overlay.useCallback[onOverlay]"], []);
+    _react.useEffect({
+        "Overlay.useEffect": ()=>{
+            if (overlay == null) {
+                return;
+            }
+            const handle2 = (0, _maintaintabfocus.default)({
+                context: overlay
+            });
+            return ({
+                "Overlay.useEffect": ()=>{
+                    handle2.disengage();
+                }
+            })["Overlay.useEffect"];
+        }
+    }["Overlay.useEffect"], [
         overlay
     ]);
     return /*#__PURE__*/ (0, _jsxruntime.jsxs)("div", {
@@ -15469,16 +15520,20 @@ function getEditorLinks(content) {
 }
 const Terminal = function Terminal(param) {
     let { content } = param;
-    const { file, source, importTraceFiles } = _react.useMemo(()=>getEditorLinks(content), [
+    const { file, source, importTraceFiles } = _react.useMemo({
+        "Terminal.useMemo": ()=>getEditorLinks(content)
+    }["Terminal.useMemo"], [
         content
     ]);
-    const decoded = _react.useMemo(()=>{
-        return _anser.default.ansiToJson(source, {
-            json: true,
-            use_classes: true,
-            remove_empty: true
-        });
-    }, [
+    const decoded = _react.useMemo({
+        "Terminal.useMemo[decoded]": ()=>{
+            return _anser.default.ansiToJson(source, {
+                json: true,
+                use_classes: true,
+                remove_empty: true
+            });
+        }
+    }["Terminal.useMemo[decoded]"], [
         source
     ]);
     return /*#__PURE__*/ (0, _jsxruntime.jsxs)("div", {
@@ -15768,7 +15823,9 @@ function _templateObject() {
 }
 const BuildError = function BuildError(param) {
     let { message, versionInfo } = param;
-    const noop = _react.useCallback(()=>{}, []);
+    const noop = _react.useCallback({
+        "BuildError.useCallback[noop]": ()=>{}
+    }["BuildError.useCallback[noop]"], []);
     return /*#__PURE__*/ (0, _jsxruntime.jsx)(_Overlay.Overlay, {
         fixed: true,
         children: /*#__PURE__*/ (0, _jsxruntime.jsx)(_Dialog.Dialog, {
@@ -15900,54 +15957,60 @@ const LeftRightDialogHeader = function LeftRightDialogHeader(param) {
     const buttonRight = _react.useRef(null);
     const buttonClose = _react.useRef(null);
     const [nav, setNav] = _react.useState(null);
-    const onNav = _react.useCallback((el)=>{
-        setNav(el);
-    }, []);
-    _react.useEffect(()=>{
-        if (nav == null) {
-            return;
+    const onNav = _react.useCallback({
+        "LeftRightDialogHeader.useCallback[onNav]": (el)=>{
+            setNav(el);
         }
-        const root = nav.getRootNode();
-        const d = self.document;
-        function handler(e) {
-            if (e.key === 'ArrowLeft') {
-                e.preventDefault();
-                e.stopPropagation();
-                if (buttonLeft.current) {
-                    buttonLeft.current.focus();
+    }["LeftRightDialogHeader.useCallback[onNav]"], []);
+    _react.useEffect({
+        "LeftRightDialogHeader.useEffect": ()=>{
+            if (nav == null) {
+                return;
+            }
+            const root = nav.getRootNode();
+            const d = self.document;
+            function handler(e) {
+                if (e.key === 'ArrowLeft') {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    if (buttonLeft.current) {
+                        buttonLeft.current.focus();
+                    }
+                    previous && previous();
+                } else if (e.key === 'ArrowRight') {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    if (buttonRight.current) {
+                        buttonRight.current.focus();
+                    }
+                    next && next();
+                } else if (e.key === 'Escape') {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    if (root instanceof ShadowRoot) {
+                        const a = root.activeElement;
+                        if (a && a !== buttonClose.current && a instanceof HTMLElement) {
+                            a.blur();
+                            return;
+                        }
+                    }
+                    close == null ? void 0 : close();
                 }
-                previous && previous();
-            } else if (e.key === 'ArrowRight') {
-                e.preventDefault();
-                e.stopPropagation();
-                if (buttonRight.current) {
-                    buttonRight.current.focus();
-                }
-                next && next();
-            } else if (e.key === 'Escape') {
-                e.preventDefault();
-                e.stopPropagation();
-                if (root instanceof ShadowRoot) {
-                    const a = root.activeElement;
-                    if (a && a !== buttonClose.current && a instanceof HTMLElement) {
-                        a.blur();
-                        return;
+            }
+            root.addEventListener('keydown', handler);
+            if (root !== d) {
+                d.addEventListener('keydown', handler);
+            }
+            return ({
+                "LeftRightDialogHeader.useEffect": function() {
+                    root.removeEventListener('keydown', handler);
+                    if (root !== d) {
+                        d.removeEventListener('keydown', handler);
                     }
                 }
-                close == null ? void 0 : close();
-            }
+            })["LeftRightDialogHeader.useEffect"];
         }
-        root.addEventListener('keydown', handler);
-        if (root !== d) {
-            d.addEventListener('keydown', handler);
-        }
-        return function() {
-            root.removeEventListener('keydown', handler);
-            if (root !== d) {
-                d.removeEventListener('keydown', handler);
-            }
-        };
-    }, [
+    }["LeftRightDialogHeader.useEffect"], [
         close,
         nav,
         next,
@@ -15955,25 +16018,27 @@ const LeftRightDialogHeader = function LeftRightDialogHeader(param) {
     ]);
     // Unlock focus for browsers like Firefox, that break all user focus if the
     // currently focused item becomes disabled.
-    _react.useEffect(()=>{
-        if (nav == null) {
-            return;
-        }
-        const root = nav.getRootNode();
-        // Always true, but we do this for TypeScript:
-        if (root instanceof ShadowRoot) {
-            const a = root.activeElement;
-            if (previous == null) {
-                if (buttonLeft.current && a === buttonLeft.current) {
-                    buttonLeft.current.blur();
-                }
-            } else if (next == null) {
-                if (buttonRight.current && a === buttonRight.current) {
-                    buttonRight.current.blur();
+    _react.useEffect({
+        "LeftRightDialogHeader.useEffect": ()=>{
+            if (nav == null) {
+                return;
+            }
+            const root = nav.getRootNode();
+            // Always true, but we do this for TypeScript:
+            if (root instanceof ShadowRoot) {
+                const a = root.activeElement;
+                if (previous == null) {
+                    if (buttonLeft.current && a === buttonLeft.current) {
+                        buttonLeft.current.blur();
+                    }
+                } else if (next == null) {
+                    if (buttonRight.current && a === buttonRight.current) {
+                        buttonRight.current.blur();
+                    }
                 }
             }
         }
-    }, [
+    }["LeftRightDialogHeader.useEffect"], [
         nav,
         next,
         previous
@@ -16308,26 +16373,38 @@ const _hotlinkedtext = __turbopack_require__("[project]/node_modules/next/dist/c
 const CodeFrame = function CodeFrame(param) {
     let { stackFrame, codeFrame } = param;
     // Strip leading spaces out of the code frame:
-    const formattedFrame = _react.useMemo(()=>{
-        const lines = codeFrame.split(/\r?\n/g);
-        // Find the minimum length of leading spaces after `|` in the code frame
-        const miniLeadingSpacesLength = lines.map((line)=>/^>? +\d+ +\| [ ]+/.exec((0, _stripansi.default)(line)) === null ? null : /^>? +\d+ +\| ( *)/.exec((0, _stripansi.default)(line))).filter(Boolean).map((v)=>v.pop()).reduce((c, n)=>isNaN(c) ? n.length : Math.min(c, n.length), NaN);
-        // When the minimum length of leading spaces is greater than 1, remove them
-        // from the code frame to help the indentation looks better when there's a lot leading spaces.
-        if (miniLeadingSpacesLength > 1) {
-            return lines.map((line, a)=>~(a = line.indexOf('|')) ? line.substring(0, a) + line.substring(a).replace("^\\ {" + miniLeadingSpacesLength + "}", '') : line).join('\n');
+    const formattedFrame = _react.useMemo({
+        "CodeFrame.useMemo[formattedFrame]": ()=>{
+            const lines = codeFrame.split(/\r?\n/g);
+            // Find the minimum length of leading spaces after `|` in the code frame
+            const miniLeadingSpacesLength = lines.map({
+                "CodeFrame.useMemo[formattedFrame].miniLeadingSpacesLength": (line)=>/^>? +\d+ +\| [ ]+/.exec((0, _stripansi.default)(line)) === null ? null : /^>? +\d+ +\| ( *)/.exec((0, _stripansi.default)(line))
+            }["CodeFrame.useMemo[formattedFrame].miniLeadingSpacesLength"]).filter(Boolean).map({
+                "CodeFrame.useMemo[formattedFrame].miniLeadingSpacesLength": (v)=>v.pop()
+            }["CodeFrame.useMemo[formattedFrame].miniLeadingSpacesLength"]).reduce({
+                "CodeFrame.useMemo[formattedFrame].miniLeadingSpacesLength": (c, n)=>isNaN(c) ? n.length : Math.min(c, n.length)
+            }["CodeFrame.useMemo[formattedFrame].miniLeadingSpacesLength"], NaN);
+            // When the minimum length of leading spaces is greater than 1, remove them
+            // from the code frame to help the indentation looks better when there's a lot leading spaces.
+            if (miniLeadingSpacesLength > 1) {
+                return lines.map({
+                    "CodeFrame.useMemo[formattedFrame]": (line, a)=>~(a = line.indexOf('|')) ? line.substring(0, a) + line.substring(a).replace("^\\ {" + miniLeadingSpacesLength + "}", '') : line
+                }["CodeFrame.useMemo[formattedFrame]"]).join('\n');
+            }
+            return lines.join('\n');
         }
-        return lines.join('\n');
-    }, [
+    }["CodeFrame.useMemo[formattedFrame]"], [
         codeFrame
     ]);
-    const decoded = _react.useMemo(()=>{
-        return _anser.default.ansiToJson(formattedFrame, {
-            json: true,
-            use_classes: true,
-            remove_empty: true
-        });
-    }, [
+    const decoded = _react.useMemo({
+        "CodeFrame.useMemo[decoded]": ()=>{
+            return _anser.default.ansiToJson(formattedFrame, {
+                json: true,
+                use_classes: true,
+                remove_empty: true
+            });
+        }
+    }["CodeFrame.useMemo[decoded]"], [
         formattedFrame
     ]);
     const open = (0, _useopenineditor.useOpenInEditor)({
@@ -16858,31 +16935,41 @@ function _templateObject() {
 }
 function RuntimeError(param) {
     let { error } = param;
-    const { firstFrame, allLeadingFrames, allCallStackFrames } = _react.useMemo(()=>{
-        const filteredFrames = error.frames // Filter out nodejs internal frames since you can't do anything about them.
-        // e.g. node:internal/timers shows up pretty often due to timers, but not helpful to users.
-        // Only present the last line before nodejs internal trace.
-        .filter((f)=>{
-            var _f_sourceStackFrame_file;
-            return !((_f_sourceStackFrame_file = f.sourceStackFrame.file) == null ? void 0 : _f_sourceStackFrame_file.startsWith('node:'));
-        });
-        const firstFirstPartyFrameIndex = filteredFrames.findIndex((entry)=>entry.expanded && Boolean(entry.originalCodeFrame) && Boolean(entry.originalStackFrame));
-        var _filteredFrames_firstFirstPartyFrameIndex;
-        return {
-            firstFrame: (_filteredFrames_firstFirstPartyFrameIndex = filteredFrames[firstFirstPartyFrameIndex]) != null ? _filteredFrames_firstFirstPartyFrameIndex : null,
-            allLeadingFrames: firstFirstPartyFrameIndex < 0 ? [] : filteredFrames.slice(0, firstFirstPartyFrameIndex),
-            allCallStackFrames: filteredFrames.slice(firstFirstPartyFrameIndex + 1)
-        };
-    }, [
+    const { firstFrame, allLeadingFrames, allCallStackFrames } = _react.useMemo({
+        "RuntimeError.useMemo": ()=>{
+            const filteredFrames = error.frames // Filter out nodejs internal frames since you can't do anything about them.
+            // e.g. node:internal/timers shows up pretty often due to timers, but not helpful to users.
+            // Only present the last line before nodejs internal trace.
+            .filter({
+                "RuntimeError.useMemo.filteredFrames": (f)=>{
+                    var _f_sourceStackFrame_file;
+                    return !((_f_sourceStackFrame_file = f.sourceStackFrame.file) == null ? void 0 : _f_sourceStackFrame_file.startsWith('node:'));
+                }
+            }["RuntimeError.useMemo.filteredFrames"]);
+            const firstFirstPartyFrameIndex = filteredFrames.findIndex({
+                "RuntimeError.useMemo.firstFirstPartyFrameIndex": (entry)=>entry.expanded && Boolean(entry.originalCodeFrame) && Boolean(entry.originalStackFrame)
+            }["RuntimeError.useMemo.firstFirstPartyFrameIndex"]);
+            var _filteredFrames_firstFirstPartyFrameIndex;
+            return {
+                firstFrame: (_filteredFrames_firstFirstPartyFrameIndex = filteredFrames[firstFirstPartyFrameIndex]) != null ? _filteredFrames_firstFirstPartyFrameIndex : null,
+                allLeadingFrames: firstFirstPartyFrameIndex < 0 ? [] : filteredFrames.slice(0, firstFirstPartyFrameIndex),
+                allCallStackFrames: filteredFrames.slice(firstFirstPartyFrameIndex + 1)
+            };
+        }
+    }["RuntimeError.useMemo"], [
         error.frames
     ]);
-    const { leadingFramesGroupedByFramework, stackFramesGroupedByFramework } = _react.useMemo(()=>{
-        const leadingFrames = allLeadingFrames.filter((f)=>f.expanded);
-        return {
-            stackFramesGroupedByFramework: (0, _groupstackframesbyframework.groupStackFramesByFramework)(allCallStackFrames),
-            leadingFramesGroupedByFramework: (0, _groupstackframesbyframework.groupStackFramesByFramework)(leadingFrames)
-        };
-    }, [
+    const { leadingFramesGroupedByFramework, stackFramesGroupedByFramework } = _react.useMemo({
+        "RuntimeError.useMemo": ()=>{
+            const leadingFrames = allLeadingFrames.filter({
+                "RuntimeError.useMemo.leadingFrames": (f)=>f.expanded
+            }["RuntimeError.useMemo.leadingFrames"]);
+            return {
+                stackFramesGroupedByFramework: (0, _groupstackframesbyframework.groupStackFramesByFramework)(allCallStackFrames),
+                leadingFramesGroupedByFramework: (0, _groupstackframesbyframework.groupStackFramesByFramework)(leadingFrames)
+            };
+        }
+    }["RuntimeError.useMemo"], [
         allCallStackFrames,
         allLeadingFrames
     ]);
@@ -17191,30 +17278,32 @@ const _react = /*#__PURE__*/ _interop_require_wildcard._(__turbopack_require__("
 function useCopyLegacy(content) {
     // This would be simpler with useActionState but we need to support React 18 here.
     // React 18 also doesn't have async transitions.
-    const [copyState, dispatch] = _react.useReducer((state, action)=>{
-        if (action.type === 'reset') {
-            return {
-                state: 'initial'
-            };
+    const [copyState, dispatch] = _react.useReducer({
+        "useCopyLegacy.useReducer": (state, action)=>{
+            if (action.type === 'reset') {
+                return {
+                    state: 'initial'
+                };
+            }
+            if (action.type === 'copied') {
+                return {
+                    state: 'success'
+                };
+            }
+            if (action.type === 'copying') {
+                return {
+                    state: 'pending'
+                };
+            }
+            if (action.type === 'error') {
+                return {
+                    state: 'error',
+                    error: action.error
+                };
+            }
+            return state;
         }
-        if (action.type === 'copied') {
-            return {
-                state: 'success'
-            };
-        }
-        if (action.type === 'copying') {
-            return {
-                state: 'pending'
-            };
-        }
-        if (action.type === 'error') {
-            return {
-                state: 'error',
-                error: action.error
-            };
-        }
-        return state;
-    }, {
+    }["useCopyLegacy.useReducer"], {
         state: 'initial'
     });
     function copy() {
@@ -17242,11 +17331,13 @@ function useCopyLegacy(content) {
             });
         }
     }
-    const reset = _react.useCallback(()=>{
-        dispatch({
-            type: 'reset'
-        });
-    }, []);
+    const reset = _react.useCallback({
+        "useCopyLegacy.useCallback[reset]": ()=>{
+            dispatch({
+                type: 'reset'
+            });
+        }
+    }["useCopyLegacy.useCallback[reset]"], []);
     const isPending = copyState.state === 'pending';
     return [
         copyState,
@@ -17256,32 +17347,38 @@ function useCopyLegacy(content) {
     ];
 }
 function useCopyModern(content) {
-    const [copyState, dispatch, isPending] = _react.useActionState((state, action)=>{
-        if (action === 'reset') {
-            return {
-                state: 'initial'
-            };
-        }
-        if (action === 'copy') {
-            if (!navigator.clipboard) {
+    const [copyState, dispatch, isPending] = _react.useActionState({
+        "useCopyModern.useActionState": (state, action)=>{
+            if (action === 'reset') {
                 return {
-                    state: 'error',
-                    error: new Error('Copy to clipboard is not supported in this browser')
+                    state: 'initial'
                 };
             }
-            return navigator.clipboard.writeText(content).then(()=>{
-                return {
-                    state: 'success'
-                };
-            }, (error)=>{
-                return {
-                    state: 'error',
-                    error
-                };
-            });
+            if (action === 'copy') {
+                if (!navigator.clipboard) {
+                    return {
+                        state: 'error',
+                        error: new Error('Copy to clipboard is not supported in this browser')
+                    };
+                }
+                return navigator.clipboard.writeText(content).then({
+                    "useCopyModern.useActionState": ()=>{
+                        return {
+                            state: 'success'
+                        };
+                    }
+                }["useCopyModern.useActionState"], {
+                    "useCopyModern.useActionState": (error)=>{
+                        return {
+                            state: 'error',
+                            error
+                        };
+                    }
+                }["useCopyModern.useActionState"]);
+            }
+            return state;
         }
-        return state;
-    }, {
+    }["useCopyModern.useActionState"], {
         state: 'initial'
     });
     function copy() {
@@ -17289,9 +17386,11 @@ function useCopyModern(content) {
             dispatch('copy');
         });
     }
-    const reset = _react.useCallback(()=>{
-        dispatch('reset');
-    }, [
+    const reset = _react.useCallback({
+        "useCopyModern.useCallback[reset]": ()=>{
+            dispatch('reset');
+        }
+    }["useCopyModern.useCallback[reset]"], [
         // TODO: `dispatch` from `useActionState` is not reactive.
         // Remove from dependencies once https://github.com/facebook/react/pull/29665 is released.
         dispatch
@@ -17308,24 +17407,32 @@ function CopyButton(param) {
     let { actionLabel, successLabel, content, icon, disabled, ...props } = param;
     const [copyState, copy, reset, isPending] = useCopy(content);
     const error = copyState.state === 'error' ? copyState.error : null;
-    _react.useEffect(()=>{
-        if (error !== null) {
-            // Additional console.error to get the stack.
-            console.error(error);
+    _react.useEffect({
+        "CopyButton.useEffect": ()=>{
+            if (error !== null) {
+                // Additional console.error to get the stack.
+                console.error(error);
+            }
         }
-    }, [
+    }["CopyButton.useEffect"], [
         error
     ]);
-    _react.useEffect(()=>{
-        if (copyState.state === 'success') {
-            const timeoutId = setTimeout(()=>{
-                reset();
-            }, 2000);
-            return ()=>{
-                clearTimeout(timeoutId);
-            };
+    _react.useEffect({
+        "CopyButton.useEffect": ()=>{
+            if (copyState.state === 'success') {
+                const timeoutId = setTimeout({
+                    "CopyButton.useEffect.timeoutId": ()=>{
+                        reset();
+                    }
+                }["CopyButton.useEffect.timeoutId"], 2000);
+                return ({
+                    "CopyButton.useEffect": ()=>{
+                        clearTimeout(timeoutId);
+                    }
+                })["CopyButton.useEffect"];
+            }
         }
-    }, [
+    }["CopyButton.useEffect"], [
         isPending,
         copyState.state,
         reset
@@ -18294,17 +18401,23 @@ const shouldPreventDisplay = (errorType, preventType)=>{
 function ReactDevOverlay(param) {
     let { children, preventDisplay, globalOverlay } = param;
     const [state, dispatch] = (0, _shared.useErrorOverlayReducer)();
-    _react.useEffect(()=>{
-        _bus.on(dispatch);
-        return function() {
-            _bus.off(dispatch);
-        };
-    }, [
+    _react.useEffect({
+        "ReactDevOverlay.useEffect": ()=>{
+            _bus.on(dispatch);
+            return ({
+                "ReactDevOverlay.useEffect": function() {
+                    _bus.off(dispatch);
+                }
+            })["ReactDevOverlay.useEffect"];
+        }
+    }["ReactDevOverlay.useEffect"], [
         dispatch
     ]);
-    const onComponentError = _react.useCallback((_error, _componentStack)=>{
-    // TODO: special handling
-    }, []);
+    const onComponentError = _react.useCallback({
+        "ReactDevOverlay.useCallback[onComponentError]": (_error, _componentStack)=>{
+        // TODO: special handling
+        }
+    }["ReactDevOverlay.useCallback[onComponentError]"], []);
     const hasBuildError = state.buildError != null;
     const hasRuntimeErrors = Boolean(state.errors.length);
     const errorType = hasBuildError ? 'build' : hasRuntimeErrors ? 'runtime' : null;
@@ -18596,7 +18709,7 @@ const _hooksclientcontextsharedruntime = __turbopack_require__("[project]/node_m
 const _shared = __turbopack_require__("[project]/node_modules/next/dist/client/react-client-callbacks/shared.js [client] (ecmascript)");
 const _tracer = /*#__PURE__*/ _interop_require_default._(__turbopack_require__("[project]/node_modules/next/dist/client/tracing/tracer.js [client] (ecmascript)"));
 const _reporttosocket = /*#__PURE__*/ _interop_require_default._(__turbopack_require__("[project]/node_modules/next/dist/client/tracing/report-to-socket.js [client] (ecmascript)"));
-const version = "15.0.2";
+const version = "15.0.3";
 let router;
 const emitter = (0, _mitt.default)();
 const looseToArray = (input)=>[].slice.call(input);
@@ -18725,9 +18838,11 @@ function renderApp(App, appProps) {
 function AppContainer(param) {
     let { children } = param;
     // Create a memoized value for next/navigation router context.
-    const adaptedForAppRouter = _react.default.useMemo(()=>{
-        return (0, _adapters.adaptForAppRouterInstance)(router);
-    }, []);
+    const adaptedForAppRouter = _react.default.useMemo({
+        "AppContainer.useMemo[adaptedForAppRouter]": ()=>{
+            return (0, _adapters.adaptForAppRouterInstance)(router);
+        }
+    }["AppContainer.useMemo[adaptedForAppRouter]"], []);
     var _self___NEXT_DATA___autoExport;
     return /*#__PURE__*/ (0, _jsxruntime.jsx)(Container, {
         fn: (error)=>// eslint-disable-next-line @typescript-eslint/no-use-before-define
@@ -18801,7 +18916,9 @@ function Head(param) {
     let { callback } = param;
     // We use `useLayoutEffect` to guarantee the callback is executed
     // as soon as React flushes the update.
-    _react.default.useLayoutEffect(()=>callback(), [
+    _react.default.useLayoutEffect({
+        "Head.useLayoutEffect": ()=>callback()
+    }["Head.useLayoutEffect"], [
         callback
     ]);
     return null;
@@ -18899,7 +19016,11 @@ function Root(param) {
     let { callbacks, children } = param;
     // We use `useLayoutEffect` to guarantee the callbacks are executed
     // as soon as React flushes the update
-    _react.default.useLayoutEffect(()=>callbacks.forEach((callback)=>callback()), [
+    _react.default.useLayoutEffect({
+        "Root.useLayoutEffect": ()=>callbacks.forEach({
+                "Root.useLayoutEffect": (callback)=>callback()
+            }["Root.useLayoutEffect"])
+    }["Root.useLayoutEffect"], [
         callbacks
     ]);
     if ("TURBOPACK compile-time falsy", 0) {

@@ -21,6 +21,9 @@ body {
 } */
  
 /* styles/globals.css */
+/* Inside your component or global CSS file */
+
+
 
 body {
   margin: 0;
@@ -30,6 +33,7 @@ body {
 
 html, body {
   height: 100%;
+  margin: 0;
 }
 
 .container {
@@ -39,7 +43,8 @@ html, body {
 
 .left-side {
   flex: 1;
-  background: url('https://wallpapers.com/images/hd/1920-x-1080-hd-1qq8r4pnn8cmcew4.jpg') no-repeat center center/cover;
+  /* background: url('https://wallpapers.com/images/hd/1920-x-1080-hd-1qq8r4pnn8cmcew4.jpg') no-repeat center center/cover; */
+
 }
 
 .right-side {
@@ -144,6 +149,48 @@ button:hover {
   opacity: 0;
   animation: fadeIn 2s forwards;
 }
+.scroll-container {
+  min-height: 100vh; /* Ensure this element takes up the full viewport height */
+  overflow-y: auto; /* Ensure scrolling */
+}
+
+/* Parallax Effect Wrapper */
+.parallax-wrapper {
+  position: relative;
+  overflow: hidden;
+  height: 100vh; /* The height of this section will take the full screen */
+  background-image: url('/image8.png'); /* Add your background image */
+  background-size: cover;
+  background-attachment: fixed; /* Parallax effect */
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Content inside Parallax Section */
+.content-scrollable {
+  position: relative;
+  z-index: 10; /* Keep content above the background */
+  padding: 60px 20px; /* Padding for spacing */
+  overflow-y: auto;
+  height: 100%; /* Make content scrollable */
+}
+
+/* Optional: Adding a smooth scrolling effect */
+.content-scrollable {
+  scroll-behavior: smooth;
+}
+
+.social-icon {
+  background: white;
+  color: #1a202c;
+  padding: 10px;
+  border-radius: 50%;
+  transition: all 0.3s ease-in-out;
+}
+.social-icon:hover {
+  color: white;
+  background: #3182ce;
+}
 
 @keyframes fadeIn {
   from {
@@ -153,3 +200,4 @@ button:hover {
     opacity: 1;
   }
 }
+

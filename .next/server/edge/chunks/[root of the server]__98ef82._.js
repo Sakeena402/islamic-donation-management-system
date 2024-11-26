@@ -43,7 +43,7 @@ async function middleware(request) {
     // Check if token exists and extract user role
     if (token) {
         try {
-            const { role } = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$helpers$2f$getDataFromToken$2e$ts__$5b$middleware$5d$__$28$ecmascript$29$__["getDataFromToken"])(request);
+            const { id, role, username } = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$helpers$2f$getDataFromToken$2e$ts__$5b$middleware$5d$__$28$ecmascript$29$__["getDataFromToken"])(request);
             userRole = role;
         } catch (error) {
             return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$esm$2f$server$2f$web$2f$spec$2d$extension$2f$response$2e$js__$5b$middleware$5d$__$28$ecmascript$29$__["NextResponse"].redirect(new URL('/login', request.nextUrl));
@@ -53,17 +53,17 @@ async function middleware(request) {
     const rolePaths = {
         admin: [
             '/admin',
-            '/profile',
+            '/user/profile',
             '/dashboard'
         ],
         user: [
             '/profile',
             '/dashboard',
-            '/user'
+            '/user/profile'
         ],
         organizer: [
             '/organizer',
-            '/profile',
+            '/user/profile',
             '/events'
         ]
     };
