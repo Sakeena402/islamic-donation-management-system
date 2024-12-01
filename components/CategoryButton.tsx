@@ -50,3 +50,77 @@ const CategoryButton: React.FC<CategoryButtonProps> = ({ categories, onCategoryC
 };
 
 export default CategoryButton;
+
+
+
+
+
+// import React, { useEffect, useState } from 'react';
+// import { motion } from 'framer-motion';
+// import { FaChild, FaHeartbeat, FaHandsHelping, FaHandHoldingHeart } from 'react-icons/fa'; // Importing icons
+// import axios from 'axios'; // Importing axios for making requests
+
+// interface CategoryButtonProps {
+//   onCategoryClick: (category: string) => void;
+// }
+
+// const CategoryButton: React.FC<CategoryButtonProps> = ({ onCategoryClick }) => {
+//   const [categories, setCategories] = useState<string[]>([]);
+
+//   // Fetch categories from the backend
+//   useEffect(() => {
+//     const fetchCategories = async () => {
+//       try {
+//         const response = await axios.get('/api/campaign'); // Modify the API endpoint as per your setup
+//         const uniqueCategories = [
+//           ...new Set(response.data.campaigns.map((campaign: any) => campaign.category)),
+//         ]; // Get unique categories
+//         setCategories(uniqueCategories);
+//       } catch (error) {
+//         console.error('Error fetching categories:', error);
+//       }
+//     };
+//     fetchCategories();
+//   }, []);
+
+//   // Function to select an icon based on the category
+//   const getCategoryIcon = (category: string) => {
+//     switch (category) {
+//       case 'Child':
+//         return <FaChild />;
+//       case 'Heart transplant':
+//         return <FaHeartbeat />;
+//       case 'Labour patients':
+//         return <FaHandsHelping />;
+//       case 'Cancer':
+//         return <FaHandHoldingHeart />;
+//       default:
+//         return <FaHandsHelping />;
+//     }
+//   };
+
+//   return (
+//     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 justify-center items-center mb-8">
+//       {categories.map((category, index) => (
+//         <motion.button
+//           key={index}
+//           onClick={() => onCategoryClick(category)} // Call the parent handler when category is clicked
+//           className="px-4 pb-5 py-3 bg-[#11342b] hover:bg-yellow-500 hover:text-white transition-all duration-100 rounded-lg text-white shadow-lg hover:shadow-xl font-medium text-lg w-full max-w-xs"
+//           initial={{ opacity: 0, scale: 0.9 }} // Initial state: slightly smaller and hidden
+//           animate={{ opacity: 1, scale: 1 }} // Animate to normal size and visible
+//           whileHover={{ scale: 1.1 }} // Scale up slightly on hover
+//           transition={{ duration: 0.3 }} // Duration of transition
+//           viewport={{ once: false, amount: 0.2 }} // Trigger animation when 20% of the element is visible
+//         >
+//           <div className="flex items-center justify-center space-x-2">
+//             {/* Add the icon */}
+//             <span>{getCategoryIcon(category)}</span>
+//             <span>{category}</span>
+//           </div>
+//         </motion.button>
+//       ))}
+//     </div>
+//   );
+// };
+
+// export default CategoryButton;

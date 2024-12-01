@@ -1,0 +1,117 @@
+
+Users Table
+The Users table remains the same but includes the organizer role:
+
+sql
+Copy code
+CREATE TABLE Users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(255) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    phoneNo VARCHAR(15) NOT NULL,
+    address TEXT NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    isVerified BOOLEAN DEFAULT FALSE,
+    role ENUM('user', 'admin', 'organizer') DEFAULT 'user',
+    createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+Campaigns Table
+Add attributes to manage campaigns created by organizers:
+
+sql
+Copy code
+CREATE TABLE Campaigns (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    description TEXT NOT NULL,
+    purpose ENUM('zakat', 'fitra', 'sadqa', 'general') NOT NULL,
+    targetAmount DECIMAL(10, 2) NOT NULL,
+    collectedAmount DECIMAL(10, 2) DEFAULT 0.00,
+    startDate DATE NOT NULL,
+    endDate DATE NOT NULL,
+    requestedBy INT, -- Organizer who requested the campaign
+    createdBy INT, -- Admin who approved or created the campaign
+    isApproved BOOLEAN DEFAULT FALSE,
+    isActive BOOLEAN DEFAULT FALSE,
+    createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (requestedBy) REFERENCES Users(id),
+    FOREIGN KEY (createdBy) REFERENCES Users(id)
+);
+Donations Table
+No changes needed for the Donations table. It remains the same:
+
+sql
+Copy code
+CREATE TABLE Donations (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    amount DECIMAL(10, 2) NOT NULL,
+    donorId INT NOT NULL,
+    campaignId INT,
+    purpose ENUM('zakat', 'fitra', 'sadqa', 'general') NOT NULL,
+    paymentMethod ENUM('Easypaisa', 'JazzCash', 'BankTransfer', 'Stripe') NOT NULL,
+    paymentStatus ENUM('pending', 'completed', 'failed') DEFAULT 'pending',
+    createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (donorId) REFERENCES Users(id),
+    FOREIGN KEY (campaignId) REFERENCES Campaigns(id)
+);
+MySQL Queries
+Insert Campaign by Organizer
+When an organizer requests a campaign:
+
+sql
+Copy code
+INSERT INTO Campaigns (title, description, purpose, targetAmount, startDate, endDate, requestedBy)
+VALUES ('Help for Orphans', 'Campaign to raise funds for orphans', 'zakat', 50000.00, '2024-12-01', '2024-12-31', 3); -- Organizer ID 3
+Admin Approval of Campaign
+When the admin approves the campaign:
+
+sql
+Copy code
+UPDATE Campaigns
+SET isApproved = TRUE, isActive = TRUE, createdBy = 1 -- Admin ID 1
+WHERE id = 5; -- Campaign ID 5
+Updated Workflow
+Organizer Creates Campaign Request:
+
+The requestedBy column is populated with the organizer’s ID.
+The campaign is set to isApproved = FALSE and isActive = FALSE.
+Admin Reviews and Approves Campaign:
+
+The admin sets isApproved = TRUE and assigns their ID to the createdBy column.
+The campaign becomes isActive = TRUE.
+Admin Directly Creates Campaign:
+
+When an admin creates a campaign, both createdBy and requestedBy are set to the admin's ID.
+Example Queries
+Retrieve Pending Campaigns for Admin Review
+sql
+Copy code
+SELECT * 
+FROM Campaigns
+WHERE isApproved = FALSE;
+Retrieve Active Campaigns
+sql
+Copy code
+SELECT * 
+FROM Campaigns
+WHERE isActive = TRUE;
+Retrieve Organizer's Campaign Requests
+sql
+Copy code
+SELECT * 
+FROM Campaigns
+WHERE requestedBy = 3; -- Organizer ID 3
+This schema ensures clear tracking and control over campaign creation while allowing organizers to participate in the system under admin supervision. Let me know if you'd like to add more features!
+
+
+
+
+
+
+
+
+
+
+

@@ -81,7 +81,114 @@ if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelper
 
 var { r: __turbopack_require__, f: __turbopack_module_context__, i: __turbopack_import__, s: __turbopack_esm__, v: __turbopack_export_value__, n: __turbopack_export_namespace__, c: __turbopack_cache__, M: __turbopack_modules__, l: __turbopack_load__, j: __turbopack_dynamic__, P: __turbopack_resolve_absolute_path__, U: __turbopack_relative_url__, R: __turbopack_resolve_module_id_path__, b: __turbopack_worker_blob_url__, g: global, __dirname, k: __turbopack_refresh__, m: module, z: require } = __turbopack_context__;
 {
-// components/forms/GeneralForm.tsx
+// // components/forms/GeneralForm.tsx
+// 'use client'
+// import React, { useState } from "react";
+// import { useRouter } from "next/navigation";
+// import SubmitButton from "@/components/forms/SubmitButton";
+// import { FiEye, FiEyeOff } from "react-icons/fi";
+// import { IconContext } from "react-icons";
+// import useFormValidation from "@/hooks/useFormValidation";
+// import { AnyObjectSchema } from "yup";
+// interface Field {
+//   name: string;
+//   label: string;
+//   type: string;
+//   required?: boolean;
+// }
+// interface GeneralFormProps {
+//   fields: Field[];
+//   buttonText: string;
+//   onSubmit: (formData: { [key: string]: string }) => Promise<void>;
+//   validationSchema: AnyObjectSchema; 
+//   errorMessage?: string|null // Prop for displaying error messages
+// }
+// const GeneralForm: React.FC<GeneralFormProps> = ({
+//   fields,
+//   buttonText,
+//   onSubmit,
+//   validationSchema,
+//   errorMessage, // Accept error message
+// }) => {
+//   const router = useRouter();
+//   const [formData, setFormData] = useState<{ [key: string]: string }>(
+//     fields.reduce((acc, field) => ({ ...acc, [field.name]: "" }), {})
+//   );
+//   const [loading, setLoading] = useState(false);
+//   const [showPassword, setShowPassword] = useState(false);
+//   const { errors, validate } = useFormValidation(validationSchema);
+//   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+//     setFormData({ ...formData, [e.target.name]: e.target.value });
+//   };
+//   const handleSubmit = async (e: React.FormEvent) => {
+//     e.preventDefault();
+//     setLoading(true);
+//     const isValid = await validate(formData);
+//     if (!isValid) {
+//       setLoading(false);
+//       return;
+//     }
+//     try {
+//       await onSubmit(formData);
+//     } catch (error) {
+//       console.error(error);
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+//   const togglePasswordVisibility = () => {
+//     setShowPassword((prev) => !prev);
+//   };
+//   return (
+//     <div className="w-full max-w-md p-8 space-y-6 bg-white shadow-md">
+//       <h2 className="text-2xl font-bold text-center text-gray-800">{buttonText}</h2>
+//       <form className="space-y-4" onSubmit={handleSubmit}>
+//         {fields.map((field) => (
+//           <div key={field.name} className="relative">
+//             <label className="block text-sm font-medium text-gray-700">{field.label}</label>
+//             <input
+//               type={field.type === "password" && showPassword ? "text" : field.type}
+//               name={field.name}
+//               value={formData[field.name]}
+//               onChange={handleChange}
+//               required={field.required}
+//               className={`w-full px-3 py-2 mt-1 border rounded-md text-gray-700 focus:outline-none focus:ring focus:ring-indigo-200 focus:border-indigo-500 ${
+//                 errors[field.name] ? "border-red-600" : ""
+//               }`}
+//               placeholder={`Enter your ${field.label.toLowerCase()}`}
+//             />
+//             {errors[field.name] && (
+//               <p className="text-sm text-red-600">{errors[field.name]}</p>
+//             )}
+//             {field.type === "password" && (
+//               <IconContext.Provider value={{ className: "absolute top-2/3 right-7 transform -translate-y-1/2 text-gray-400" }}>
+//                 <button type="button" onClick={togglePasswordVisibility} aria-label="Toggle password visibility">
+//                   {showPassword ? <FiEyeOff /> : <FiEye />}
+//                 </button>
+//               </IconContext.Provider>
+//             )}
+//           </div>
+//         ))}
+//         <div>      {errorMessage && <p className="text-red-600 text-center">{errorMessage}</p>}</div>
+//         <SubmitButton loading={loading} text={buttonText} onClick={handleSubmit} />
+//       </form>
+//       <p className="text-sm text-center text-gray-600">
+//         {buttonText === "Create Your Account" ? (
+//           <>
+//             Already have an account?{" "}
+//             <a href="/login" className="text-indigo-600 hover:underline">Login</a>
+//           </>
+//         ) : (
+//           <>
+//             Don't have an account?{" "}
+//             <a href="/signup" className="text-indigo-600 hover:underline">Sign Up</a>
+//           </>
+//         )}
+//       </p>
+//     </div>
+//   );
+// };
+// export default GeneralForm;
 __turbopack_esm__({
     "default": (()=>__TURBOPACK__default__export__)
 });
@@ -104,10 +211,12 @@ var _s = __turbopack_refresh__.signature();
 const GeneralForm = ({ fields, buttonText, onSubmit, validationSchema, errorMessage })=>{
     _s();
     const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"])();
-    const [formData, setFormData] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(fields.reduce((acc, field)=>({
-            ...acc,
-            [field.name]: ""
-        }), {}));
+    const [formData, setFormData] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(fields.reduce({
+        "GeneralForm.useState": (acc, field)=>({
+                ...acc,
+                [field.name]: ""
+            })
+    }["GeneralForm.useState"], {}));
     const [loading, setLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
     const [showPassword, setShowPassword] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
     const { errors, validate } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$hooks$2f$useFormValidation$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(validationSchema);
@@ -137,29 +246,29 @@ const GeneralForm = ({ fields, buttonText, onSubmit, validationSchema, errorMess
         setShowPassword((prev)=>!prev);
     };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-        className: "w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-md",
+        className: "w-full max-w-lg space-y-3`",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                className: "text-2xl font-bold text-center text-gray-800",
+                className: "text-2xl font-light text-center text-gray-800 mb-2",
                 children: buttonText
             }, void 0, false, {
                 fileName: "[project]/components/forms/GeneralForm.tsx",
-                lineNumber: 69,
+                lineNumber: 227,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
-                className: "space-y-4",
+                className: "space-y-2",
                 onSubmit: handleSubmit,
                 children: [
                     fields.map((field)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                             className: "relative",
                             children: [
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                    className: "block text-sm font-medium text-gray-700",
+                                    className: "block text-sm font-medium text-gray-700 mb-1",
                                     children: field.label
                                 }, void 0, false, {
                                     fileName: "[project]/components/forms/GeneralForm.tsx",
-                                    lineNumber: 74,
+                                    lineNumber: 234,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -168,24 +277,24 @@ const GeneralForm = ({ fields, buttonText, onSubmit, validationSchema, errorMess
                                     value: formData[field.name],
                                     onChange: handleChange,
                                     required: field.required,
-                                    className: `w-full px-3 py-2 mt-1 border rounded-md text-gray-700 focus:outline-none focus:ring focus:ring-indigo-200 focus:border-indigo-500 ${errors[field.name] ? "border-red-600" : ""}`,
-                                    placeholder: `Enter your ${field.label.toLowerCase()}`
+                                    className: `w-full px-4 py-2 mt-1 border border-gray-300 rounded-lg text-gray-700 focus:outline-none focus:ring focus:ring-indigo-200 focus:border-indigo-500 ${errors[field.name] ? "border-red-600" : ""}`,
+                                    placeholder: `Enter ${field.label.toLowerCase()}`
                                 }, void 0, false, {
                                     fileName: "[project]/components/forms/GeneralForm.tsx",
-                                    lineNumber: 75,
+                                    lineNumber: 236,
                                     columnNumber: 13
                                 }, this),
                                 errors[field.name] && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                    className: "text-sm text-red-600",
+                                    className: "text-sm text-red-600 mt-1",
                                     children: errors[field.name]
                                 }, void 0, false, {
                                     fileName: "[project]/components/forms/GeneralForm.tsx",
-                                    lineNumber: 87,
+                                    lineNumber: 249,
                                     columnNumber: 15
                                 }, this),
                                 field.type === "password" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$icons$2f$lib$2f$iconContext$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["IconContext"].Provider, {
                                     value: {
-                                        className: "absolute top-2/3 right-7 transform -translate-y-1/2 text-gray-400"
+                                        className: "absolute top-2/3 right-4 transform -translate-y-1/2 text-gray-400 cursor-pointer"
                                     },
                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                         type: "button",
@@ -193,45 +302,36 @@ const GeneralForm = ({ fields, buttonText, onSubmit, validationSchema, errorMess
                                         "aria-label": "Toggle password visibility",
                                         children: showPassword ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$icons$2f$fi$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FiEyeOff"], {}, void 0, false, {
                                             fileName: "[project]/components/forms/GeneralForm.tsx",
-                                            lineNumber: 92,
+                                            lineNumber: 255,
                                             columnNumber: 35
                                         }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$icons$2f$fi$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FiEye"], {}, void 0, false, {
                                             fileName: "[project]/components/forms/GeneralForm.tsx",
-                                            lineNumber: 92,
+                                            lineNumber: 255,
                                             columnNumber: 50
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/components/forms/GeneralForm.tsx",
-                                        lineNumber: 91,
+                                        lineNumber: 254,
                                         columnNumber: 17
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/components/forms/GeneralForm.tsx",
-                                    lineNumber: 90,
+                                    lineNumber: 253,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, field.name, true, {
                             fileName: "[project]/components/forms/GeneralForm.tsx",
-                            lineNumber: 73,
+                            lineNumber: 232,
                             columnNumber: 11
                         }, this)),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        children: [
-                            "      ",
-                            errorMessage && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                className: "text-red-600 text-center",
-                                children: errorMessage
-                            }, void 0, false, {
-                                fileName: "[project]/components/forms/GeneralForm.tsx",
-                                lineNumber: 98,
-                                columnNumber: 37
-                            }, this)
-                        ]
-                    }, void 0, true, {
+                    errorMessage && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                        className: "text-center text-red-600",
+                        children: errorMessage
+                    }, void 0, false, {
                         fileName: "[project]/components/forms/GeneralForm.tsx",
-                        lineNumber: 98,
-                        columnNumber: 9
+                        lineNumber: 263,
+                        columnNumber: 26
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$forms$2f$SubmitButton$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                         loading: loading,
@@ -239,17 +339,17 @@ const GeneralForm = ({ fields, buttonText, onSubmit, validationSchema, errorMess
                         onClick: handleSubmit
                     }, void 0, false, {
                         fileName: "[project]/components/forms/GeneralForm.tsx",
-                        lineNumber: 99,
+                        lineNumber: 266,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/components/forms/GeneralForm.tsx",
-                lineNumber: 71,
+                lineNumber: 230,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                className: "text-sm text-center text-gray-600",
+                className: "text-sm mt-0 text-center text-gray-600",
                 children: buttonText === "Create Your Account" ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
                     children: [
                         "Already have an account?",
@@ -260,7 +360,7 @@ const GeneralForm = ({ fields, buttonText, onSubmit, validationSchema, errorMess
                             children: "Login"
                         }, void 0, false, {
                             fileName: "[project]/components/forms/GeneralForm.tsx",
-                            lineNumber: 105,
+                            lineNumber: 274,
                             columnNumber: 13
                         }, this)
                     ]
@@ -274,20 +374,20 @@ const GeneralForm = ({ fields, buttonText, onSubmit, validationSchema, errorMess
                             children: "Sign Up"
                         }, void 0, false, {
                             fileName: "[project]/components/forms/GeneralForm.tsx",
-                            lineNumber: 110,
+                            lineNumber: 279,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true)
             }, void 0, false, {
                 fileName: "[project]/components/forms/GeneralForm.tsx",
-                lineNumber: 101,
+                lineNumber: 270,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/components/forms/GeneralForm.tsx",
-        lineNumber: 68,
+        lineNumber: 225,
         columnNumber: 5
     }, this);
 };
@@ -304,210 +404,21 @@ __turbopack_refresh__.register(_c, "GeneralForm");
 if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
     __turbopack_refresh__.registerExports(module, globalThis.$RefreshHelpers$);
 }
- // // GeneralForm.tsx
- // 'use client'
- // import React, { useState } from "react";
- // import { useRouter } from "next/navigation";
- // import SubmitButton from "@/components/forms/SubmitButton";
- // interface Field {
- //   name: string;
- //   label: string;
- //   type: string;
- //   required?: boolean;
- // }
- // interface GeneralFormProps {
- //   fields: Field[];
- //   buttonText: string;
- //   onSubmit: (formData: { [key: string]: string }) => Promise<void>;
- //   redirectPath: string;
- //   switchForm: () => void; // Function to switch forms
- // }
- // const GeneralForm: React.FC<GeneralFormProps> = ({
- //   fields,
- //   buttonText,
- //   onSubmit,
- //   redirectPath,
- //   switchForm,
- // }) => {
- //   const router = useRouter();
- //   const [formData, setFormData] = useState<{ [key: string]: string }>(
- //     fields.reduce((acc, field) => ({ ...acc, [field.name]: "" }), {})
- //   );
- //   const [loading, setLoading] = useState(false);
- //   const [error, setError] = useState<string | null>(null);
- //   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
- //     setFormData({ ...formData, [e.target.name]: e.target.value });
- //   };
- //   const handleSubmit = async () => {
- //     setLoading(true);
- //     setError(null);
- //     try {
- //       await onSubmit(formData);
- //       router.push(redirectPath);
- //     } catch (error) {
- //       setError("Submission failed. Please try again.");
- //     } finally {
- //       setLoading(false);
- //     }
- //   };
- //   return (
- //     <div className="form-container">
- //       <h2 className="text-2xl font-bold text-center text-gray-800">{buttonText}</h2>
- //       {error && <p className="text-center text-red-600">{error}</p>}
- //       <form className="space-y-4">
- //         {fields.map((field) => (
- //           <div key={field.name}>
- //             <label className="block text-sm font-medium text-gray-700">{field.label}</label>
- //             <input
- //               type={field.type}
- //               name={field.name}
- //               value={formData[field.name]}
- //               onChange={handleChange}
- //               required={field.required}
- //               className="w-full px-3 py-2 mt-1 border rounded-md text-gray-700 focus:outline-none focus:ring focus:ring-indigo-200 focus:border-indigo-500"
- //             />
- //           </div>
- //         ))}
- //         <SubmitButton
- //           loading={loading}
- //           text={buttonText}
- //           onClick={handleSubmit}
- //         />
- //       </form>
- //       <p className="text-sm text-center text-gray-600">
- //         {buttonText === "Create Your Account" ? (
- //           <>
- //             Already have an account?{" "}
- //             <button className="text-indigo-600 hover:underline" onClick={switchForm}>
- //               Login
- //             </button>
- //           </>
- //         ) : (
- //           <>
- //             Do not have an account?{" "}
- //             <button className="text-indigo-600 hover:underline" onClick={switchForm}>
- //               Sign Up
- //             </button>
- //           </>
- //         )}
- //       </p>
- //     </div>
- //   );
- // };
- // export default GeneralForm;
- // // app/signup/components/SignupForm.tsx
- // 'use client';
- // import React, { useState, useEffect } from "react";
- // interface User {
- //   username: string;
- //   email: string;
- //   phoneNo: string;
- //   address: string;
- //   password: string;
- // }
- // interface SignupFormProps {
- //   onSubmit: (user: User) => Promise<void>;
- // }
- // const SignupForm: React.FC<SignupFormProps> = ({ onSubmit }) => {
- //   const [user, setUser] = useState<User>({
- //     username: '',
- //     email: '',
- //     phoneNo: '',
- //     address: '',
- //     password: '',
- //   });
- //   const [buttonDisabled, setButtonDisabled] = useState(true);
- //   const [loading, setLoading] = useState(false);
- //   useEffect(() => {
- //     const { email, password, username } = user;
- //     setButtonDisabled(!(email && password && username));
- //   }, [user]);
- //   const handleSubmit = async (e: React.FormEvent) => {
- //     e.preventDefault();
- //     setLoading(true); // Start loading
- //     await onSubmit(user); // Call onSubmit and wait for it to complete
- //     setLoading(false); // End loading
- //   };
- //   return (
- //     <form className="space-y-6" onSubmit={handleSubmit}>
- //       <div>
- //         <label className="block text-sm font-medium text-gray-700">Full Name</label>
- //         <input
- //           type="text"
- //           value={user.username}
- //           onChange={(e) => setUser({ ...user, username: e.target.value })}
- //           required
- //           className="w-full px-3 py-2 mt-1 border text-gray-700 rounded-md focus:outline-none focus:ring focus:ring-indigo-200 focus:border-indigo-500"
- //         />
- //       </div>
- //       <div>
- //         <label className="block text-sm font-medium text-gray-700">Email</label>
- //         <input
- //           type="email"
- //           value={user.email}
- //           onChange={(e) => setUser({ ...user, email: e.target.value })}
- //           required
- //           className="w-full px-3 py-2 mt-1 text-gray-700 border rounded-md focus:outline-none focus:ring focus:ring-indigo-200 focus:border-indigo-500"
- //         />
- //       </div>
- //       <div>
- //         <label className="block text-sm font-medium text-gray-700">Phone Number</label>
- //         <input
- //           type="text"
- //           value={user.phoneNo}
- //           onChange={(e) => setUser({ ...user, phoneNo: e.target.value })}
- //           required
- //           className="w-full px-3 py-2 mt-1 text-gray-700 border rounded-md focus:outline-none focus:ring focus:ring-indigo-200 focus:border-indigo-500"
- //         />
- //       </div>
- //       <div>
- //         <label className="block text-sm font-medium text-gray-700">Address</label>
- //         <input
- //           type="text"
- //           value={user.address}
- //           onChange={(e) => setUser({ ...user, address: e.target.value })}
- //           required
- //           className="w-full px-3 py-2 mt-1 text-gray-700 border rounded-md focus:outline-none focus:ring focus:ring-indigo-200 focus:border-indigo-500"
- //         />
- //       </div>
- //       <div>
- //         <label className="block text-sm font-medium text-gray-700">Password</label>
- //         <input
- //           type="password"
- //           value={user.password}
- //           onChange={(e) => setUser({ ...user, password: e.target.value })}
- //           required
- //           className="w-full px-3 py-2 mt-1 text-gray-700 border rounded-md focus:outline-none focus:ring focus:ring-indigo-200 focus:border-indigo-500"
- //         />
- //       </div>
- //       <button
- //         type="submit"
- //         disabled={buttonDisabled || loading}
- //         className={`w-full px-4 py-2 font-semibold text-white rounded-md focus:outline-none focus:ring focus:ring-indigo-200 ${
- //           buttonDisabled || loading ? 'bg-gray-400 cursor-not-allowed' : 'bg-indigo-600 hover:bg-indigo-700'
- //         }`}
- //       >
- //         {loading ? "Submitting..." : "Sign Up"}
- //       </button>
- //     </form>
- //   );
- // };
- // export default SignupForm;
 }}),
 "[project]/app/(auth-pages)/login/page.tsx [app-client] (ecmascript)": ((__turbopack_context__) => {
 "use strict";
 
 var { r: __turbopack_require__, f: __turbopack_module_context__, i: __turbopack_import__, s: __turbopack_esm__, v: __turbopack_export_value__, n: __turbopack_export_namespace__, c: __turbopack_cache__, M: __turbopack_modules__, l: __turbopack_load__, j: __turbopack_dynamic__, P: __turbopack_resolve_absolute_path__, U: __turbopack_relative_url__, R: __turbopack_resolve_module_id_path__, b: __turbopack_worker_blob_url__, g: global, __dirname, k: __turbopack_refresh__, m: module, z: require } = __turbopack_context__;
 {
-// pages/login.tsx
 __turbopack_esm__({
     "default": (()=>__TURBOPACK__default__export__)
 });
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/next/dist/compiled/react/jsx-dev-runtime.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$forms$2f$GeneralForm$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/components/forms/GeneralForm.tsx [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$layout$2f$AuthLayout$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/components/layout/AuthLayout.tsx [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$schemas$2f$validationSchema$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/schemas/validationSchema.ts [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/next/navigation.js [app-client] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$schemas$2f$validationSchema$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/schemas/validationSchema.ts [app-client] (ecmascript)"); // Import the validation schema
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/axios/lib/axios.js [app-client] (ecmascript)");
 ;
 var _s = __turbopack_refresh__.signature();
@@ -517,115 +428,84 @@ var _s = __turbopack_refresh__.signature();
 ;
 ;
 ;
+;
 const LoginPage = ()=>{
     _s();
+    const [loginError, setLoginError] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
     const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"])();
-    const [isSignup, setIsSignup] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
-    const onLogin = async (user)=>{
+    const params = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useParams"])(); // Use this for `app`-based routing
+    const { id } = params;
+    const onLogin = async (credentials)=>{
         try {
-            const response = await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].post("/api/auth/login", user);
-            console.log("Login success");
-            router.push('/dashboard'); // Redirect to dashboard after successful login
+            const response = await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].post("/api/auth/login", credentials);
+            router.push('/user-pages/user/profile');
+            console.log("Login successful");
+        // Redirect to profile page with `id` and `username`
         } catch (error) {
-            console.log("Login failed", error);
+            if (error.response) {
+                switch(error.response.status){
+                    case 400:
+                        if (error.response.data.error === "Email and password are required") {
+                            setLoginError("Please enter both email and password.");
+                        } else if (error.response.data.error === "User doesn't exist") {
+                            setLoginError("No account found with this email. Please sign up.");
+                        } else if (error.response.data.error === "Invalid password") {
+                            setLoginError("The password you entered is incorrect. Please try again.");
+                        } else {
+                            setLoginError("An error occurred. Please try again.");
+                        }
+                        break;
+                    case 500:
+                        setLoginError("Server error. Please try again later.");
+                        break;
+                    case 401:
+                        setLoginError("Please verify your email to log in");
+                        break;
+                    default:
+                        setLoginError("An unexpected error occurred. Please try again.");
+                }
+            } else if (error.request) {
+                setLoginError("No response from the server. Please check your connection.");
+            } else {
+                setLoginError("An error occurred while logging in. Please try again.");
+            }
         }
     };
-    const switchForm = ()=>{
-        setIsSignup(!isSignup);
-    };
-    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-        className: "container",
-        children: [
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "left-side"
-            }, void 0, false, {
-                fileName: "[project]/app/(auth-pages)/login/page.tsx",
-                lineNumber: 29,
-                columnNumber: 7
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "right-side",
-                children: isSignup ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$forms$2f$GeneralForm$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-                    fields: [
-                        {
-                            name: "username",
-                            label: "Full Name",
-                            type: "text",
-                            required: true
-                        },
-                        {
-                            name: "email",
-                            label: "Email",
-                            type: "email",
-                            required: true
-                        },
-                        {
-                            name: "phoneNo",
-                            label: "Phone Number",
-                            type: "text",
-                            required: true
-                        },
-                        {
-                            name: "address",
-                            label: "Address",
-                            type: "text",
-                            required: true
-                        },
-                        {
-                            name: "password",
-                            label: "Password",
-                            type: "password",
-                            required: true
-                        }
-                    ],
-                    buttonText: "Create Your Account",
-                    onSubmit: onLogin,
-                    redirectPath: "/login",
-                    switchForm: switchForm
-                }, void 0, false, {
-                    fileName: "[project]/app/(auth-pages)/login/page.tsx",
-                    lineNumber: 32,
-                    columnNumber: 11
-                }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$forms$2f$GeneralForm$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-                    fields: [
-                        {
-                            name: "email",
-                            label: "Email",
-                            type: "email",
-                            required: true
-                        },
-                        {
-                            name: "password",
-                            label: "Password",
-                            type: "password",
-                            required: true
-                        }
-                    ],
-                    buttonText: "Login",
-                    onSubmit: onLogin,
-                    redirectPath: "/profile",
-                    validationSchema: __TURBOPACK__imported__module__$5b$project$5d2f$schemas$2f$validationSchema$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["loginSchema"],
-                    switchForm: switchForm
-                }, void 0, false, {
-                    fileName: "[project]/app/(auth-pages)/login/page.tsx",
-                    lineNumber: 46,
-                    columnNumber: 11
-                }, this)
-            }, void 0, false, {
-                fileName: "[project]/app/(auth-pages)/login/page.tsx",
-                lineNumber: 30,
-                columnNumber: 7
-            }, this)
-        ]
-    }, void 0, true, {
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$layout$2f$AuthLayout$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$forms$2f$GeneralForm$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+            fields: [
+                {
+                    name: "email",
+                    label: "Email",
+                    type: "email",
+                    required: true
+                },
+                {
+                    name: "password",
+                    label: "Password",
+                    type: "password",
+                    required: true
+                }
+            ],
+            buttonText: "Login",
+            onSubmit: onLogin,
+            validationSchema: __TURBOPACK__imported__module__$5b$project$5d2f$schemas$2f$validationSchema$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["loginSchema"],
+            errorMessage: loginError
+        }, void 0, false, {
+            fileName: "[project]/app/(auth-pages)/login/page.tsx",
+            lineNumber: 59,
+            columnNumber: 7
+        }, this)
+    }, void 0, false, {
         fileName: "[project]/app/(auth-pages)/login/page.tsx",
-        lineNumber: 28,
+        lineNumber: 58,
         columnNumber: 5
     }, this);
 };
-_s(LoginPage, "SIJCw9c4BW9i8bNYYPis2nUZl8w=", false, function() {
+_s(LoginPage, "1q9SiXtsSQvPCSxY0OKqOXA5Fc0=", false, function() {
     return [
-        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"]
+        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"],
+        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useParams"]
     ];
 });
 _c = LoginPage;
@@ -635,130 +515,6 @@ __turbopack_refresh__.register(_c, "LoginPage");
 if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
     __turbopack_refresh__.registerExports(module, globalThis.$RefreshHelpers$);
 }
- // // app/login/page.tsx
- // 'use client'
- // import React from "react";
- // import GeneralForm from "@/components/forms/GeneralForm";
- // import axios from "axios";
- // import router from "next/router";
- // const LoginPage = () => {
- //   const onLogIn = async (user: { email: string; password: string }) => {
- //     try {
- //       const response = await axios.post("/api/auth/login", user);
- //       console.log("Login sucess")
- //       router.push('/user/profile'); 
- //     // eslint-disable-next-line @typescript-eslint/no-explicit-any
- //     } catch (error:any) {
- //       console.log("Login failed", error.message);
- //   }
- //   };
- //   return (
- //       <GeneralForm
- //       fields={[
- //         { name: "email", label: "Email", type: "email", required: true },
- //         { name: "password", label: "Password", type: "password", required: true },
- //       ]}
- //       buttonText="Login"
- //       onSubmit={onLogIn}
- //       redirectPath="/user/profile" // Redirect after successful login
- //     />
- //   );
- // };
- // export default LoginPage;
- // /* eslint-disable @typescript-eslint/no-unused-vars */
- // 'use client'
- // import { useEffect, useState } from "react";
- // import Link from "next/link";
- // import { useRouter } from "next/navigation";
- // import axios from 'axios';
- // import React from "react";
- // const Login = () => {
- //   const [user, setUser] = useState({
- //     email: '',
- //    password: '',
- //   });
- //   const [buttonDisabled,setButtonDisabled]=useState(true);
- //   const [loading,setLoading]=useState(false);
- //   const router = useRouter();
- //   useEffect(()=>{
- //     if(user.email.length>0 && user.password.length >0){
- //       setButtonDisabled(false)
- //     }else{
- //       setButtonDisabled(true)
- //     }
- //   },[user])
- //   const onLogIn = async () => {
- //     try {
- //     } catch (error) {
- //     }try {
- //       setLoading(true)
- //       setButtonDisabled(true)
- //       const response = await axios.post("/api/auth/login", user);
- //       console.log("Login sucess")
- //       router.push('/user/profile'); 
- //     // eslint-disable-next-line @typescript-eslint/no-explicit-any
- //     } catch (error:any) {
- //       console.log("Login failed", error.message);
- //   }finally {
- //     setTimeout(() => {
- //       setLoading(false);
- //       setButtonDisabled(false);
- //   }, 1000);
- //   }
- //   };
- //   return (
- //     <div className="flex items-center justify-center min-h-screen bg-gray-100">
- //       <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-md">
- //         <h2 className="text-2xl font-bold text-center text-gray-800">
- //           Login to Your Account
- //         </h2>
- //         <form  className="space-y-6">
- //           <div>
- //             <label className="block text-sm font-medium text-gray-700">
- //               Email
- //             </label>
- //             <input
- //             type="email"
- //             value={user.email}
- //             onChange={(e) => setUser({ ...user, email: e.target.value })}
- //             required
- //             className="w-full px-3 py-2 mt-1  text-gray-700 border rounded-md focus:outline-none focus:ring focus:ring-indigo-200 focus:border-indigo-500"
- //          />
- //           </div>
- //           <div>
- //             <label className="block text-sm font-medium text-gray-700">
- //               Password
- //             </label>
- //             <input
- //                type="password"
- //                value={user.password}
- //                onChange={(e) => setUser({ ...user, password: e.target.value })}
- //                required
- //                className="w-full px-3 py-2 mt-1 text-gray-700 border rounded-md focus:outline-none focus:ring focus:ring-indigo-200 focus:border-indigo-500"
- //               />
- //           </div>
- //           <button
- //             type="button"
- //             onClick={onLogIn}
- //             disabled={buttonDisabled}
- //             className={`w-full px-4 py-2 font-semibold text-white rounded-md focus:outline-none focus:ring focus:ring-indigo-200 ${
- //                 buttonDisabled ? 'bg-gray-400 cursor-not-allowed' : 'bg-indigo-600 hover:bg-indigo-700'
- //             }`}
- //         >
- //             {loading ? 'Processing...' : 'Login'}
- //         </button>
- //         </form>
- //         <p className="text-sm text-center text-gray-600">
- //           Don&apos;t have an account?{" "}
- //           <Link href="/signup" className="text-indigo-600 hover:underline">
- //            Sign Up
- //           </Link>
- //         </p>
- //       </div>
- //     </div>
- //   );
- // };
- // export default Login;
 }}),
 "[project]/app/(auth-pages)/login/page.tsx [app-rsc] (ecmascript, Next.js server component, client modules)": ((__turbopack_context__) => {
 

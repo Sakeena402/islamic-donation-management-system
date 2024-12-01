@@ -5,7 +5,7 @@ import { NextResponse, NextRequest } from 'next/server';
 import bcryptjs from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { sendEmail } from '@/helpers/mailer';
-;
+export const runtime = 'edge';
 
 connectDB();
 

@@ -571,15 +571,25 @@ const LoginPage = ()=>{
     _s();
     const [loginError, setLoginError] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
     const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"])();
-    const params = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useParams"])(); // Use this for `app`-based routing
-    const { id } = params;
     const onLogin = async (credentials)=>{
         try {
+            // Make login request
             const response = await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].post("/api/auth/login", credentials);
-            console.log("Login successful");
-            // Redirect to profile page with `id` and `username`
-            router.push(`/user/profile`);
+            // Fetch user details after login
+            const userResponse = await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].get("/api/auth/me", {
+                withCredentials: true
+            });
+            const { role } = userResponse.data;
+            // Redirect based on role
+            if (role === "Donor" || role === "Admin") {
+                router.push('/profile/');
+            } else if (role === "Organizer") {
+                router.push('/organizer');
+            } else {
+                router.push('/user-pages/p');
+            }
         } catch (error) {
+            // Handle errors
             if (error.response) {
                 switch(error.response.status){
                     case 400:
@@ -631,19 +641,18 @@ const LoginPage = ()=>{
             errorMessage: loginError
         }, void 0, false, {
             fileName: "[project]/app/(auth-pages)/login/page.tsx",
-            lineNumber: 58,
+            lineNumber: 68,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/app/(auth-pages)/login/page.tsx",
-        lineNumber: 57,
+        lineNumber: 67,
         columnNumber: 5
     }, this);
 };
-_s(LoginPage, "1q9SiXtsSQvPCSxY0OKqOXA5Fc0=", false, function() {
+_s(LoginPage, "w+mf2q9IBECdwCDGAy377Vq/88c=", false, function() {
     return [
-        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"],
-        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useParams"]
+        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"]
     ];
 });
 _c = LoginPage;

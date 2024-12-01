@@ -1,0 +1,11 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 87, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":""}},
+    {"offset": {"line": 91, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"A"}},
+    {"offset": {"line": 97, "column": 0}, "map": {"version":3,"sources":["file://E%3A/islamic-donation-management-system/app/donation/page.tsx"],"sourcesContent":["import React from 'react';\r\nimport DonationForm from '@/components/DonationForm';\r\n\r\nconst DonatePage: React.FC = () => {\r\n  return (\r\n    <div className=\"donate-page\">\r\n      <h1>Support Our Cause</h1>\r\n      <DonationForm />\r\n    </div>\r\n  );\r\n};\r\n\r\nexport default DonatePage;\r\n"],"names":[],"mappings":";;;;AACA;;;AAEA,MAAM,aAAuB;IAC3B,qBACE,8OAAC;QAAI,WAAU;;0BACb,8OAAC;0BAAG;;;;;;0BACJ,8OAAC,2HAAA,CAAA,UAAY;;;;;;;;;;;AAGnB;uCAEe"}},
+    {"offset": {"line": 128, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"A"}},
+    {"offset": {"line": 139, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":""}},
+    {"offset": {"line": 139, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"A"}}]
+}

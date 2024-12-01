@@ -1,0 +1,100 @@
+
+Here are the API request queries for Thunder Client, including headers and sample body data for each endpoint (POST for creating a donation and GET for retrieving donations). These requests assume you're using JWT-based authentication, so make sure to replace "your_jwt_token" with a valid token obtained from your authentication flow.
+
+1. POST Request: Create Donation
+Request URL:
+http
+Copy code
+POST http://localhost:3000/api/donation
+Headers:
+Content-Type: application/json
+Cookie: token=your_jwt_token (replace your_jwt_token with a valid token)
+Body:
+json
+Copy code
+{
+    "amount": 100,
+    "donorId": "64f9b1...",    // Replace with the donor's ID
+    "campaignId": "64f9b2...",  // Replace with the campaign's ID
+    "paymentMethod": "Easypaisa"
+}
+Description:
+This request will create a donation for the user. It requires the amount, donor ID, campaign ID, and payment method. The donorId in the body must match the authenticated user's ID.
+
+2. GET Request: View Donations by Donor
+Request URL:
+http
+Copy code
+GET http://localhost:3000/api/donation?donorId=64f9b1...
+Headers:
+Content-Type: application/json
+Cookie: token=your_jwt_token (replace your_jwt_token with a valid token)
+Description:
+This request retrieves all donations made by the specified donor (donorId). The donorId in the query string should match the authenticated user's ID for them to access their donations.
+
+3. GET Request: View Donations by Campaign
+Request URL:
+http
+Copy code
+GET http://localhost:3000/api/donation?campaignId=64f9b2...
+Headers:
+Content-Type: application/json
+Cookie: token=your_jwt_token (replace your_jwt_token with a valid token)
+Description:
+This request retrieves all donations made to a specific campaign. Only admins or the campaign creator can view donations related to that campaign.
+
+4. GET Request: View Donations (Without Filters)
+Request URL:
+http
+Copy code
+GET http://localhost:3000/api/donation
+Headers:
+Content-Type: application/json
+Cookie: token=your_jwt_token (replace your_jwt_token with a valid token)
+Description:
+This request retrieves all donations available based on the current filters. You can optionally include the donorId and/or campaignId in the query string for filtering.
+
+How to Test in Thunder Client:
+Open Thunder Client: In your Visual Studio Code or other preferred IDE where Thunder Client is installed.
+Create a new request:
+Click the + button to create a new request.
+Choose the request method (POST or GET).
+Set the URL (e.g., http://localhost:3000/api/donation).
+Add Headers:
+Go to the Headers tab.
+Add the required headers:
+Content-Type: application/json
+Cookie: token=your_jwt_token (replace with your JWT token).
+Add Body (for POST requests):
+Switch to the Body tab and select raw as the format.
+Enter the JSON body (e.g., for creating a donation).
+Send the request and verify the response. The server should respond with a success message or error based on your request.
+Example for Thunder Client Setup:
+POST Request in Thunder Client
+Set URL: POST http://localhost:3000/api/donation
+In Headers, add:
+Content-Type: application/json
+Cookie: token=your_jwt_token
+In Body, add the JSON:
+json
+Copy code
+{
+    "amount": 100,
+    "donorId": "64f9b1...",
+    "campaignId": "64f9b2...",
+    "paymentMethod": "Easypaisa"
+}
+Send and check the response.
+GET Request in Thunder Client (by Donor ID)
+Set URL: GET http://localhost:3000/api/donation?donorId=64f9b1...
+In Headers, add:
+Content-Type: application/json
+Cookie: token=your_jwt_token
+Send and check the response.
+These configurations should be enough to test your donation-related API endpoints securely using Thunder Client. Make sure to replace placeholders like your_jwt_token, 64f9b1..., and 64f9b2... with actual data from your application.
+
+
+
+
+
+

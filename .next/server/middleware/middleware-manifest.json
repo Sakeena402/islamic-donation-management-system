@@ -3,79 +3,51 @@
   "middleware": {
     "/": {
       "files": [
-        "server/edge/chunks/_b078ed._.js",
-        "server/edge/chunks/[root of the server]__a6c335._.js",
-        "server/edge/chunks/edge-wrapper_bd1bc8.js"
+        "server/edge/chunks/_fabfa9._.js",
+        "server/edge/chunks/[root of the server]__98ef82._.js",
+        "server/edge/chunks/edge-wrapper_9ad8e4.js"
       ],
       "name": "middleware",
       "page": "/",
       "matchers": [
         {
-          "regexp": "/:nextData(_next/data/[^/]{1,})?/(/?index|/?index\\\\.json)?",
-          "originalSource": "/"
-        },
-        {
-          "regexp": "/:nextData(_next/data/[^/]{1,})?/profile{(\\\\.json)}?",
-          "originalSource": "/profile"
-        },
-        {
-          "regexp": "/:nextData(_next/data/[^/]{1,})?/login{(\\\\.json)}?",
-          "originalSource": "/login"
-        },
-        {
-          "regexp": "/:nextData(_next/data/[^/]{1,})?/signup{(\\\\.json)}?",
-          "originalSource": "/signup"
-        },
-        {
-          "regexp": "/:nextData(_next/data/[^/]{1,})?/verifyemail{(\\\\.json)}?",
-          "originalSource": "/verifyemail"
-        },
-        {
-          "regexp": "/:nextData(_next/data/[^/]{1,})?/admin{(\\\\.json)}?",
-          "originalSource": "/admin"
-        },
-        {
-          "regexp": "/:nextData(_next/data/[^/]{1,})?/user{(\\\\.json)}?",
-          "originalSource": "/user"
-        },
-        {
-          "regexp": "/:nextData(_next/data/[^/]{1,})?/organizer{(\\\\.json)}?",
-          "originalSource": "/organizer"
+          "regexp": "^/.*$",
+          "originalSource": "/:path*"
         }
       ],
       "wasm": [],
       "assets": [
         {
-          "name": "server/edge/chunks/_b078ed._.js.map",
-          "filePath": "server/edge/chunks/_b078ed._.js.map"
+          "name": "server/edge/chunks/_fabfa9._.js.map",
+          "filePath": "server/edge/chunks/_fabfa9._.js.map"
         },
         {
-          "name": "server/edge/chunks/_b078ed._.js",
-          "filePath": "server/edge/chunks/_b078ed._.js"
+          "name": "server/edge/chunks/_fabfa9._.js",
+          "filePath": "server/edge/chunks/_fabfa9._.js"
         },
         {
-          "name": "server/edge/chunks/[root of the server]__a6c335._.js.map",
-          "filePath": "server/edge/chunks/[root of the server]__a6c335._.js.map"
+          "name": "server/edge/chunks/[root of the server]__98ef82._.js.map",
+          "filePath": "server/edge/chunks/[root of the server]__98ef82._.js.map"
         },
         {
-          "name": "server/edge/chunks/[root of the server]__a6c335._.js",
-          "filePath": "server/edge/chunks/[root of the server]__a6c335._.js"
+          "name": "server/edge/chunks/[root of the server]__98ef82._.js",
+          "filePath": "server/edge/chunks/[root of the server]__98ef82._.js"
         },
         {
-          "name": "server/edge/chunks/edge-wrapper_bd1bc8.js.map",
-          "filePath": "server/edge/chunks/edge-wrapper_bd1bc8.js.map"
+          "name": "server/edge/chunks/edge-wrapper_9ad8e4.js.map",
+          "filePath": "server/edge/chunks/edge-wrapper_9ad8e4.js.map"
         },
         {
-          "name": "server/edge/chunks/edge-wrapper_bd1bc8.js",
-          "filePath": "server/edge/chunks/edge-wrapper_bd1bc8.js"
+          "name": "server/edge/chunks/edge-wrapper_9ad8e4.js",
+          "filePath": "server/edge/chunks/edge-wrapper_9ad8e4.js"
         }
       ],
       "env": {
         "__NEXT_BUILD_ID": "development",
         "NEXT_SERVER_ACTIONS_ENCRYPTION_KEY": "sW21qlSE/uIlUrX7GMLnfhk1A0jNVqyK2Vdxy+6bViY=",
-        "__NEXT_PREVIEW_MODE_ID": "f0ddbf31742daccfd280c1ac77c6a083",
-        "__NEXT_PREVIEW_MODE_ENCRYPTION_KEY": "b975957ecf98a9d3968b60071563dbe0a8d5a3399dfb6b2d38b9c8817ae11fd0",
-        "__NEXT_PREVIEW_MODE_SIGNING_KEY": "5b849834d433a2c6de606801377612795a68d3b75fdda890f7170554102eaaa1"
+        "__NEXT_PREVIEW_MODE_ID": "fc75888d4f7ab4f0f0f156bfd7495230",
+        "__NEXT_PREVIEW_MODE_ENCRYPTION_KEY": "7d2898fe135f06756686fc4ab3c8318b48fc5da65d17a710ca299da517d6f26f",
+        "__NEXT_PREVIEW_MODE_SIGNING_KEY": "8c89968a6ef6a8c1059fb3fe36bc6bf5b4ae6a87fb7d862e76a8e98c96212793"
       }
     }
   },

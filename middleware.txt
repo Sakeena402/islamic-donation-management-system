@@ -1,0 +1,113 @@
+// // src/middleware.ts
+
+// import { NextResponse } from 'next/server';
+// import type { NextRequest } from 'next/server';
+// import { getDataFromToken } from "@/helpers/getDataFromToken";
+
+// export async function middleware(request: NextRequest) {
+//   const path = request.nextUrl.pathname;
+//   const isPublicPath = ['/login', '/signup', '/verifyemail', '/'].includes(path);  // Public routes
+//   const token = request.cookies.get('token')?.value || '';  // Get token from cookies
+
+//   let userRole = '';
+
+//   // Check if token exists and extract user role
+//   if (token) {
+//     try {
+//       const { id, role, username } = await getDataFromToken(request);  // Assuming `getDataFromToken` extracts the role from the token
+//       userRole = role;
+//     } catch (error) {
+//       return NextResponse.redirect(new URL('/login', request.nextUrl));  // Invalid token
+//     }
+//   }
+
+//   // Define role-based access
+//   const rolePaths = {
+//     Admin: ['/admin', '/user', '/dashboard','/user-pages/user/profile','/campaign/create-campaign'],
+//     Donor: ['/user-pages/user/profile', '/dashboard', '/user','/campaign/create-campaign'],
+//     Organizer: ['/organizer', '/user', '/events', '/campaign/create-campaign','/user-pages/user/profile'],
+//   };
+
+//   // Helper function to check if a path is allowed for a particular role
+//   const isAuthorized = (role: string, path: string) => {
+//     return rolePaths[role]?.includes(path) || isPublicPath;
+//   };
+
+//   // Case 1: Redirect logged-in users trying to access public paths
+//   if (isPublicPath && token) {
+//     return NextResponse.redirect(new URL('/', request.nextUrl));  // Redirect authenticated users from public pages to home
+//   }
+
+//   // Case 2: Redirect unauthenticated users trying to access non-public paths
+//   if (!isPublicPath && !token) {
+//     return NextResponse.redirect(new URL('/login', request.nextUrl));  // Redirect unauthenticated users to login page
+//   }
+
+//   // Case 3: Check if the user has permission to access the requested path based on their role
+//   if (token && !isAuthorized(userRole, path)) {
+//     return NextResponse.redirect(new URL('/', request.nextUrl));  // Redirect unauthorized users to the home page (or other appropriate page)
+//   }
+
+//   // Allow the request to continue if everything is valid
+//   return NextResponse.next();
+// }
+
+// // Configuration to match the paths
+// export const config = {
+//   matcher: [
+//     '/', '/user-pages/user/profile', '/login', '/signup', '/verifyemail', 
+//     '/admin', '/user', '/organizer', '/events', '/campaign/create-campaign'
+//   ],  // List of paths where the middleware should be applied
+// };
+
+
+
+// import { NextResponse } from 'next/server';
+// import { NextRequest } from 'next/server';
+// import { getDataFromToken } from "@/helpers/getDataFromToken";
+// import { rolePaths } from "@/config/rolesConfig";
+
+// export async function middleware(request: NextRequest) {
+//   const path = request.nextUrl.pathname;
+//   const isPublicPath = ['/login', '/signup', '/verifyemail', '/'].includes(path); 
+//   const token = request.cookies?.get('token')?.value || ''; // Safely access token
+
+//   let userRole = '';
+
+//   if (token) {
+//     try {
+//       const { role } = getDataFromToken(request);  // Pass the entire request to the helper
+//       userRole = role;
+//     } catch (error) {
+//       console.error("Error decoding token i know why:", error);
+//       return NextResponse.redirect(new URL('/login', request.nextUrl));
+//     }
+//   }
+
+//   const isAuthorized = (role: string, path: string) => {
+//     return rolePaths[role]?.includes(path) || isPublicPath;
+//   };
+
+//   if (isPublicPath && token) {
+//     return NextResponse.redirect(new URL(rolePaths[userRole]?.[0] || '/', request.nextUrl));
+//   }
+
+//   if (!isPublicPath && !token) {
+//     return NextResponse.redirect(new URL('/login', request.nextUrl));
+//   }
+
+//   if (token && !isAuthorized(userRole, path)) {
+//     console.warn(`Unauthorized access attempt by role: ${userRole} to path: ${path}`);
+//     return NextResponse.redirect(new URL('/', request.nextUrl));
+//   }
+
+//   return NextResponse.next();
+// }
+
+// export const config = {
+//   matcher: [
+//     '/', '/user-pages/user/profile', '/login', '/signup', '/verifyemail',
+//     '/admin', '/donor', '/organizer', '/events', '/campaign/create-campaign',
+//   ],
+// };
+     
