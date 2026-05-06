@@ -1,5 +1,5 @@
 import nodemailer from 'nodemailer';
-import User from "@/models/userModel";
+import { User } from "@/models/userModel";
 import bcryptjs from 'bcryptjs';
 
 
@@ -35,7 +35,7 @@ export const sendEmail = async ({ email, emailType, userId }: SendEmailParams) =
         });
 
         // Prepare the email content
-        const actionUrl = `${process.env.DOMAIN}/${emailType === "VERIFY" ? "verifyemail" : "resetpassword"}?token=${hashedToken}`;
+        const actionUrl = `${process.env.DOMAIN}/${emailType === "VERIFY" ? "verifyemail" : "reset-password"}?token=${hashedToken}`;
         const mailOptions = {
             from: process.env.SENDER_EMAIL || 'sakeenaf315@gmail.com',
             to: email,

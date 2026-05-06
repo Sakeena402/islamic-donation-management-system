@@ -2,209 +2,116 @@
 
 import axios from "axios";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Button } from "@/components/ui/button";
+import AuthLayout from "@/components/layout/AuthLayout";
 
 export default function VerifyEmailPage() {
   const [token, setToken] = useState("");
-  const [email, setEmail] = useState(""); // Store email for resend
+  const [verified, setVerified] = useState(false);
   const [error, setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   // Function to verify the user's email
-  const verifyUserEmail = async () => {
+  const verifyUserEmail = useCallback(async (verifyToken: string) => {
     setLoading(true);
+    setError(false);
     try {
-      await axios.post("/api/auth/verifyemail", { token });
-      router.push("/login");
-    } catch (error: any) {
+      await axios.post("/api/auth/verifyemail", { token: verifyToken });
+      setVerified(true);
+      // Auto-redirect to login after 3 seconds
+      setTimeout(() => {
+        router.push("/login");
+      }, 3000);
+    } catch (err: unknown) {
       setError(true);
-      console.error("Verification Error:", error.response?.data || error.message);
+      if (axios.isAxiosError(err) && err.response) {
+        setErrorMessage(
+          err.response.data?.error || "Verification failed. The token may be invalid or expired."
+        );
+      } else {
+        setErrorMessage("An error occurred during verification. Please try again.");
+      }
     } finally {
       setLoading(false);
     }
-  };
+  }, [router]);
 
-// Function to resend verification email
-const resendVerificationEmail = async () => {
-  try {
-    setLoading(true);
-    const response = await axios.post("/api/auth/resend-verification", { email });
-
-    // Handle different response scenarios
-    const message = response.data?.message;
-    switch (message) {
-      case "Verification email already sent":
-        alert("A verification email has already been sent. Please check your inbox.");
-        break;
-      case "User already verified":
-        alert("Your email is already verified. You can log in now.");
-        router.push("/login"); // Redirect to login
-        break;
-      case "Verification email sent":
-        alert("Verification email sent successfully. Please check your inbox.");
-        break;
-      default:
-        alert("An unknown response was received. Please try again later.");
-        break;
-    }
-  } catch (error: any) {
-    console.error("Resend Email Error:", error.response?.data || error.message);
-    alert("Failed to resend verification email. Please try again later.");
-  } finally {
-    setLoading(false);
-  }
-};
-
-
-  // Extract token and email from URL
+  // Extract token from URL
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const urlToken = urlParams.get("token");
-    const urlEmail = urlParams.get("email");
-    if (urlToken) setToken(urlToken);
-    if (urlEmail) setEmail(urlEmail); // Set email for resending
+    if (urlToken) {
+      setToken(urlToken);
+    }
   }, []);
 
   // Trigger verification when the token is set
   useEffect(() => {
     if (token) {
-      verifyUserEmail();
+      verifyUserEmail(token);
     }
-  }, [token]);
+  }, [token, verifyUserEmail]);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-2">
-      <h1 className="text-4xl font-bold mb-4">Verify Email</h1>
+    <AuthLayout>
+      <div className="flex flex-col items-center justify-center w-full py-8">
+        <h1 className="text-3xl font-light mb-4 text-gray-800">
+          Email Verification
+        </h1>
 
-      {loading && <h2 className="text-2xl text-blue-500">Verifying, please wait...</h2>}
+        {loading && (
+          <div className="text-center">
+            <p className="text-lg text-indigo-600">
+              Verifying your email, please wait...
+            </p>
+          </div>
+        )}
 
-      {error && (
-        <div className="mt-4 text-center">
-          <h2 className="text-2xl text-red-600 font-semibold">Verification Failed</h2>
-          <p className="mt-2">The token is invalid or has expired. Please request a new verification link.</p>
-      
-          <Button variant="destructive" size="default" onClick={resendVerificationEmail}>
-            Resend Verification Email
-          </Button>
-        </div>
-      )}
-    </div>
+        {verified && (
+          <div className="mt-4 text-center">
+            <h2 className="text-xl text-green-600 font-semibold">
+              Email Verified Successfully!
+            </h2>
+            <p className="mt-2 text-gray-600">
+              Your email has been verified. You will be redirected to the login
+              page shortly.
+            </p>
+            <Link
+              href="/login"
+              className="mt-4 inline-block text-indigo-600 hover:underline"
+            >
+              Go to Login
+            </Link>
+          </div>
+        )}
+
+        {error && !loading && (
+          <div className="mt-4 text-center">
+            <h2 className="text-xl text-red-600 font-semibold">
+              Verification Failed
+            </h2>
+            <p className="mt-2 text-gray-600">{errorMessage}</p>
+            <Link
+              href="/login"
+              className="mt-4 inline-block text-indigo-600 hover:underline"
+            >
+              Go to Login
+            </Link>
+          </div>
+        )}
+
+        {!token && !loading && (
+          <div className="mt-4 text-center">
+            <p className="text-gray-600">
+              No verification token found. Please check your email for the
+              verification link.
+            </p>
+          </div>
+        )}
+      </div>
+    </AuthLayout>
   );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// "use client";
-
-// import axios from "axios";
-// import Link from "next/link";
-// import React, { useEffect, useState } from "react";
-
-// export default function VerifyEmailPage() {
-//   const [token, setToken] = useState("");
-//   const [verified, setVerified] = useState(false);
-//   const [error, setError] = useState(false);
-//   const [loading, setLoading] = useState(false);
-
-//   // Function to verify the user's email
-//   const verifyUserEmail = async () => {
-//     setLoading(true);
-//     try {
-//       // Sending token for verification
-//       await axios.post("/api/auth/verifyemail", { token });
-//       setVerified(true);
-//       setError(false);
-//     } catch (error: any) {
-//       setError(true);
-//       console.error("Verification Error:", error.response?.data || error.message);
-//     } finally {
-//       setLoading(false);
-//     }
-//   };
-
-//   // Extract token from URL
-//   useEffect(() => {
-//     const urlParams = new URLSearchParams(window.location.search);
-//     const urlToken = urlParams.get("token");
-//     if (urlToken) setToken(urlToken);
-//   }, []);
-
-//   // Trigger verification when the token is set
-//   useEffect(() => {
-//     if (token) {
-//       verifyUserEmail();
-//     }
-//   }, [token]);
-
-//   return (
-//     <div className="flex flex-col items-center justify-center min-h-screen py-2">
-//       <h1 className="text-4xl font-bold mb-4">Verify Email</h1>
-
-//       {/* Display the token for debugging */}
-//       {token && (
-//         <h2 className="p-2 mb-4 bg-gray-200 text-gray-800 rounded">
-//           Token: <span className="font-semibold">{token}</span>
-//         </h2>
-//       )}
-
-//       {/* Loading State */}
-//       {loading && <h2 className="text-2xl text-blue-500">Verifying, please wait...</h2>}
-
-//       {/* Verification Successful */}
-//       {verified && (
-//         <div className="mt-4 text-center">
-//           <h2 className="text-2xl text-green-600 font-semibold">Email Verified Successfully!</h2>
-//           <p className="mt-2">You can now login to your account.</p>
-//           <Link href="/login" className="mt-4 text-blue-600 underline">
-//             Go to Login
-//           </Link>
-//         </div>
-//       )}
-
-//       {/* Error Handling */}
-//       {error && (
-//         <div className="mt-4 text-center">
-//           <h2 className="text-2xl text-red-600 font-semibold">Verification Failed</h2>
-//           <p className="mt-2">The token is invalid or has expired. Please request a new verification link.</p>
-//           <Link href="/resend-verification" className="mt-4 text-blue-600 underline">
-//             Resend Verification Email
-//           </Link>
-//         </div>
-//       )}
-//     </div>
-//   );
-// }
