@@ -15,54 +15,63 @@ export interface IDonation extends Document {
   updatedAt?: Date; // Automatically added by Mongoose timestamps
 }
 
-// Define the donation schema
 const donationSchema = new mongoose.Schema(
   {
     amount: {
       type: Number,
       required: [true, 'Please specify the donation amount'],
+      min: [1, 'Donation amount must be at least 1'],
     },
     donorId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'User', // Reference to the User schema
+      ref: 'User',
       required: [true, 'Donor information is required'],
     },
     campaignId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Campaign', // Reference to the Campaign schema (if applicable)
+      ref: 'Campaign',
       default: null,
     },
     organizationId: { 
       type: Types.ObjectId, 
-      ref: 'Organization', // Reference to the Organization schema
-      required: false, // Donations can be made to campaigns or organizations
+      ref: 'Organization',
+      default: null,
     },
     transactionId: {
       type: String,
       required: [true, 'Transaction ID is required'],
-      unique: true, // Ensure the transaction ID is unique
+      unique: true,
     },
     paymentMethod: {
       type: String,
-      enum: ['Stripe', 'Easypaisa', 'JazzCash', 'Bank', 'CreditCard','others'],
+      enum: ['Stripe', 'Easypaisa', 'JazzCash', 'Bank', 'CreditCard', 'others'],
       required: [true, 'Please select a payment method'],
     },
     recurring: {
       type: Boolean,
-      default: false, // Defaults to false, unless specified
+      default: false,
     },
     paymentDetails: {
-      type: String, // Sensitive payment details
-      required: false, // Should be securely stored, so not required in schema
+      type: String,
+      required: false,
     },
     status: {
       type: String,
       enum: ['pending', 'completed', 'failed'],
-      default: 'pending', // Default to pending until payment is processed
+      default: 'pending',
     },
   },
   { timestamps: true }
 );
+
+// Validate that at least one destination (campaign or organization) is provided
+donationSchema.pre('save', function(next) {
+  if (!this.campaignId && !this.organizationId) {
+    next(new Error('Donation must be made to either a campaign or an organization'));
+  } else {
+    next();
+  }
+});
 
 // Create the Donation model
 const Donation = mongoose.models.Donation || mongoose.model('Donation', donationSchema);
