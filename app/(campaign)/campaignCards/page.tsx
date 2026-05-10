@@ -1,166 +1,3 @@
-// 'use client';
-
-// import { useState, useEffect } from 'react';
-// import { motion } from 'framer-motion';
-// import CampaignCard from '@/components/CampaignCard'; // Make sure to import your CampaignCard component
-
-// const CampaignPage: React.FC = () => {
-//   const [campaigns, setCampaigns] = useState<any[]>([]);
-//   const [isLoading, setIsLoading] = useState<boolean>(true);
-//   const [error, setError] = useState<string | null>(null);
-
-//   // Fetch campaigns from the backend API
-//   useEffect(() => {
-//     // Make sure to replace '/api/campaigns' with your actual backend endpoint
-//     fetch('/api/campaign')
-//       .then((response) => response.json())
-//       .then((data) => {
-//         setCampaigns(data);
-//         setIsLoading(false);
-//       }) 
-//       .catch((err) => {
-//         setError('Failed to load campaigns');
-//         setIsLoading(false);
-//       });
-//   }, []);
-
-//   return (
-//     <div className="mx-auto px-7 m-12 py-15">
-//       {/* Section for Heading */}
-//       <motion.section
-//         className="text-center mb-10"
-//         initial={{ opacity: 0, y: 40 }}
-//         whileInView={{ opacity: 1, y: 0 }}
-//         transition={{ duration: 1 }}
-//         viewport={{ once: false, amount: 0.2 }}
-//       >
-//         <h2 className="text-2xl pt-5 text-center font-bold font-serif mb-6 md:text-5xl" style={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.6)' }}>
-//           Hope in Healing: Donate to Save Them!
-//         </h2>
-//       </motion.section>
-
-//       {/* Loading State */}
-//       {isLoading ? (
-//         <div className="text-center text-lg text-gray-500">Loading campaigns...</div>
-//       ) : error ? (
-//         <div className="text-center text-lg text-red-500">{error}</div>
-//       ) : (
-//         <motion.section
-//           className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10 gap-y-12"
-//           initial={{ opacity: 0 }}
-//           whileInView={{ opacity: 1 }}
-//           transition={{ duration: 1 }}
-//           viewport={{ once: false, amount: 0.2 }}
-//         >
-//           {/* Render each campaign card */}
-//           {campaigns.map((campaign, index) => (
-//             <motion.div
-//               key={index}
-//               initial={{ opacity: 0, y: 40 }}
-//               whileInView={{ opacity: 1, y: 0 }}
-//               transition={{ duration: 0.8, delay: index * 0.2 }}
-//               viewport={{ once: false, amount: 0.2 }}
-//             >
-//               <CampaignCard campaign={campaign} />
-//             </motion.div>
-//           ))}
-//         </motion.section>
-//       )}
-//     </div>
-//   );
-// };
-
-// export default CampaignPage;
-
-
-
-
-
-
-// 'use client';
-
-// import { useState, useEffect } from 'react';
-// import { motion } from 'framer-motion';
-// import CampaignCard from '@/components/CampaignCard'; // Import CampaignCard component
-
-// const CampaignPage: React.FC = () => {
-//   const [campaigns, setCampaigns] = useState<any[]>([]);
-//   const [isLoading, setIsLoading] = useState<boolean>(true);
-//   const [error, setError] = useState<string | null>(null);
-
-//   // Fetch campaigns from the backend API
-//   useEffect(() => {
-//     fetch('/api/campaign')
-//       .then((response) => response.json())
-//       .then((data) => {
-//         setCampaigns(data);
-//         setIsLoading(false);
-//       })
-//       .catch((err) => {
-//         setError('Failed to load campaigns');
-//         setIsLoading(false);
-//       });
-//   }, []);
-
-//   return (
-//     <div className="mx-auto px-7 py-15 mt-29">
-//       {/* Section for Heading */}
-//       <motion.section
-//         className="text-center mb-10"
-//         initial={{ opacity: 0, y: 40 }}
-//         whileInView={{ opacity: 1, y: 0 }}
-//         transition={{ duration: 1 }}
-//         viewport={{ once: false, amount: 0.2 }}
-//       >
-//         <h2
-//           className="text-2xl font-bold text-center font-serif mb-6 md:text-5xl"
-//           style={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.6)' }}
-//         >
-//           Hope in Healing: Donate to Save Them!
-//         </h2>
-//       </motion.section>
-
-//       {/* Loading State */}
-//       {isLoading ? (
-//         <div className="text-center text-lg text-gray-500">Loading campaigns...</div>
-//       ) : error ? (
-//         <div className="text-center text-lg text-red-500">{error}</div>
-//       ) : (
-//         <motion.section
-//           className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10 gap-y-12"
-//           initial={{ opacity: 0 }}
-//           whileInView={{ opacity: 1 }}
-//           transition={{ duration: 1 }}
-//           viewport={{ once: false, amount: 0.2 }}
-//         >
-//           {/* Render each campaign card */}
-//           {campaigns.map((campaign, index) => (
-//             <motion.div
-//               key={index}
-//               initial={{ opacity: 0, y: 40 }}
-//               whileInView={{ opacity: 1, y: 0 }}
-//               transition={{ duration: 0.8, delay: index * 0.2 }}
-//               viewport={{ once: false, amount: 0.2 }}
-//             >
-//               <CampaignCard campaign={campaign} />
-//             </motion.div>
-//           ))}
-//         </motion.section>
-//       )}
-//     </div>
-//   );
-// };
-
-// export default CampaignPage;
-
-
-
-
-
-
-
-
-
 'use client';
 
 import { useEffect, useState } from 'react';
@@ -177,25 +14,44 @@ interface Campaign {
   endDate: string;
   isApproved: boolean;
   isActive: boolean;
-  createdBy: { username?: string; email?: string } | null; // Make createdBy optional or null
+  image?: string;
+  createdBy?: { username?: string; email?: string } | string;
+  collectedAmount?: number;
 }
 
 const CampaignPage: React.FC = () => {
   const [campaigns, setCampaigns] = useState<Campaign[]>([]);
-  const [category, setCategory] = useState<string>(''); // For filtering campaigns
+  const [category, setCategory] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
-  // Fetch campaigns with or without category filter
+  const categories = [
+    { label: 'All Categories', value: '' },
+    { label: 'Healthcare', value: 'healthcare' },
+    { label: 'Education', value: 'education' },
+    { label: 'Environment', value: 'environment' },
+    { label: 'Others', value: 'others' },
+  ];
+
   useEffect(() => {
     setLoading(true);
     const fetchCampaigns = async () => {
       try {
-        const response = await fetch(`/api/campaign?category=${category}`);
+        const url = category 
+          ? `/api/campaign?category=${category}` 
+          : '/api/campaign';
+        
+        const response = await fetch(url);
         const data = await response.json();
-        setCampaigns(data.data || []);
-      } catch (error) {
-        setError('Failed to load campaigns');
+        
+        if (data.success) {
+          setCampaigns(data.data || []);
+        } else {
+          setError(data.error || 'Failed to load campaigns');
+        }
+      } catch (err) {
+        console.error('[v0] Error fetching campaigns:', err);
+        setError('Failed to load campaigns. Please try again later.');
       } finally {
         setLoading(false);
       }
@@ -206,7 +62,7 @@ const CampaignPage: React.FC = () => {
 
   return (
     <div className="mx-auto px-7 py-15 mt-36">
-      {/* Section for Heading */}
+      {/* Heading */}
       <motion.section
         className="text-center mb-10"
         initial={{ opacity: 0, y: 40 }}
@@ -220,29 +76,50 @@ const CampaignPage: React.FC = () => {
         >
           Hope in Healing: Donate to Save Them!
         </h2>
+        <p className="text-gray-600">Browse and support campaigns that matter to you</p>
       </motion.section>
 
-      {/* Filter Dropdown */}
-      <div className="mb-6 flex justify-center">
-        <select
-          onChange={(e) => setCategory(e.target.value)}
-          value={category}
-          className="p-3 border rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-        >
-          <option value="">All Categories</option>
-          <option value="Health">Health</option>
-          <option value="Education">Education</option>
-          <option value="Environment">Environment</option>
-       
-        </select>
-      </div>
+      {/* Category Filter */}
+      <motion.section
+        className="mb-8"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+      >
+        <div className="flex flex-wrap justify-center gap-2">
+          {categories.map((cat) => (
+            <button
+              key={cat.value}
+              onClick={() => setCategory(cat.value)}
+              className={`px-4 py-2 rounded-lg font-semibold transition-all duration-300 ${
+                category === cat.value
+                  ? 'bg-blue-600 text-white shadow-lg'
+                  : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+              }`}
+            >
+              {cat.label}
+            </button>
+          ))}
+        </div>
+      </motion.section>
 
       {/* Loading State */}
-      {loading ? (
-        <div className="text-center text-lg text-gray-500">Loading campaigns...</div>
-      ) : error ? (
-        <div className="text-center text-lg text-red-500">{error}</div>
-      ) : (
+      {loading && (
+        <div className="text-center py-12">
+          <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+          <p className="mt-4 text-gray-600">Loading campaigns...</p>
+        </div>
+      )}
+
+      {/* Error State */}
+      {error && !loading && (
+        <div className="text-center py-12">
+          <p className="text-red-600 font-semibold">{error}</p>
+        </div>
+      )}
+
+      {/* Campaigns Grid */}
+      {!loading && !error && (
         <motion.section
           className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10 gap-y-12"
           initial={{ opacity: 0 }}
@@ -250,26 +127,22 @@ const CampaignPage: React.FC = () => {
           transition={{ duration: 1 }}
           viewport={{ once: false, amount: 0.2 }}
         >
-          {/* Render each campaign card */}
           {campaigns.length > 0 ? (
             campaigns.map((campaign, index) => (
               <motion.div
-                key={index}
+                key={campaign._id}
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: index * 0.2 }}
+                transition={{ duration: 0.8, delay: index * 0.1 }}
                 viewport={{ once: false, amount: 0.2 }}
               >
-                <CampaignCard
-                  campaign={{
-                    ...campaign,
-                    createdBy: campaign.createdBy?.username || 'Unknown', // Fallback to 'Unknown' if username is missing
-                  }}
-                />
+                <CampaignCard campaign={campaign} />
               </motion.div>
             ))
           ) : (
-            <div className="text-center text-lg text-gray-500">No campaigns available.</div>
+            <div className="col-span-full text-center py-12">
+              <p className="text-gray-500 text-lg">No campaigns available in this category.</p>
+            </div>
           )}
         </motion.section>
       )}

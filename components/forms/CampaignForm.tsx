@@ -1,196 +1,212 @@
 'use client';
-
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useCallback, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { useUser } from '@/context/userContext';
+import axios from 'axios';
+import { motion } from 'framer-motion';
 
 interface CampaignFormProps {
-  onSuccess?: (data: any) => void;
-}
-
-interface CampaignData {
-  title: string;
-  description: string;
-  startDate: string;
-  endDate: string;
-  targetAmount: number;
-  image: File | null;
-  category: string;
-  purpose: string;
+  onSuccess?: () => void;
 }
 
 const CampaignForm: React.FC<CampaignFormProps> = ({ onSuccess }) => {
-  const { userId, role, isAuthenticated } = useUser();
-  const [formData, setFormData] = useState<CampaignData>({
+  const router = useRouter();
+  const { userId, role } = useUser();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  const [formData, setFormData] = useState({
     title: '',
     description: '',
+    category: 'education',
+    purpose: 'general',
+    targetAmount: '',
     startDate: '',
     endDate: '',
-    targetAmount: 0,
-    image: null,
-    category: '',
-    purpose: '',
+    image: null as File | null,
   });
 
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [successMessage, setSuccessMessage] = useState<string | null>(null);
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
-  ) => {
+  const handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: name === 'targetAmount' ? parseFloat(value) : value,
-    });
-  };
+    setFormData(prev => ({ ...prev, [name]: value }));
+  }, []);
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files ? e.target.files[0] : null;
-    setFormData({
-      ...formData,
-      image: file,
-    });
-  };
+  const handleImageChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files?.[0]) {
+      setFormData(prev => ({ ...prev, image: e.target.files![0] }));
+    }
+  }, []);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = useCallback(async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    if (!isAuthenticated) {
-      setError('You must be logged in to create a campaign.');
-      return;
-    }
-
-    // Validate required fields
-    if (!formData.title || !formData.description || !formData.category || !formData.purpose) {
-      setError('Please fill in all required fields.');
-      return;
-    }
-
-    if (formData.targetAmount <= 0) {
-      setError('Target amount must be greater than 0.');
-      return;
-    }
-
-    setLoading(true);
-    setError(null);
+    setErrorMessage(null);
     setSuccessMessage(null);
 
-    try {
-      const formDataToSubmit = new FormData();
-      formDataToSubmit.append('title', formData.title);
-      formDataToSubmit.append('description', formData.description);
-      formDataToSubmit.append('startDate', formData.startDate);
-      formDataToSubmit.append('endDate', formData.endDate);
-      formDataToSubmit.append('targetAmount', formData.targetAmount.toString());
-      formDataToSubmit.append('category', formData.category);
-      formDataToSubmit.append('purpose', formData.purpose);
-      if (formData.image) {
-        formDataToSubmit.append('image', formData.image);
-      }
-
-      const response = await axios.post('/api/campaign', formDataToSubmit, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-
-      setSuccessMessage('Campaign created successfully!');
-
-      // Reset form
-      setFormData({
-        title: '',
-        description: '',
-        startDate: '',
-        endDate: '',
-        targetAmount: 0,
-        image: null,
-        category: '',
-        purpose: '',
-      });
-
-      if (onSuccess) {
-        onSuccess(response.data);
-      }
-    } catch (err: unknown) {
-      if (axios.isAxiosError(err)) {
-        setError(err.response?.data?.error || 'An error occurred while creating the campaign.');
-      } else {
-        setError('An unexpected error occurred.');
-      }
-      console.error('Error submitting form:', err);
-    } finally {
-      setLoading(false);
+    if (!userId) {
+      setErrorMessage('Please log in to create a campaign');
+      return;
     }
-  };
+
+    if (!['admin', 'organizer'].includes(role?.toLowerCase() || '')) {
+      setErrorMessage('Only admins and organizers can create campaigns');
+      return;
+    }
+
+    // Client-side validation
+    if (!formData.title?.trim()) {
+      setErrorMessage('Campaign title is required');
+      return;
+    }
+    if (!formData.description?.trim()) {
+      setErrorMessage('Campaign description is required');
+      return;
+    }
+    if (!formData.targetAmount) {
+      setErrorMessage('Target amount is required');
+      return;
+    }
+    if (Number(formData.targetAmount) <= 0) {
+      setErrorMessage('Target amount must be greater than 0');
+      return;
+    }
+    if (!formData.startDate) {
+      setErrorMessage('Start date is required');
+      return;
+    }
+    if (!formData.endDate) {
+      setErrorMessage('End date is required');
+      return;
+    }
+    if (new Date(formData.startDate) >= new Date(formData.endDate)) {
+      setErrorMessage('End date must be after start date');
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      let imageData = null;
+      if (formData.image) {
+        imageData = await new Promise<string>((resolve) => {
+          const reader = new FileReader();
+          reader.onload = (e) => resolve(e.target?.result as string);
+          reader.readAsDataURL(formData.image!);
+        });
+      }
+
+      const payload = {
+        title: formData.title.trim(),
+        description: formData.description.trim(),
+        category: formData.category,
+        purpose: formData.purpose,
+        targetAmount: Number(formData.targetAmount),
+        startDate: formData.startDate,
+        endDate: formData.endDate,
+        image: imageData,
+      };
+
+      const response = await axios.post('/api/campaign', payload);
+
+      if (response.data.success) {
+        setSuccessMessage('Campaign created successfully! Redirecting...');
+        setFormData({
+          title: '',
+          description: '',
+          category: 'education',
+          purpose: 'general',
+          targetAmount: '',
+          startDate: '',
+          endDate: '',
+          image: null,
+        });
+
+        if (onSuccess) onSuccess();
+
+        setTimeout(() => {
+          if (role?.toLowerCase() === 'organizer') {
+            router.push('/organizer');
+          } else {
+            router.push('/campaignCards');
+          }
+        }, 1500);
+      }
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response?.data?.error) {
+        setErrorMessage(error.response.data.error);
+      } else if (error instanceof Error) {
+        setErrorMessage(error.message);
+      } else {
+        setErrorMessage('Failed to create campaign. Please try again.');
+      }
+      console.error('[v0] Campaign creation error:', error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  }, [formData, userId, role, router, onSuccess]);
 
   return (
-    <div className="max-w-2xl mx-auto p-6 bg-white shadow-lg rounded-lg">
-      <h2 className="text-3xl font-bold text-gray-900 mb-6">Create Campaign</h2>
+    <motion.div
+      className="w-full max-w-2xl mx-auto bg-white rounded-lg shadow-xl p-8"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+    >
+      <h1 className="text-3xl font-bold text-gray-900 mb-2">Create Campaign</h1>
+      <p className="text-gray-600 mb-6">Share your cause and inspire others to help</p>
 
-      {error && (
-        <div className="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
-          {error}
+      {successMessage && (
+        <div className="mb-4 p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg">
+          {successMessage}
         </div>
       )}
 
-      {successMessage && (
-        <div className="mb-4 p-4 bg-green-100 border border-green-400 text-green-700 rounded">
-          {successMessage}
+      {errorMessage && (
+        <div className="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">
+          {errorMessage}
         </div>
       )}
 
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Title */}
         <div>
-          <label htmlFor="title" className="block text-sm font-medium text-gray-700">
-            Campaign Title *
-          </label>
+          <label className="block text-sm font-semibold text-gray-700 mb-2">Campaign Title *</label>
           <input
-            id="title"
             type="text"
             name="title"
             value={formData.title}
-            onChange={handleChange}
+            onChange={handleInputChange}
             placeholder="Enter campaign title"
-            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-            required
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            disabled={isSubmitting}
           />
         </div>
 
         {/* Description */}
         <div>
-          <label htmlFor="description" className="block text-sm font-medium text-gray-700">
-            Description *
-          </label>
+          <label className="block text-sm font-semibold text-gray-700 mb-2">Description *</label>
           <textarea
-            id="description"
             name="description"
             value={formData.description}
-            onChange={handleChange}
-            placeholder="Describe your campaign"
+            onChange={handleInputChange}
+            placeholder="Describe your campaign and its impact"
             rows={4}
-            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-            required
-          ></textarea>
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            disabled={isSubmitting}
+          />
         </div>
 
-        {/* Category and Purpose */}
+        {/* Category & Purpose */}
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label htmlFor="category" className="block text-sm font-medium text-gray-700">
-              Category *
-            </label>
+            <label className="block text-sm font-semibold text-gray-700 mb-2">Category *</label>
             <select
-              id="category"
               name="category"
               value={formData.category}
-              onChange={handleChange}
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-              required
+              onChange={handleInputChange}
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              disabled={isSubmitting}
             >
-              <option value="">Select category</option>
               <option value="education">Education</option>
               <option value="healthcare">Healthcare</option>
               <option value="environment">Environment</option>
@@ -199,101 +215,92 @@ const CampaignForm: React.FC<CampaignFormProps> = ({ onSuccess }) => {
           </div>
 
           <div>
-            <label htmlFor="purpose" className="block text-sm font-medium text-gray-700">
-              Purpose *
-            </label>
+            <label className="block text-sm font-semibold text-gray-700 mb-2">Purpose *</label>
             <select
-              id="purpose"
               name="purpose"
               value={formData.purpose}
-              onChange={handleChange}
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-              required
+              onChange={handleInputChange}
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              disabled={isSubmitting}
             >
-              <option value="">Select purpose</option>
+              <option value="general">General</option>
               <option value="zakat">Zakat</option>
               <option value="fitra">Fitra</option>
               <option value="sadqa">Sadqa</option>
-              <option value="general">General</option>
             </select>
-          </div>
-        </div>
-
-        {/* Dates */}
-        <div className="grid grid-cols-2 gap-4">
-          <div>
-            <label htmlFor="startDate" className="block text-sm font-medium text-gray-700">
-              Start Date
-            </label>
-            <input
-              id="startDate"
-              type="date"
-              name="startDate"
-              value={formData.startDate}
-              onChange={handleChange}
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-            />
-          </div>
-
-          <div>
-            <label htmlFor="endDate" className="block text-sm font-medium text-gray-700">
-              End Date
-            </label>
-            <input
-              id="endDate"
-              type="date"
-              name="endDate"
-              value={formData.endDate}
-              onChange={handleChange}
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-            />
           </div>
         </div>
 
         {/* Target Amount */}
         <div>
-          <label htmlFor="targetAmount" className="block text-sm font-medium text-gray-700">
-            Target Amount (PKR) *
-          </label>
+          <label className="block text-sm font-semibold text-gray-700 mb-2">Target Amount (₹) *</label>
           <input
-            id="targetAmount"
             type="number"
             name="targetAmount"
             value={formData.targetAmount}
-            onChange={handleChange}
-            placeholder="0"
+            onChange={handleInputChange}
+            placeholder="Enter target amount"
             min="1"
-            step="0.01"
-            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-            required
+            step="100"
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            disabled={isSubmitting}
           />
         </div>
 
-        {/* Image */}
+        {/* Dates */}
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <label className="block text-sm font-semibold text-gray-700 mb-2">Start Date *</label>
+            <input
+              type="date"
+              name="startDate"
+              value={formData.startDate}
+              onChange={handleInputChange}
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              disabled={isSubmitting}
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-semibold text-gray-700 mb-2">End Date *</label>
+            <input
+              type="date"
+              name="endDate"
+              value={formData.endDate}
+              onChange={handleInputChange}
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              disabled={isSubmitting}
+            />
+          </div>
+        </div>
+
+        {/* Image Upload */}
         <div>
-          <label htmlFor="image" className="block text-sm font-medium text-gray-700">
-            Campaign Image
-          </label>
+          <label className="block text-sm font-semibold text-gray-700 mb-2">Campaign Image</label>
           <input
-            id="image"
             type="file"
-            name="image"
-            onChange={handleFileChange}
             accept="image/*"
-            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+            onChange={handleImageChange}
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            disabled={isSubmitting}
           />
+          {formData.image && (
+            <p className="text-sm text-green-600 mt-2">Image selected: {formData.image.name}</p>
+          )}
         </div>
 
         {/* Submit Button */}
-        <button
+        <motion.button
           type="submit"
-          disabled={loading}
-          className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white font-bold py-2 px-4 rounded-lg transition-colors"
+          disabled={isSubmitting}
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+          className="w-full py-3 px-4 bg-gradient-to-r from-blue-600 to-blue-800 text-white font-bold rounded-lg hover:shadow-lg transition-shadow duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          {loading ? 'Creating Campaign...' : 'Create Campaign'}
-        </button>
+          {isSubmitting ? 'Creating Campaign...' : 'Create Campaign'}
+        </motion.button>
       </form>
-    </div>
+    </motion.div>
   );
 };
 
