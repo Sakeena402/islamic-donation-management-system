@@ -102,38 +102,8 @@ const accountSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-// Pre-save hook to hash sensitive information (e.g., clientSecret, bank details)
-accountSchema.pre('save', async function (next) {
-  if (this.isModified('clientSecret')) {
-    const salt = await bcrypt.genSalt(10);
-    this.clientSecret = await bcrypt.hash(this.clientSecret, salt);
-  }
-
-  if (this.isModified('accountDetails.accountNumber')) {
-    const salt = await bcrypt.genSalt(10);
-    this.accountDetails.accountNumber = await bcrypt.hash(
-      this.accountDetails.accountNumber,
-      salt
-    );
-  }
-
-  if (this.isModified('bankAccountDetails.iban')) {
-    const salt = await bcrypt.genSalt(10);
-    this.bankAccountDetails.iban = await bcrypt.hash(this.bankAccountDetails.iban, salt);
-  }
-
-  next();
-});
-
-// Method to compare provided clientSecret with stored hashed clientSecret
-accountSchema.methods.compareClientSecret = async function (enteredSecret: string) {
-  return await bcrypt.compare(enteredSecret, this.clientSecret);
-};
-
-// Method to compare account number (hashed) with provided account number
-accountSchema.methods.compareAccountNumber = async function (enteredAccountNumber: string) {
-  return await bcrypt.compare(enteredAccountNumber, this.accountDetails.accountNumber);
-};
+// Pre-save hook removed - sensitive data should be encrypted at application layer or via environment-based key management
+// Do NOT hash fields like clientSecret, IBAN, or accountNumber as they need to remain readable for payment processing
 
 // Create the Account model
 const Account = mongoose.models.Account || mongoose.model('Account', accountSchema);
