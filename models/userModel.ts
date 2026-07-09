@@ -137,6 +137,7 @@ const AdminSchema = new mongoose.Schema({
   
   
 
-export {User,Admin,Organizer} ;       
+export { User, Admin, Organizer };
+export default User;
 
 

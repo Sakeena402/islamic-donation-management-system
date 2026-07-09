@@ -1,632 +1,306 @@
-// import React, { useState } from 'react';
-// import { motion } from 'framer-motion';
-// import axios from 'axios';
-
-// interface CampaignFormProps {
-//   onSubmit: (data: CampaignData) => void;
-// }
-
-// interface CampaignData {
-//   title: string;
-//   description: string;
-//   startDate: string;
-//   endDate: string;
-//   targetAmount: number;
-//   image: File | null;
-//   category: string;
-//   purpose: string;
-// }
-
-// const CampaignForm: React.FC<CampaignFormProps> = ({ onSubmit }) => {
-//   const [formData, setFormData] = useState<CampaignData>({
-//     title: '',
-//     description: '',
-//     startDate: '',
-//     endDate: '',
-//     targetAmount: 0,
-//     image: null,
-//     category: '',
-//     purpose: '',
-//   });
-
-//   const [loading, setLoading] = useState(false);
-//   const [error, setError] = useState<string | null>(null);
-//   const [successMessage, setSuccessMessage] = useState<string | null>(null);
-
-//   // Handle input field changes
-//   // const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-//   //   const { name, value } = e.target;
-//   //   setFormData({
-//   //     ...formData,
-//   //     [name]: value,
-//   //   });
-//   // };
-
-//   // const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-//   //   const file = e.target.files ? e.target.files[0] : null;
-//   //   setFormData({
-//   //     ...formData,
-//   //     image: file,
-//   //   });
-//   // };
-
-//   // const handleSubmit = async (e: React.FormEvent) => {
-//   //   e.preventDefault();
-//   //   setLoading(true);
-//   //   setError(null);
-//   //   setSuccessMessage(null);
-
-//   //   try {
-//   //     const formDataToSubmit = new FormData();
-//   //     formDataToSubmit.append('title', formData.title);
-//   //     formDataToSubmit.append('description', formData.description);
-//   //     formDataToSubmit.append('startDate', formData.startDate);
-//   //     formDataToSubmit.append('endDate', formData.endDate);
-//   //     formDataToSubmit.append('targetAmount', formData.targetAmount.toString());
-//   //     formDataToSubmit.append('category', formData.category);
-//   //     formDataToSubmit.append('purpose', formData.purpose);
-//   //     if (formData.image) {
-//   //       formDataToSubmit.append('image', formData.image);
-//   //     }
-
-//   //     // Call the API to save the campaign data
-//   //     const response = await fetch('/api/campaign', {
-//   //       method: 'POST',
-//   //       body: formDataToSubmit, // Send FormData as the request body
-//   //     });
-
-//   //     const responseData = await response.json();
-
-//   //     if (response.ok) {
-//   //       setSuccessMessage('Campaign created successfully!');
-//   //       // Optionally reset the form if needed
-//   //       setFormData({
-//   //         title: '',
-//   //         description: '',
-//   //         startDate: '',
-//   //         endDate: '',
-//   //         targetAmount: 0,
-//   //         image: null,
-//   //         category: '',
-//   //         purpose: '',
-//   //       });
-//   //       onSubmit(responseData); // Send the response data back to the parent component
-//   //     } else {
-//   //       // Display all server-side error messages
-//   //       setError(responseData.error || 'An error occurred while creating the campaign.');
-//   //     }
-//   //   } catch (error: any) {
-//   //     console.error('Error submitting form:', error);
-//   //     // Display a more descriptive error message for network or server issues
-//   //     setError('An error occurred while submitting the form. Please try again later.');
-//   //   } finally {
-//   //     setLoading(false);
-//   //   }
-//   // };
-
-//   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-//     const { name, value } = e.target;
-//     setFormData({
-//       ...formData,
-//       [name]: value,
-//     });
-//   };
-
-//   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-//     const file = e.target.files ? e.target.files[0] : null;
-//     setFormData({
-//       ...formData,
-//       image: file,
-//     });
-//   };
-
-//   const handleSubmit = async (e: React.FormEvent) => {
-//     e.preventDefault();
-//     setLoading(true);
-//     setError(null);
-//     setSuccessMessage(null);
-
-//     try {
-//       const formDataToSubmit = new FormData();
-//       formDataToSubmit.append('title', formData.title);
-//       formDataToSubmit.append('description', formData.description);
-//       formDataToSubmit.append('startDate', formData.startDate);
-//       formDataToSubmit.append('endDate', formData.endDate);
-//       formDataToSubmit.append('targetAmount', formData.targetAmount.toString());
-//       formDataToSubmit.append('category', formData.category);
-//       formDataToSubmit.append('purpose', formData.purpose);
-//       if (formData.image) {
-//         formDataToSubmit.append('image', formData.image);
-//       }
-
-//       // Use axios to send the POST request
-//       const response = await axios.post('/api/campaign', formDataToSubmit, {
-//         headers: {
-//           'Content-Type': 'multipart/form-data', // Important for FormData
-//         },
-//       });
-
-//       if (response.status === 200) {
-//         setSuccessMessage('Campaign created successfully!');
-//         // Optionally reset the form if needed
-//         setFormData({
-//           title: '',
-//           description: '',
-//           startDate: '',
-//           endDate: '',
-//           targetAmount: 0,
-//           image: null,
-//           category: '',
-//           purpose: '',
-//         });
-//         onSubmit(response.data); // Send the response data back to the parent component
-//       }
-//     } catch (error: any) {
-//       console.error('Error submitting form:', error);
-//       // Display a more descriptive error message for network or server issues
-//       setError('An error occurred while submitting the form. Please try again later.');
-//     } finally {
-//       setLoading(false);
-//     }
-//   };
-
-//   return (
-//     <motion.form
-//       className="space-y-6 bg-white bg-opacity-50 mt-28 p-10 rounded-lg shadow-xl w-full max-w-5xl mx-auto"
-//       onSubmit={handleSubmit}
-//       initial={{ opacity: 0 }}
-//       animate={{ opacity: 1 }}
-//       transition={{ duration: 0.8 }}
-//     >
-//       <h2 className="text-3xl font-semibold text-center text-[#0b221d]">Create a Campaign</h2>
-
-//       {/* Display error or success message */}
-//       {error && <p className="text-red-500 text-center">{error}</p>}
-//       {successMessage && <p className="text-green-500 text-center">{successMessage}</p>}
-
-//       {/* Horizontal Layout for the Fields */}
-//       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-//         {/* Campaign Title */}
-//         <div className="flex flex-col">
-//           <label htmlFor="title" className="text-lg font-medium text-[#0b221d]">
-//             Campaign Title
-//           </label>
-//           <input
-//             type="text"
-//             id="title"
-//             name="title"
-//             value={formData.title}
-//             onChange={handleChange}
-//             className="mt-2 px-6 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0b221d] focus:outline-none transition-all duration-300"
-//             required
-//           />
-//         </div>
-
-//         {/* Category */}
-//         <div className="flex flex-col">
-//           <label htmlFor="category" className="text-lg font-medium text-[#0b221d]">
-//             Category
-//           </label>
-//           <select
-//             id="category"
-//             name="category"
-//             value={formData.category}
-//             onChange={handleChange}
-//             className="mt-2 px-6 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0b221d] focus:outline-none transition-all duration-300"
-//             required
-//           >
-//             <option value="">Select a category</option>
-//             <option value="education">Education</option>
-//             <option value="healthcare">Healthcare</option>
-//             <option value="environment">Environment</option>
-//             <option value="others">Others</option>
-//           </select>
-//         </div>
-//       </div>
-
-//       {/* Purpose */}
-//       <div className="flex flex-col">
-//         <label htmlFor="purpose" className="text-lg font-medium text-[#0b221d]">
-//           Purpose
-//         </label>
-//         <select
-//           id="purpose"
-//           name="purpose"
-//           value={formData.purpose}
-//           onChange={handleChange}
-//           className="mt-2 px-6 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0b221d] focus:outline-none transition-all duration-300"
-//           required
-//         >
-//           <option value="">Select a purpose</option>
-//           <option value="zakat">Zakat</option>
-//           <option value="fitra">Fitra</option>
-//           <option value="sadqa">Sadqa</option>
-//           <option value="general">General</option>
-//         </select>
-//       </div>
-
-//       {/* Description Field */}
-//       <div className="flex flex-col">
-//         <label htmlFor="description" className="text-lg font-medium text-[#0b221d]">
-//           Description
-//         </label>
-//         <textarea
-//           id="description"
-//           name="description"
-//           value={formData.description}
-//           onChange={handleChange}
-//           className="mt-2 px-6 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0b221d] focus:outline-none transition-all duration-300"
-//           rows={4}
-//           required
-//         />
-//       </div>
-
-//       {/* Start & End Date */}
-//       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-//         {/* Start Date */}
-//         <div className="flex flex-col">
-//           <label htmlFor="startDate" className="text-lg font-medium text-[#0b221d]">
-//             Start Date
-//           </label>
-//           <input
-//             type="date"
-//             id="startDate"
-//             name="startDate"
-//             value={formData.startDate}
-//             onChange={handleChange}
-//             className="mt-2 px-6 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0b221d] focus:outline-none transition-all duration-300"
-//             required
-//           />
-//         </div>
-
-//         {/* End Date */}
-//         <div className="flex flex-col">
-//           <label htmlFor="endDate" className="text-lg font-medium text-[#0b221d]">
-//             End Date
-//           </label>
-//           <input
-//             type="date"
-//             id="endDate"
-//             name="endDate"
-//             value={formData.endDate}
-//             onChange={handleChange}
-//             className="mt-2 px-6 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0b221d] focus:outline-none transition-all duration-300"
-//             required
-//           />
-//         </div>
-//       </div>
-
-//       {/* Target Amount */}
-//       <div className="flex flex-col">
-//         <label htmlFor="targetAmount" className="text-lg font-medium text-[#0b221d]">
-//           Target Amount ($)
-//         </label>
-//         <input
-//           type="number"
-//           id="targetAmount"
-//           name="targetAmount"
-//           value={formData.targetAmount}
-//           onChange={handleChange}
-//           className="mt-2 px-6 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0b221d] focus:outline-none transition-all duration-300"
-//           required
-//         />
-//       </div>
-
-//       {/* Campaign Image */}
-//       <div className="flex flex-col">
-//         <label htmlFor="image" className="text-lg font-medium text-[#0b221d]">
-//           Upload Image
-//         </label>
-//         <input
-//           type="file"
-//           id="image"
-//           name="image"
-//           onChange={handleFileChange}
-//           className="mt-2 px-6 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0b221d] focus:outline-none transition-all duration-300"
-//         />
-//       </div>
-
-//       {/* Submit Button */}
-//       <div className="flex justify-center mt-8">
-//         <button
-//           type="submit"
-//           className={`px-8 py-3 text-white font-semibold rounded-lg transition-all duration-300 ${
-//             loading ? 'bg-gray-500 cursor-not-allowed' : 'bg-[#0b221d] hover:bg-[#093d32]'
-//           }`}
-//           disabled={loading}
-//         >
-//           {loading ? 'Submitting...' : 'Create Campaign'}
-//         </button>
-//       </div>
-//     </motion.form>
-//   );
-// };
-
-// export default CampaignForm;
-
-
-
-
-
-
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+'use client';
+import React, { useCallback, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useUser } from '@/context/userContext';
 import axios from 'axios';
-import { useUser } from '@/context/userContext'; // Import the UserContext
+import { motion } from 'framer-motion';
 
 interface CampaignFormProps {
-  onSubmit: (data: CampaignData) => void;
+  onSuccess?: () => void;
 }
 
-interface CampaignData {
-  title: string;
-  description: string;
-  startDate: string;
-  endDate: string;
-  targetAmount: number;
-  image: File | null;
-  category: string;
-  purpose: string;
-  createdBy: string; // Add this field to store user ID
-  requestedBy: string,
-  userRole: string; // Add this field to store user role
-}
+const CampaignForm: React.FC<CampaignFormProps> = ({ onSuccess }) => {
+  const router = useRouter();
+  const { userId, role } = useUser();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-const CampaignForm: React.FC<CampaignFormProps> = ({ onSubmit }) => {
-  const { userId, role } = useUser(); // Get userId and role from context
-  console.log(`userId: ${userId} ,, role ${role}`);
-  const [formData, setFormData] = useState<CampaignData>({
+  const [formData, setFormData] = useState({
     title: '',
     description: '',
+    category: 'education',
+    purpose: 'general',
+    targetAmount: '',
     startDate: '',
     endDate: '',
-    targetAmount: 0,
-    image: null,
-    category: '',
-    purpose: '',
-    createdBy: userId || '',  // Prepopulate with userId if available
-    requestedBy: userId || '',
-    userRole: role || '',  // Prepopulate with role if available
+    image: null as File | null,
   });
 
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [successMessage, setSuccessMessage] = useState<string | null>(null);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
+    setFormData(prev => ({ ...prev, [name]: value }));
+  }, []);
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files ? e.target.files[0] : null;
-    setFormData({
-      ...formData,
-      image: file,
-    });
-  };
+  const handleImageChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files?.[0]) {
+      setFormData(prev => ({ ...prev, image: e.target.files![0] }));
+    }
+  }, []);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = useCallback(async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setLoading(true);
-    setError(null);
+    setErrorMessage(null);
     setSuccessMessage(null);
 
+    if (!userId) {
+      setErrorMessage('Please log in to create a campaign');
+      return;
+    }
+
+    if (!['admin', 'organizer'].includes(role?.toLowerCase() || '')) {
+      setErrorMessage('Only admins and organizers can create campaigns');
+      return;
+    }
+
+    // Client-side validation
+    if (!formData.title?.trim()) {
+      setErrorMessage('Campaign title is required');
+      return;
+    }
+    if (!formData.description?.trim()) {
+      setErrorMessage('Campaign description is required');
+      return;
+    }
+    if (!formData.targetAmount) {
+      setErrorMessage('Target amount is required');
+      return;
+    }
+    if (Number(formData.targetAmount) <= 0) {
+      setErrorMessage('Target amount must be greater than 0');
+      return;
+    }
+    if (!formData.startDate) {
+      setErrorMessage('Start date is required');
+      return;
+    }
+    if (!formData.endDate) {
+      setErrorMessage('End date is required');
+      return;
+    }
+    if (new Date(formData.startDate) >= new Date(formData.endDate)) {
+      setErrorMessage('End date must be after start date');
+      return;
+    }
+
+    setIsSubmitting(true);
+
     try {
-      const formDataToSubmit = new FormData();
-      formDataToSubmit.append('title', formData.title);
-      formDataToSubmit.append('description', formData.description);
-      formDataToSubmit.append('startDate', formData.startDate);
-      formDataToSubmit.append('endDate', formData.endDate);
-      formDataToSubmit.append('targetAmount', formData.targetAmount.toString());
-      formDataToSubmit.append('category', formData.category);
-      formDataToSubmit.append('purpose', formData.purpose);
-      formDataToSubmit.append('createdBy', formData.createdBy); // Send userId as createdBy
-      formDataToSubmit.append('requestedBy', formData.requestedBy); // Send userId as createdBy
-      formDataToSubmit.append('userRole', formData.userRole); // Send user role
+      let imageData = null;
       if (formData.image) {
-        formDataToSubmit.append('image', formData.image);
+        imageData = await new Promise<string>((resolve) => {
+          const reader = new FileReader();
+          reader.onload = (e) => resolve(e.target?.result as string);
+          reader.readAsDataURL(formData.image!);
+        });
       }
 
-      // Use axios to send the POST request
-      const response = await axios.post('/api/campaign', formDataToSubmit, {
-        headers: {
-          'Content-Type': 'multipart/form-data', // Important for FormData
-        },
-      });
+      const payload = {
+        title: formData.title.trim(),
+        description: formData.description.trim(),
+        category: formData.category,
+        purpose: formData.purpose,
+        targetAmount: Number(formData.targetAmount),
+        startDate: formData.startDate,
+        endDate: formData.endDate,
+        image: imageData,
+      };
 
-      if (response.status === 200) {
-        setSuccessMessage('Campaign created successfully!');
+      const response = await axios.post('/api/campaign', payload);
+
+      if (response.data.success) {
+        setSuccessMessage('Campaign created successfully! Redirecting...');
         setFormData({
           title: '',
           description: '',
+          category: 'education',
+          purpose: 'general',
+          targetAmount: '',
           startDate: '',
           endDate: '',
-          targetAmount: 0,
           image: null,
-          category: '',
-          purpose: '',
-          createdBy: userId || '',  // Reset createdBy to userId
-          requestedBy: userId || '', 
-          userRole: role || '', // Reset userRole to current role
         });
-        onSubmit(response.data); // Send the response data back to the parent component
+
+        if (onSuccess) onSuccess();
+
+        setTimeout(() => {
+          if (role?.toLowerCase() === 'organizer') {
+            router.push('/organizer');
+          } else {
+            router.push('/campaignCards');
+          }
+        }, 1500);
       }
-    } catch (error: any) {
-      console.error('Error submitting form:', error);
-      setError('An error occurred while submitting the form. Please try again later.');
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response?.data?.error) {
+        setErrorMessage(error.response.data.error);
+      } else if (error instanceof Error) {
+        setErrorMessage(error.message);
+      } else {
+        setErrorMessage('Failed to create campaign. Please try again.');
+      }
+      console.error('[v0] Campaign creation error:', error);
     } finally {
-      setLoading(false);
+      setIsSubmitting(false);
     }
-  };
+  }, [formData, userId, role, router, onSuccess]);
 
   return (
-    <motion.form
-      className="space-y-6 bg-white bg-opacity-50 mt-28 p-10 rounded-lg shadow-xl w-full max-w-5xl mx-auto"
-      onSubmit={handleSubmit}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.8 }}
+    <motion.div
+      className="w-full max-w-2xl mx-auto bg-white rounded-lg shadow-xl p-8"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
     >
-      <h2 className="text-3xl font-semibold text-center text-[#0b221d]">Create a Campaign</h2>
+      <h1 className="text-3xl font-bold text-gray-900 mb-2">Create Campaign</h1>
+      <p className="text-gray-600 mb-6">Share your cause and inspire others to help</p>
 
-      {/* Display error or success message */}
-      {error && <p className="text-red-500 text-center">{error}</p>}
-      {successMessage && <p className="text-green-500 text-center">{successMessage}</p>}
+      {successMessage && (
+        <div className="mb-4 p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg">
+          {successMessage}
+        </div>
+      )}
 
-      {/* Horizontal Layout for the Fields */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {/* Campaign Title */}
-        <div className="flex flex-col">
-          <label htmlFor="title" className="text-lg font-medium text-[#0b221d]">
-            Campaign Title
-          </label>
+      {errorMessage && (
+        <div className="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">
+          {errorMessage}
+        </div>
+      )}
+
+      <form onSubmit={handleSubmit} className="space-y-6">
+        {/* Title */}
+        <div>
+          <label className="block text-sm font-semibold text-gray-700 mb-2">Campaign Title *</label>
           <input
             type="text"
-            id="title"
             name="title"
             value={formData.title}
-            onChange={handleChange}
-            className="mt-2 px-6 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0b221d] focus:outline-none transition-all duration-300"
-            required
+            onChange={handleInputChange}
+            placeholder="Enter campaign title"
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            disabled={isSubmitting}
           />
         </div>
 
-        {/* Category */}
-        <div className="flex flex-col">
-          <label htmlFor="category" className="text-lg font-medium text-[#0b221d]">
-            Category
-          </label>
-          <select
-            id="category"
-            name="category"
-            value={formData.category}
-            onChange={handleChange}
-            className="mt-2 px-6 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0b221d] focus:outline-none transition-all duration-300"
-            required
-          >
-            <option value="">Select a category</option>
-            <option value="education">Education</option>
-            <option value="healthcare">Healthcare</option>
-            <option value="environment">Environment</option>
-            <option value="others">Others</option>
-          </select>
-        </div>
-      </div>
-
-      {/* Purpose */}
-      <div className="flex flex-col">
-        <label htmlFor="purpose" className="text-lg font-medium text-[#0b221d]">
-          Purpose
-        </label>
-        <select
-          id="purpose"
-          name="purpose"
-          value={formData.purpose}
-          onChange={handleChange}
-          className="mt-2 px-6 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0b221d] focus:outline-none transition-all duration-300"
-          required
-        >
-          <option value="">Select a purpose</option>
-          <option value="zakat">Zakat</option>
-          <option value="fitra">Fitra</option>
-          <option value="sadqa">Sadqa</option>
-          <option value="general">General</option>
-        </select>
-      </div>
-
-      {/* Description Field */}
-      <div className="flex flex-col">
-        <label htmlFor="description" className="text-lg font-medium text-[#0b221d]">
-          Description
-        </label>
-        <textarea
-          id="description"
-          name="description"
-          value={formData.description}
-          onChange={handleChange}
-          className="mt-2 px-6 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0b221d] focus:outline-none transition-all duration-300"
-          rows={4}
-          required
-        />
-      </div>
-
-      {/* Date and Target Amount */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div className="flex flex-col">
-          <label htmlFor="startDate" className="text-lg font-medium text-[#0b221d]">
-            Start Date
-          </label>
-          <input
-            type="date"
-            id="startDate"
-            name="startDate"
-            value={formData.startDate}
-            onChange={handleChange}
-            className="mt-2 px-6 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0b221d] focus:outline-none transition-all duration-300"
-            required
+        {/* Description */}
+        <div>
+          <label className="block text-sm font-semibold text-gray-700 mb-2">Description *</label>
+          <textarea
+            name="description"
+            value={formData.description}
+            onChange={handleInputChange}
+            placeholder="Describe your campaign and its impact"
+            rows={4}
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            disabled={isSubmitting}
           />
         </div>
 
-        <div className="flex flex-col">
-          <label htmlFor="endDate" className="text-lg font-medium text-[#0b221d]">
-            End Date
-          </label>
-          <input
-            type="date"
-            id="endDate"
-            name="endDate"
-            value={formData.endDate}
-            onChange={handleChange}
-            className="mt-2 px-6 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0b221d] focus:outline-none transition-all duration-300"
-            required
-          />
+        {/* Category & Purpose */}
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <label className="block text-sm font-semibold text-gray-700 mb-2">Category *</label>
+            <select
+              name="category"
+              value={formData.category}
+              onChange={handleInputChange}
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              disabled={isSubmitting}
+            >
+              <option value="education">Education</option>
+              <option value="healthcare">Healthcare</option>
+              <option value="environment">Environment</option>
+              <option value="others">Others</option>
+            </select>
+          </div>
+
+          <div>
+            <label className="block text-sm font-semibold text-gray-700 mb-2">Purpose *</label>
+            <select
+              name="purpose"
+              value={formData.purpose}
+              onChange={handleInputChange}
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              disabled={isSubmitting}
+            >
+              <option value="general">General</option>
+              <option value="zakat">Zakat</option>
+              <option value="fitra">Fitra</option>
+              <option value="sadqa">Sadqa</option>
+            </select>
+          </div>
         </div>
 
-        <div className="flex flex-col">
-          <label htmlFor="targetAmount" className="text-lg font-medium text-[#0b221d]">
-            Target Amount
-          </label>
+        {/* Target Amount */}
+        <div>
+          <label className="block text-sm font-semibold text-gray-700 mb-2">Target Amount (₹) *</label>
           <input
             type="number"
-            id="targetAmount"
             name="targetAmount"
             value={formData.targetAmount}
-            onChange={handleChange}
-            className="mt-2 px-6 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0b221d] focus:outline-none transition-all duration-300"
-            required
+            onChange={handleInputChange}
+            placeholder="Enter target amount"
+            min="1"
+            step="100"
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            disabled={isSubmitting}
           />
         </div>
-      </div>
 
-      {/* Image Upload */}
-      <div className="flex flex-col">
-        <label htmlFor="image" className="text-lg font-medium text-[#0b221d]">
-          Campaign Image
-        </label>
-        <input
-          type="file"
-          id="image"
-          name="image"
-          onChange={handleFileChange}
-          className="mt-2"
-          accept="image/*"
-        />
-      </div>
+        {/* Dates */}
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <label className="block text-sm font-semibold text-gray-700 mb-2">Start Date *</label>
+            <input
+              type="date"
+              name="startDate"
+              value={formData.startDate}
+              onChange={handleInputChange}
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              disabled={isSubmitting}
+            />
+          </div>
 
-      <div className="text-center">
-        <button
+          <div>
+            <label className="block text-sm font-semibold text-gray-700 mb-2">End Date *</label>
+            <input
+              type="date"
+              name="endDate"
+              value={formData.endDate}
+              onChange={handleInputChange}
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              disabled={isSubmitting}
+            />
+          </div>
+        </div>
+
+        {/* Image Upload */}
+        <div>
+          <label className="block text-sm font-semibold text-gray-700 mb-2">Campaign Image</label>
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleImageChange}
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            disabled={isSubmitting}
+          />
+          {formData.image && (
+            <p className="text-sm text-green-600 mt-2">Image selected: {formData.image.name}</p>
+          )}
+        </div>
+
+        {/* Submit Button */}
+        <motion.button
           type="submit"
-          className="mt-4 px-6 py-3 bg-[#0b221d] text-white rounded-lg shadow-md hover:bg-[#0a1e18] transition-all duration-300"
-          disabled={loading}
+          disabled={isSubmitting}
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+          className="w-full py-3 px-4 bg-gradient-to-r from-blue-600 to-blue-800 text-white font-bold rounded-lg hover:shadow-lg transition-shadow duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          {loading ? 'Submitting...' : 'Create Campaign'}
-        </button>
-      </div>
-    </motion.form>
+          {isSubmitting ? 'Creating Campaign...' : 'Create Campaign'}
+        </motion.button>
+      </form>
+    </motion.div>
   );
 };
 

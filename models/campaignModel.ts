@@ -96,7 +96,7 @@ const CampaignSchema = new mongoose.Schema({
     type: String, 
     enum: ['active', 'paused', 'completed', 'closed'], 
     default: 'active' 
-  },  
+  },
   reasonForRejection: { 
     type: String, 
     default: null, 

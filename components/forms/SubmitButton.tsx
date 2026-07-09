@@ -1,5 +1,5 @@
 // components/SubmitButton.tsx
-'use clien'
+'use client'
 import React from "react";
 
 interface SubmitButtonProps {
